@@ -1,38 +1,43 @@
-import { type User, type InsertUser } from "@shared/schema";
-import { randomUUID } from "crypto";
-
-// modify the interface with any CRUD methods
-// you might need
+import { type Soul, type InsertSoul, souls } from "@shared/schema";
+import { db } from "./db";
+import { eq, desc } from "drizzle-orm";
 
 export interface IStorage {
-  getUser(id: string): Promise<User | undefined>;
-  getUserByUsername(username: string): Promise<User | undefined>;
-  createUser(user: InsertUser): Promise<User>;
+  getAllSouls(): Promise<Soul[]>;
+  getListedSouls(): Promise<Soul[]>;
+  getSoulsByOwner(ownerWallet: string): Promise<Soul[]>;
+  getSoulById(id: string): Promise<Soul | undefined>;
+  createSoul(soul: InsertSoul): Promise<Soul>;
+  updateSoul(id: string, data: Partial<InsertSoul>): Promise<Soul | undefined>;
 }
 
-export class MemStorage implements IStorage {
-  private users: Map<string, User>;
-
-  constructor() {
-    this.users = new Map();
+export class DatabaseStorage implements IStorage {
+  async getAllSouls(): Promise<Soul[]> {
+    return db.select().from(souls).orderBy(desc(souls.createdAt));
   }
 
-  async getUser(id: string): Promise<User | undefined> {
-    return this.users.get(id);
+  async getListedSouls(): Promise<Soul[]> {
+    return db.select().from(souls).where(eq(souls.isListed, true)).orderBy(desc(souls.createdAt));
   }
 
-  async getUserByUsername(username: string): Promise<User | undefined> {
-    return Array.from(this.users.values()).find(
-      (user) => user.username === username,
-    );
+  async getSoulsByOwner(ownerWallet: string): Promise<Soul[]> {
+    return db.select().from(souls).where(eq(souls.ownerWallet, ownerWallet)).orderBy(desc(souls.createdAt));
   }
 
-  async createUser(insertUser: InsertUser): Promise<User> {
-    const id = randomUUID();
-    const user: User = { ...insertUser, id };
-    this.users.set(id, user);
-    return user;
+  async getSoulById(id: string): Promise<Soul | undefined> {
+    const result = await db.select().from(souls).where(eq(souls.id, id));
+    return result[0];
+  }
+
+  async createSoul(soul: InsertSoul): Promise<Soul> {
+    const result = await db.insert(souls).values(soul).returning();
+    return result[0];
+  }
+
+  async updateSoul(id: string, data: Partial<InsertSoul>): Promise<Soul | undefined> {
+    const result = await db.update(souls).set(data).where(eq(souls.id, id)).returning();
+    return result[0];
   }
 }
 
-export const storage = new MemStorage();
+export const storage = new DatabaseStorage();
