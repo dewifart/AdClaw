@@ -2,6 +2,7 @@ import { Link } from "wouter";
 import { useWallet } from "@/lib/wallet";
 import { Flame, Shield, Globe, Zap, ChevronDown, ChevronUp, ArrowRight } from "lucide-react";
 import { useState } from "react";
+import { LiveForgeTerminal } from "@/components/LiveForgeTerminal";
 
 const features = [
   {
@@ -97,6 +98,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <LiveForgeTerminal />
 
       <section className="py-12 px-4">
         <div className="max-w-5xl mx-auto">
