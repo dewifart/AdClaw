@@ -2,8 +2,7 @@ import { WalletButton } from "./WalletButton";
 import { Link, useLocation } from "wouter";
 import { Flame, LayoutDashboard, Hammer, Store, Zap, Menu, X } from "lucide-react";
 import { useState } from "react";
-import crabLogo from "@assets/soulclaw-crab-logo.png";
-import soulclawText from "@assets/soulclaw-text-logo.png";
+import crabLogo from "@assets/soulclaw-crab-v2.png";
 
 const navItems = [
   { href: "/", label: "Home", icon: Flame },
@@ -22,9 +21,9 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           <Link href="/" data-testid="link-home">
-            <div className="flex items-center gap-2 cursor-pointer" data-testid="link-logo">
-              <img src={crabLogo} alt="SoulClaw" className="h-12 w-12 object-contain drop-shadow-[0_0_8px_rgba(255,45,85,0.5)]" data-testid="img-logo-crab" />
-              <img src={soulclawText} alt="SOULCLAW" className="h-8 object-contain drop-shadow-[0_0_6px_rgba(255,45,85,0.4)]" data-testid="img-logo-text" />
+            <div className="flex items-center gap-2.5 cursor-pointer" data-testid="link-logo">
+              <img src={crabLogo} alt="SoulClaw" className="h-11 w-11 object-contain drop-shadow-[0_0_10px_rgba(255,45,85,0.6)]" data-testid="img-logo-crab" />
+              <span className="font-brand font-extrabold text-[28px] tracking-tight uppercase text-[#FF2D55] drop-shadow-[0_0_12px_rgba(255,45,85,0.6)]" style={{textShadow: '0 0 20px rgba(255,45,85,0.4), 0 2px 4px rgba(0,0,0,0.8)'}} data-testid="text-brand-logo">SOULCLAW</span>
             </div>
           </Link>
 
