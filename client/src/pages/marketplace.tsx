@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { SoulCard } from "@/components/SoulCard";
-import { Store, Search, SlidersHorizontal, Sparkles, Zap } from "lucide-react";
+import { Store, Search, SlidersHorizontal, Sparkles, Zap, Loader2 } from "lucide-react";
 import { useState } from "react";
 import type { Soul } from "@shared/schema";
 import { useWallet } from "@/lib/wallet";
+import { useToast } from "@/hooks/use-toast";
 
 import agent1 from "@/assets/images/agent-1_1.jpg";
 import agent2 from "@/assets/images/agent-1_2.jpg";
@@ -30,13 +31,46 @@ const featuredAgents = [
 ];
 
 export default function Marketplace() {
-  const { connected, connect } = useWallet();
+  const { connected, connect, sendSol } = useWallet();
+  const { toast } = useToast();
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState<"score" | "price" | "recent">("recent");
+  const [adoptingIndex, setAdoptingIndex] = useState<number | null>(null);
 
-  const handleAdopt = () => {
+  const handleAdopt = async (index: number) => {
     if (!connected) {
-      connect();
+      await connect();
+    }
+
+    const agent = featuredAgents[index];
+    const solAmount = parseFloat(agent.price);
+    setAdoptingIndex(index);
+
+    const result = await sendSol(solAmount);
+    setAdoptingIndex(null);
+
+    if (result.success) {
+      toast({
+        title: "Soul Adopted!",
+        description: `Successfully adopted ${agent.name} for ${agent.price}. TX: ${result.signature?.slice(0, 8)}...`,
+      });
+    } else if (result.error === "phantom_not_installed") {
+      toast({
+        title: "Phantom Required",
+        description: "Install Phantom wallet to adopt souls. Visit phantom.app",
+        variant: "destructive",
+      });
+    } else if (result.error === "rejected") {
+      toast({
+        title: "Transaction Cancelled",
+        description: "You cancelled the transaction.",
+      });
+    } else {
+      toast({
+        title: "Transaction Failed",
+        description: result.error || "Something went wrong. Try again.",
+        variant: "destructive",
+      });
     }
   };
 
@@ -139,11 +173,19 @@ export default function Marketplace() {
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-mono font-bold text-[#00FFFF]" data-testid={`text-agent-price-${i}`}>{agent.price}</span>
                     <button
-                      onClick={handleAdopt}
-                      className="flex items-center gap-1 bg-[#FF2D55] hover:bg-[#FF2D55]/80 text-white text-[11px] font-bold rounded-lg px-3 py-1.5 transition-all duration-200"
+                      onClick={() => handleAdopt(i)}
+                      disabled={adoptingIndex === i}
+                      className="flex items-center gap-1 bg-[#FF2D55] hover:bg-[#FF2D55]/80 text-white text-[11px] font-bold rounded-lg px-3 py-1.5 transition-all duration-200 disabled:opacity-50"
                       data-testid={`button-adopt-${i}`}
                     >
-                      Adopt Soul
+                      {adoptingIndex === i ? (
+                        <>
+                          <Loader2 className="w-3 h-3 animate-spin" />
+                          Processing...
+                        </>
+                      ) : (
+                        "Adopt Soul"
+                      )}
                     </button>
                   </div>
                 </div>
