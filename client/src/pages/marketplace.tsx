@@ -31,9 +31,9 @@ export default function Marketplace() {
     <div className="min-h-screen pt-24 px-4 pb-12">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-[#FFD700]/10 border border-[#FFD700]/20 rounded-full px-4 py-1.5 mb-4">
-            <Store className="w-3.5 h-3.5 text-[#FFD700]" />
-            <span className="text-xs font-medium text-[#FFD700]">Soul Marketplace</span>
+          <div className="inline-flex items-center gap-2 bg-[#FF2D55]/10 border border-[#FF2D55]/20 rounded-full px-4 py-1.5 mb-4">
+            <Store className="w-3.5 h-3.5 text-[#FF2D55]" />
+            <span className="text-xs font-medium text-[#FF2D55]">Soul Marketplace</span>
           </div>
           <h1 className="font-brand font-bold text-3xl uppercase gold-gradient mb-2" data-testid="text-marketplace-title">
             Browse Souls
@@ -51,7 +51,7 @@ export default function Marketplace() {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               placeholder="Search souls..."
-              className="w-full bg-[#0a0a0a]/80 border border-[#1a1a1a] rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#FFD700]/30 transition-all duration-200 backdrop-blur-sm"
+              className="w-full bg-[#0a0a0a]/80 border border-[#1a1a1a] rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#FF2D55]/30 transition-all duration-200 backdrop-blur-sm"
               data-testid="input-search-marketplace"
             />
           </div>
@@ -63,7 +63,7 @@ export default function Marketplace() {
                 onClick={() => setSortBy(s)}
                 className={`px-3 py-1.5 rounded text-xs font-medium transition-all duration-200 ${
                   sortBy === s
-                    ? "bg-[#FFD700]/10 text-[#FFD700] border border-[#FFD700]/20"
+                    ? "bg-[#FF2D55]/10 text-[#FF2D55] border border-[#FF2D55]/20"
                     : "bg-[#1a1a1a] text-white/60 hover:text-white"
                 }`}
                 data-testid={`button-sort-${s}`}

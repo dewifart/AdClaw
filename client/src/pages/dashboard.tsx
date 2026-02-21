@@ -17,8 +17,8 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen pt-24 px-4">
         <div className="max-w-2xl mx-auto text-center py-20">
-          <div className="w-16 h-16 rounded-full bg-[#9945FF]/10 border border-[#9945FF]/20 flex items-center justify-center mx-auto mb-6">
-            <Wallet className="w-8 h-8 text-[#9945FF]" />
+          <div className="w-16 h-16 rounded-full bg-[#FF2D55]/10 border border-[#FF2D55]/20 flex items-center justify-center mx-auto mb-6">
+            <Wallet className="w-8 h-8 text-[#FF2D55]" />
           </div>
           <h2 className="font-brand font-bold text-2xl uppercase text-white mb-3">
             Connect Your Wallet
@@ -28,7 +28,7 @@ export default function Dashboard() {
           </p>
           <button
             onClick={connect}
-            className="flex items-center gap-2 bg-[#9945FF] text-white font-bold rounded-lg px-6 py-3 text-sm mx-auto transition-all duration-200 hover:brightness-110"
+            className="flex items-center gap-2 bg-[#FF2D55] text-white font-bold rounded-lg px-6 py-3 text-sm mx-auto transition-all duration-200 hover:brightness-110"
             data-testid="button-connect-dashboard"
           >
             <Wallet className="w-4 h-4" />
@@ -51,7 +51,7 @@ export default function Dashboard() {
           </div>
           <Link href="/forge">
             <button
-              className="flex items-center gap-2 bg-[#14F195] text-black font-bold rounded-lg px-5 py-2.5 text-sm green-glow transition-all duration-200 hover:brightness-110"
+              className="flex items-center gap-2 bg-[#00FFFF] text-black font-bold rounded-lg px-5 py-2.5 text-sm green-glow transition-all duration-200 hover:brightness-110"
               data-testid="button-forge-new"
             >
               <Hammer className="w-4 h-4" />
@@ -87,8 +87,8 @@ export default function Dashboard() {
           </div>
         ) : (
           <div className="glass-panel rounded-xl p-12 text-center">
-            <div className="w-16 h-16 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 flex items-center justify-center mx-auto mb-6">
-              <Flame className="w-8 h-8 text-[#FFD700]" />
+            <div className="w-16 h-16 rounded-full bg-[#FF2D55]/10 border border-[#FF2D55]/20 flex items-center justify-center mx-auto mb-6">
+              <Flame className="w-8 h-8 text-[#FF2D55]" />
             </div>
             <h3 className="text-lg font-bold text-white mb-2">No Souls Yet</h3>
             <p className="text-sm text-white/50 mb-6 max-w-sm mx-auto">
@@ -96,7 +96,7 @@ export default function Dashboard() {
             </p>
             <Link href="/forge">
               <button
-                className="flex items-center gap-2 bg-[#14F195] text-black font-bold rounded-lg px-6 py-3 text-sm mx-auto green-glow transition-all duration-200 hover:brightness-110"
+                className="flex items-center gap-2 bg-[#00FFFF] text-black font-bold rounded-lg px-6 py-3 text-sm mx-auto green-glow transition-all duration-200 hover:brightness-110"
                 data-testid="button-forge-first"
               >
                 <Hammer className="w-4 h-4" />

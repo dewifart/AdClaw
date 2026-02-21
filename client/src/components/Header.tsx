@@ -21,8 +21,8 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           <Link href="/" data-testid="link-home">
             <div className="flex items-center gap-2 cursor-pointer">
-              <div className="w-8 h-8 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 flex items-center justify-center">
-                <Flame className="w-4 h-4 text-[#FFD700]" />
+              <div className="w-8 h-8 rounded-full bg-[#FF2D55]/10 border border-[#FF2D55]/20 flex items-center justify-center">
+                <Flame className="w-4 h-4 text-[#FF2D55]" />
               </div>
               <span className="font-brand font-extrabold text-xl uppercase brand-3d-sm" data-testid="text-brand-logo">
                 SoulClaw

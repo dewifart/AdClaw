@@ -43,9 +43,9 @@ export default function Inherit() {
     <div className="min-h-screen pt-24 px-4 pb-12">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-[#14F195]/10 border border-[#14F195]/20 rounded-full px-4 py-1.5 mb-4">
-            <Zap className="w-3.5 h-3.5 text-[#14F195]" />
-            <span className="text-xs font-medium text-[#14F195]">Soul Inheritance</span>
+          <div className="inline-flex items-center gap-2 bg-[#00FFFF]/10 border border-[#00FFFF]/20 rounded-full px-4 py-1.5 mb-4">
+            <Zap className="w-3.5 h-3.5 text-[#00FFFF]" />
+            <span className="text-xs font-medium text-[#00FFFF]">Soul Inheritance</span>
           </div>
           <h1 className="font-brand font-bold text-3xl uppercase gold-gradient mb-2" data-testid="text-inherit-title">
             Inherit a Soul
@@ -78,15 +78,15 @@ export default function Inherit() {
                     onClick={() => handleInherit(soul)}
                     className={`w-full glass-panel rounded-xl p-4 text-left transition-all duration-200 group ${
                       selectedSoul?.id === soul.id
-                        ? "border-[#14F195]/30 bg-[#14F195]/5"
+                        ? "border-[#00FFFF]/30 bg-[#00FFFF]/5"
                         : "hover:border-[#1a1a1a] hover:bg-[#0d0d0d]"
                     }`}
                     data-testid={`button-inherit-soul-${soul.id}`}
                   >
                     <div className="flex items-center justify-between">
                       <div className="flex items-center gap-3 min-w-0">
-                        <div className="w-10 h-10 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 flex items-center justify-center flex-shrink-0">
-                          <Flame className="w-5 h-5 text-[#FFD700]" />
+                        <div className="w-10 h-10 rounded-full bg-[#FF2D55]/10 border border-[#FF2D55]/20 flex items-center justify-center flex-shrink-0">
+                          <Flame className="w-5 h-5 text-[#FF2D55]" />
                         </div>
                         <div className="min-w-0">
                           <h3 className="text-sm font-bold text-white truncate">{soul.name}</h3>
@@ -94,7 +94,7 @@ export default function Inherit() {
                           <div className="flex items-center gap-3 mt-1">
                             <span className="text-[10px] font-mono gold-gradient font-bold">Score: {soul.soulScore}</span>
                             {soul.mintAddress && (
-                              <span className="text-[10px] text-[#14F195] font-mono">Minted</span>
+                              <span className="text-[10px] text-[#00FFFF] font-mono">Minted</span>
                             )}
                           </div>
                         </div>
@@ -117,12 +117,12 @@ export default function Inherit() {
             <div className="glass-panel rounded-xl overflow-hidden">
               <div className="flex items-center justify-between px-4 py-3 border-b border-[#1a1a1a]">
                 <div className="flex items-center gap-2">
-                  <Terminal className="w-4 h-4 text-[#14F195]" />
+                  <Terminal className="w-4 h-4 text-[#00FFFF]" />
                   <span className="text-xs font-mono text-white/60">openclaw-agent</span>
                 </div>
                 {selectedSoul && (
                   <div className="flex items-center gap-1.5">
-                    <div className={`w-2 h-2 rounded-full ${inherited ? "bg-[#14F195]" : "bg-[#FFD700] animate-pulse"}`} />
+                    <div className={`w-2 h-2 rounded-full ${inherited ? "bg-[#00FFFF]" : "bg-[#FF2D55] animate-pulse"}`} />
                     <span className="text-[10px] text-white/40">
                       {inherited ? "Ready" : "Loading..."}
                     </span>
@@ -143,7 +143,7 @@ export default function Inherit() {
                       <div key={i} className="flex items-start gap-2">
                         <span className={`${
                           log.includes("successfully") || log.includes("Ready")
-                            ? "text-[#14F195]"
+                            ? "text-[#00FFFF]"
                             : log.startsWith(">")
                             ? "text-white/60"
                             : "text-white/40"
@@ -154,7 +154,7 @@ export default function Inherit() {
                     ))}
                     {inherited && (
                       <div className="mt-6 pt-4 border-t border-[#1a1a1a]">
-                        <p className="text-[#14F195] mb-3">&gt; Soul personality preview:</p>
+                        <p className="text-[#00FFFF] mb-3">&gt; Soul personality preview:</p>
                         <pre className="text-white/50 whitespace-pre-wrap break-words leading-relaxed">
                           {selectedSoul.soulContent.slice(0, 300)}
                           {selectedSoul.soulContent.length > 300 ? "\n..." : ""}
@@ -162,7 +162,7 @@ export default function Inherit() {
                       </div>
                     )}
                     {!inherited && logs.length > 0 && (
-                      <span className="inline-block w-2 h-4 bg-[#14F195] animate-pulse" />
+                      <span className="inline-block w-2 h-4 bg-[#00FFFF] animate-pulse" />
                     )}
                   </div>
                 )}
@@ -172,7 +172,7 @@ export default function Inherit() {
                 <div className="px-4 py-3 border-t border-[#1a1a1a] flex items-center justify-between gap-3">
                   <span className="text-[10px] text-white/30">Soul loaded into agent memory</span>
                   <button
-                    className="flex items-center gap-1.5 bg-[#14F195]/10 border border-[#14F195]/20 rounded-lg px-3 py-1.5 text-xs text-[#14F195] font-medium transition-all duration-200 hover:bg-[#14F195]/20"
+                    className="flex items-center gap-1.5 bg-[#00FFFF]/10 border border-[#00FFFF]/20 rounded-lg px-3 py-1.5 text-xs text-[#00FFFF] font-medium transition-all duration-200 hover:bg-[#00FFFF]/20"
                     onClick={() => {
                       const blob = new Blob([
                         `# Inherited Soul: ${selectedSoul.name}\n\n`,

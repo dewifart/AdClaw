@@ -5,8 +5,8 @@ export default function NotFound() {
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="text-center">
-        <div className="w-16 h-16 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 flex items-center justify-center mx-auto mb-6">
-          <Flame className="w-8 h-8 text-[#FFD700]" />
+        <div className="w-16 h-16 rounded-full bg-[#FF2D55]/10 border border-[#FF2D55]/20 flex items-center justify-center mx-auto mb-6">
+          <Flame className="w-8 h-8 text-[#FF2D55]" />
         </div>
         <h1 className="font-brand font-bold text-4xl uppercase gold-gradient mb-3">404</h1>
         <p className="text-sm text-white/50 mb-8">This soul has not been forged yet.</p>

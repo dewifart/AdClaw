@@ -82,8 +82,8 @@ export default function Forge() {
     return (
       <div className="min-h-screen pt-24 px-4">
         <div className="max-w-2xl mx-auto text-center py-20">
-          <div className="w-16 h-16 rounded-full bg-[#9945FF]/10 border border-[#9945FF]/20 flex items-center justify-center mx-auto mb-6">
-            <Wallet className="w-8 h-8 text-[#9945FF]" />
+          <div className="w-16 h-16 rounded-full bg-[#FF2D55]/10 border border-[#FF2D55]/20 flex items-center justify-center mx-auto mb-6">
+            <Wallet className="w-8 h-8 text-[#FF2D55]" />
           </div>
           <h2 className="font-brand font-bold text-2xl uppercase text-white mb-3">
             Connect Wallet to Forge
@@ -93,7 +93,7 @@ export default function Forge() {
           </p>
           <button
             onClick={connect}
-            className="flex items-center gap-2 bg-[#9945FF] text-white font-bold rounded-lg px-6 py-3 text-sm mx-auto transition-all duration-200 hover:brightness-110"
+            className="flex items-center gap-2 bg-[#FF2D55] text-white font-bold rounded-lg px-6 py-3 text-sm mx-auto transition-all duration-200 hover:brightness-110"
             data-testid="button-connect-forge"
           >
             <Wallet className="w-4 h-4" />
@@ -108,9 +108,9 @@ export default function Forge() {
     <div className="min-h-screen pt-24 px-4 pb-12">
       <div className="max-w-2xl mx-auto">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-[#FFD700]/10 border border-[#FFD700]/20 rounded-full px-4 py-1.5 mb-4">
-            <Flame className="w-3.5 h-3.5 text-[#FFD700]" />
-            <span className="text-xs font-medium text-[#FFD700]">Forge a Soul</span>
+          <div className="inline-flex items-center gap-2 bg-[#FF2D55]/10 border border-[#FF2D55]/20 rounded-full px-4 py-1.5 mb-4">
+            <Flame className="w-3.5 h-3.5 text-[#FF2D55]" />
+            <span className="text-xs font-medium text-[#FF2D55]">Forge a Soul</span>
           </div>
           <h1 className="font-brand font-bold text-3xl uppercase gold-gradient mb-2" data-testid="text-forge-title">
             Immortalize Your Agent
@@ -127,21 +127,21 @@ export default function Forge() {
                 <div key={i} className="flex items-center gap-4">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
                     step > i
-                      ? "bg-[#14F195]/20 border border-[#14F195]/40"
+                      ? "bg-[#00FFFF]/20 border border-[#00FFFF]/40"
                       : step === i
-                      ? "bg-[#FFD700]/20 border border-[#FFD700]/40"
+                      ? "bg-[#FF2D55]/20 border border-[#FF2D55]/40"
                       : "bg-[#1a1a1a] border border-[#1a1a1a]"
                   }`}>
                     {step > i ? (
-                      <Check className="w-4 h-4 text-[#14F195]" />
+                      <Check className="w-4 h-4 text-[#00FFFF]" />
                     ) : step === i ? (
-                      <Loader2 className="w-4 h-4 text-[#FFD700] animate-spin" />
+                      <Loader2 className="w-4 h-4 text-[#FF2D55] animate-spin" />
                     ) : (
                       <span className="text-xs font-mono text-white/30">{i + 1}</span>
                     )}
                   </div>
                   <span className={`text-sm transition-all duration-300 ${
-                    step > i ? "text-[#14F195]" : step === i ? "text-white" : "text-white/30"
+                    step > i ? "text-[#00FFFF]" : step === i ? "text-white" : "text-white/30"
                   }`}>
                     {s.label}
                   </span>
@@ -151,8 +151,8 @@ export default function Forge() {
 
             {step === 4 && (
               <div className="mt-8 text-center">
-                <div className="w-16 h-16 rounded-full bg-[#14F195]/10 border border-[#14F195]/20 flex items-center justify-center mx-auto mb-4 green-glow-strong">
-                  <Check className="w-8 h-8 text-[#14F195]" />
+                <div className="w-16 h-16 rounded-full bg-[#00FFFF]/10 border border-[#00FFFF]/20 flex items-center justify-center mx-auto mb-4 green-glow-strong">
+                  <Check className="w-8 h-8 text-[#00FFFF]" />
                 </div>
                 <p className="text-sm text-white/70">Redirecting to dashboard...</p>
               </div>
@@ -167,7 +167,7 @@ export default function Forge() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Archon Prime"
-                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#FFD700]/30 placeholder:text-white/20"
+                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#FF2D55]/30 placeholder:text-white/20"
                 data-testid="input-soul-name"
               />
 
@@ -177,7 +177,7 @@ export default function Forge() {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="e.g. A ruthless trading agent with 6 months of market memory"
-                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#FFD700]/30 placeholder:text-white/20"
+                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#FF2D55]/30 placeholder:text-white/20"
                 data-testid="input-soul-description"
               />
             </div>
@@ -204,7 +204,7 @@ export default function Forge() {
               disabled={!canForge}
               className={`w-full flex items-center justify-center gap-2 font-bold rounded-lg py-4 text-sm transition-all duration-200 ${
                 canForge
-                  ? "bg-[#14F195] text-black green-glow hover:brightness-110"
+                  ? "bg-[#00FFFF] text-black green-glow hover:brightness-110"
                   : "bg-[#1a1a1a] text-white/30 cursor-not-allowed"
               }`}
               data-testid="button-immortalize"

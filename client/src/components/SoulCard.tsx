@@ -23,8 +23,8 @@ export function SoulCard({ soul, onClick, showPrice }: SoulCardProps) {
     >
       <div className="flex items-start justify-between gap-3 mb-3">
         <div className="flex items-center gap-2 min-w-0">
-          <div className="w-8 h-8 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 flex items-center justify-center flex-shrink-0">
-            <Flame className="w-4 h-4 text-[#FFD700]" />
+          <div className="w-8 h-8 rounded-full bg-[#FF2D55]/10 border border-[#FF2D55]/20 flex items-center justify-center flex-shrink-0">
+            <Flame className="w-4 h-4 text-[#FF2D55]" />
           </div>
           <div className="min-w-0">
             <h3 className="text-sm font-bold text-white truncate" data-testid={`text-soul-name-${soul.id}`}>
@@ -54,14 +54,14 @@ export function SoulCard({ soul, onClick, showPrice }: SoulCardProps) {
             <span className="text-[10px]">{createdDate}</span>
           </div>
           {soul.mintAddress && (
-            <span className="text-[10px] text-[#14F195] font-mono">
+            <span className="text-[10px] text-[#00FFFF] font-mono">
               Minted
             </span>
           )}
         </div>
         {showPrice && soul.price && (
           <div className="flex items-center gap-1">
-            <Tag className="w-3 h-3 text-[#FFD700]" />
+            <Tag className="w-3 h-3 text-[#FF2D55]" />
             <span className="text-xs font-mono font-bold text-white">{soul.price} SOL</span>
           </div>
         )}

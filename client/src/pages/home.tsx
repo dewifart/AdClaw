@@ -59,9 +59,9 @@ export default function Home() {
     <div className="min-h-screen">
       <section className="relative pt-32 pb-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-[#FFD700]/10 border border-[#FFD700]/20 rounded-full px-4 py-1.5 mb-8">
-            <Flame className="w-3.5 h-3.5 text-[#FFD700]" />
-            <span className="text-xs font-medium text-[#FFD700]">The First On-Chain Soul Marketplace by SoulClaw</span>
+          <div className="inline-flex items-center gap-2 bg-[#FF2D55]/10 border border-[#FF2D55]/20 rounded-full px-4 py-1.5 mb-8">
+            <Flame className="w-3.5 h-3.5 text-[#FF2D55]" />
+            <span className="text-xs font-medium text-[#FF2D55]">The First On-Chain Soul Marketplace by SoulClaw</span>
           </div>
 
           <h1 className="font-brand font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase leading-tight mb-6">
@@ -78,7 +78,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href={connected ? "/forge" : "/forge"}>
               <button
-                className="flex items-center gap-2 bg-[#14F195] text-black font-bold rounded-lg px-8 py-3.5 text-sm green-glow transition-all duration-200 hover:brightness-110"
+                className="flex items-center gap-2 bg-[#00FFFF] text-black font-bold rounded-lg px-8 py-3.5 text-sm green-glow transition-all duration-200 hover:brightness-110"
                 data-testid="button-forge-soul-hero"
               >
                 <Flame className="w-4 h-4" />
@@ -123,8 +123,8 @@ export default function Home() {
             {features.map((feature, i) => (
               <div key={feature.title} className="glass-panel rounded-xl p-6">
                 <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 flex items-center justify-center">
-                    <feature.icon className="w-5 h-5 text-[#FFD700]" />
+                  <div className="w-10 h-10 rounded-full bg-[#FF2D55]/10 border border-[#FF2D55]/20 flex items-center justify-center">
+                    <feature.icon className="w-5 h-5 text-[#FF2D55]" />
                   </div>
                   <span className="text-xs font-mono text-white/30">0{i + 1}</span>
                 </div>
@@ -147,10 +147,10 @@ export default function Home() {
             <div className="p-6">
               <div className="space-y-4">
                 {[
-                  { step: "1", text: "Upload your SOUL.md and MEMORY.md files", color: "#FFD700" },
-                  { step: "2", text: "Files are permanently stored on Arweave", color: "#9945FF" },
-                  { step: "3", text: "Hash + metadata saved to Solana PDA", color: "#14F195" },
-                  { step: "4", text: "Metaplex Core NFT minted to your wallet", color: "#FFD700" },
+                  { step: "1", text: "Upload your SOUL.md and MEMORY.md files", color: "#FF2D55" },
+                  { step: "2", text: "Files are permanently stored on Arweave", color: "#00FFFF" },
+                  { step: "3", text: "Hash + metadata saved to Solana PDA", color: "#FF2D55" },
+                  { step: "4", text: "Metaplex Core NFT minted to your wallet", color: "#00FFFF" },
                 ].map((item) => (
                   <div key={item.step} className="flex items-center gap-4 py-3 border-b border-[#1a1a1a] last:border-0">
                     <div
@@ -203,7 +203,7 @@ export default function Home() {
       <footer className="py-12 px-4 border-t border-[#1a1a1a]">
         <div className="max-w-5xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
-            <Flame className="w-4 h-4 text-[#FFD700]" />
+            <Flame className="w-4 h-4 text-[#FF2D55]" />
             <span className="font-brand font-extrabold uppercase brand-3d-sm text-sm">SoulClaw</span>
           </div>
           <p className="text-xs text-white/30">
