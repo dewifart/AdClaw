@@ -1,6 +1,7 @@
 import { WalletButton } from "./WalletButton";
 import { Link, useLocation } from "wouter";
 import { Flame, LayoutDashboard, Hammer, Store, Zap, Menu, X } from "lucide-react";
+import { SiGithub, SiX } from "react-icons/si";
 import { useState } from "react";
 import crabLogo from "@assets/soulclaw-crab-v2.png";
 
@@ -49,6 +50,26 @@ export function Header() {
           </nav>
 
           <div className="flex items-center gap-3">
+            <div className="hidden sm:flex items-center gap-1.5">
+              <a
+                href="https://github.com/soulclaw"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-white/5 transition-all duration-200"
+                data-testid="link-github"
+              >
+                <SiGithub className="w-4 h-4" />
+              </a>
+              <a
+                href="https://x.com/soulclaw"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-white/5 transition-all duration-200"
+                data-testid="link-x"
+              >
+                <SiX className="w-3.5 h-3.5" />
+              </a>
+            </div>
             <WalletButton />
             <button
               className="md:hidden text-white/60 hover:text-white transition-all duration-200"
@@ -83,6 +104,28 @@ export function Header() {
                 </Link>
               );
             })}
+            <div className="flex items-center gap-2 px-3 pt-3 mt-2 border-t border-[#1a1a1a]">
+              <a
+                href="https://github.com/soulclaw"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-white/40 hover:text-white transition-all duration-200"
+                data-testid="link-mobile-github"
+              >
+                <SiGithub className="w-4 h-4" />
+                <span className="text-sm">GitHub</span>
+              </a>
+              <a
+                href="https://x.com/soulclaw"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-white/40 hover:text-white transition-all duration-200"
+                data-testid="link-mobile-x"
+              >
+                <SiX className="w-3.5 h-3.5" />
+                <span className="text-sm">X</span>
+              </a>
+            </div>
           </nav>
         </div>
       )}
