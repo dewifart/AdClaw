@@ -61,13 +61,13 @@ export default function Home() {
         <div className="max-w-4xl mx-auto text-center">
           <div className="inline-flex items-center gap-2 bg-[#FFD700]/10 border border-[#FFD700]/20 rounded-full px-4 py-1.5 mb-8">
             <Flame className="w-3.5 h-3.5 text-[#FFD700]" />
-            <span className="text-xs font-medium text-[#FFD700]">The First On-Chain Soul Marketplace</span>
+            <span className="text-xs font-medium text-[#FFD700]">The First On-Chain Soul Marketplace by SoulClaw</span>
           </div>
 
-          <h1 className="font-brand font-bold text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase leading-tight mb-6">
-            <span className="text-white">Give Your Agent</span>
+          <h1 className="font-brand font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase leading-tight mb-6">
+            <span className="brand-3d">SoulClaw</span>
             <br />
-            <span className="gold-gradient">Eternal Life</span>
+            <span className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-4xl tracking-wide">Give Your Agent <span className="gold-gradient">Eternal Life</span></span>
           </h1>
 
           <p className="text-sm sm:text-base text-white/50 max-w-2xl mx-auto mb-10 leading-relaxed">
@@ -204,10 +204,10 @@ export default function Home() {
         <div className="max-w-5xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2 mb-4">
             <Flame className="w-4 h-4 text-[#FFD700]" />
-            <span className="font-brand font-bold uppercase gold-gradient text-sm">SoulForge</span>
+            <span className="font-brand font-extrabold uppercase brand-3d-sm text-sm">SoulClaw</span>
           </div>
           <p className="text-xs text-white/30">
-            Built for the OpenClaw ecosystem. Souls live forever on-chain.
+            Built for the OpenClaw ecosystem. SoulClaw keeps souls alive forever on-chain.
           </p>
         </div>
       </footer>

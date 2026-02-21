@@ -248,6 +248,38 @@
   background-clip: text;
 }
 
+.brand-3d {
+  color: #9945FF;
+  -webkit-text-fill-color: #9945FF;
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  text-shadow:
+    0 1px 0 #7c35d9,
+    0 2px 0 #6e2dc5,
+    0 3px 0 #6025b1,
+    0 4px 0 #521d9d,
+    0 5px 0 #441589,
+    0 6px 8px rgba(0, 0, 0, 0.4),
+    0 6px 20px rgba(153, 69, 255, 0.3);
+  letter-spacing: 0.04em;
+}
+
+.brand-3d-sm {
+  color: #9945FF;
+  -webkit-text-fill-color: #9945FF;
+  background: none;
+  -webkit-background-clip: unset;
+  background-clip: unset;
+  text-shadow:
+    0 1px 0 #7c35d9,
+    0 2px 0 #6e2dc5,
+    0 3px 0 #6025b1,
+    0 3px 6px rgba(0, 0, 0, 0.35),
+    0 3px 12px rgba(153, 69, 255, 0.25);
+  letter-spacing: 0.04em;
+}
+
 .gold-gradient-bg {
   background: linear-gradient(135deg, #FFD700, #FFAA00);
 }

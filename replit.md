@@ -1,4 +1,4 @@
-# SoulForge - Immortal Soul Marketplace
+# SoulClaw - Immortal Soul Marketplace
 
 ## Overview
 SoulForge is a dark luxury web app for immortalizing OpenClaw/Molt agent souls on-chain. Users upload SOUL.md + MEMORY.md files, which are stored permanently and minted as tradeable NFTs.
