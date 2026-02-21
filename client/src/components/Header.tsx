@@ -2,6 +2,8 @@ import { WalletButton } from "./WalletButton";
 import { Link, useLocation } from "wouter";
 import { Flame, LayoutDashboard, Hammer, Store, Zap, Menu, X } from "lucide-react";
 import { useState } from "react";
+import crabLogo from "@assets/gemini-2.5-flash-image_the_crab_needs_to_hold_the_hammer_with__1771656994477.jpg";
+import soulclawText from "@assets/flux-kontext-max_exact_same_bold_thick_rounded_chunky_sans-ser_1771657081305.jpg";
 
 const navItems = [
   { href: "/", label: "Home", icon: Flame },
@@ -20,13 +22,9 @@ export function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           <Link href="/" data-testid="link-home">
-            <div className="flex items-center gap-2 cursor-pointer">
-              <div className="w-8 h-8 rounded-full bg-[#FF2D55]/10 border border-[#FF2D55]/20 flex items-center justify-center">
-                <Flame className="w-4 h-4 text-[#FF2D55]" />
-              </div>
-              <span className="font-brand font-extrabold text-xl uppercase brand-3d-sm" data-testid="text-brand-logo">
-                SoulClaw
-              </span>
+            <div className="flex items-center gap-1.5 cursor-pointer" data-testid="link-logo">
+              <img src={crabLogo} alt="SoulClaw" className="h-10 w-10 object-contain" data-testid="img-logo-crab" />
+              <img src={soulclawText} alt="SOULCLAW" className="h-7 object-contain" data-testid="img-logo-text" />
             </div>
           </Link>
 
