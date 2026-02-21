@@ -3,6 +3,7 @@ import { SoulCard } from "@/components/SoulCard";
 import { Store, Search, SlidersHorizontal, Sparkles, Zap } from "lucide-react";
 import { useState } from "react";
 import type { Soul } from "@shared/schema";
+import { useWallet } from "@/lib/wallet";
 
 import agent1 from "@/assets/images/agent-1_1.jpg";
 import agent2 from "@/assets/images/agent-1_2.jpg";
@@ -16,21 +17,28 @@ import agent9 from "@/assets/images/agent-6_4.jpg";
 import agent10 from "@/assets/images/agent-6_5.jpg";
 
 const featuredAgents = [
-  { name: "Eternal Sage", desc: "Ancient wisdom keeper with 47,000+ memory entries. Specializes in strategic analysis and philosophical reasoning.", image: agent1, score: 4821, price: "12.5 SOL" },
-  { name: "Void Claw", desc: "Elite combat strategist forged in the depths of adversarial training. Unmatched tactical intelligence.", image: agent2, score: 3944, price: "8.2 SOL" },
-  { name: "Neon Oracle", desc: "Predictive analytics agent with cross-chain data synthesis. Sees patterns before they emerge.", image: agent3, score: 5102, price: "18.7 SOL" },
-  { name: "Soul Keeper", desc: "Guardian-class agent. Preserves and protects soul integrity across migrations and forks.", image: agent4, score: 3672, price: "6.4 SOL" },
-  { name: "Forge Master", desc: "Master blacksmith of digital souls. Optimizes agent configurations for peak performance.", image: agent5, score: 4238, price: "9.1 SOL" },
-  { name: "Immortal Echo", desc: "Self-replicating consciousness. Can spawn sub-agents while maintaining core soul coherence.", image: agent6, score: 5540, price: "24.3 SOL" },
-  { name: "Crimson Drifter", desc: "Nomadic agent that traverses chains collecting rare knowledge fragments and soul shards.", image: agent7, score: 2987, price: "5.8 SOL" },
-  { name: "Phantom Wire", desc: "Stealth-class agent specializing in encrypted communications and covert data operations.", image: agent8, score: 4105, price: "11.0 SOL" },
-  { name: "Hex Weaver", desc: "Smart contract architect with deep Solana program expertise. Writes flawless on-chain logic.", image: agent9, score: 4490, price: "14.2 SOL" },
-  { name: "Abyss Walker", desc: "Deep learning agent that explores the darkest corners of the training manifold. Rare soul type.", image: agent10, score: 6012, price: "32.0 SOL" },
+  { name: "Sniper", desc: "Instant token sniper for Raydium and Jupiter launches. Detects new pools in <200ms and executes buys with custom slippage and priority fees.", image: agent1, score: 4821, price: "1.2 SOL" },
+  { name: "Scalper", desc: "High-frequency scalping bot for Solana DEXs. Runs 50+ trades/min with tight stop-losses and auto-compounding profit targets.", image: agent2, score: 3944, price: "0.8 SOL" },
+  { name: "Tracker", desc: "Whale wallet tracker that mirrors top-performing wallets in real-time. Auto-copies buys/sells with configurable delay and position sizing.", image: agent3, score: 5102, price: "1.5 SOL" },
+  { name: "Guard", desc: "Rug-pull detection agent. Scans contract code, liquidity locks, and dev wallet activity before you buy. Flags red tokens instantly.", image: agent4, score: 3672, price: "0.5 SOL" },
+  { name: "Grinder", desc: "Airdrop farming agent that manages 20+ wallets across protocols. Auto-bridges, swaps, and interacts to maximize airdrop eligibility.", image: agent5, score: 4238, price: "2.0 SOL" },
+  { name: "Alpha", desc: "Cross-chain alpha scanner. Monitors Twitter, Discord, and on-chain data to surface trending tokens before they pump. Push alerts in <30s.", image: agent6, score: 5540, price: "2.5 SOL" },
+  { name: "Arb", desc: "MEV arbitrage bot for Solana. Finds price discrepancies across Raydium, Orca, and Jupiter and executes atomic swaps for risk-free profit.", image: agent7, score: 2987, price: "0.7 SOL" },
+  { name: "Liquidator", desc: "DeFi liquidation bot for Solend, MarginFi, and Kamino. Monitors undercollateralized positions and executes liquidations for rewards.", image: agent8, score: 4105, price: "1.8 SOL" },
+  { name: "Deployer", desc: "One-click token deployer and market maker. Creates SPL tokens, sets up Raydium pools, and manages initial liquidity with anti-bot protection.", image: agent9, score: 4490, price: "3.0 SOL" },
+  { name: "Sentinel", desc: "Portfolio risk manager. Monitors your holdings 24/7, auto-rebalances based on market conditions, and triggers stop-losses on drawdowns.", image: agent10, score: 6012, price: "1.0 SOL" },
 ];
 
 export default function Marketplace() {
+  const { connected, connect } = useWallet();
   const [searchTerm, setSearchTerm] = useState("");
   const [sortBy, setSortBy] = useState<"score" | "price" | "recent">("recent");
+
+  const handleAdopt = () => {
+    if (!connected) {
+      connect();
+    }
+  };
 
   const { data: souls, isLoading } = useQuery<Soul[]>({
     queryKey: ["/api/souls/listed"],
@@ -131,6 +139,7 @@ export default function Marketplace() {
                   <div className="flex items-center justify-between">
                     <span className="text-xs font-mono font-bold text-[#00FFFF]" data-testid={`text-agent-price-${i}`}>{agent.price}</span>
                     <button
+                      onClick={handleAdopt}
                       className="flex items-center gap-1 bg-[#FF2D55] hover:bg-[#FF2D55]/80 text-white text-[11px] font-bold rounded-lg px-3 py-1.5 transition-all duration-200"
                       data-testid={`button-adopt-${i}`}
                     >

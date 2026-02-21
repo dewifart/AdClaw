@@ -1,7 +1,8 @@
 import { Link } from "wouter";
 import { useWallet } from "@/lib/wallet";
-import { Flame, ArrowRight, Play } from "lucide-react";
+import { Flame, ArrowRight } from "lucide-react";
 import { LiveForgeTerminal } from "@/components/LiveForgeTerminal";
+import forgeFlowImg from "@/assets/images/forge-flow.png";
 
 export default function Home() {
   const { connected } = useWallet();
@@ -77,13 +78,12 @@ export default function Home() {
               ))}
             </div>
 
-            <div className="glass-panel rounded-xl overflow-hidden aspect-video flex items-center justify-center" data-testid="video-placeholder">
-              <div className="text-center">
-                <div className="w-16 h-16 rounded-full bg-[#FF2D55]/10 border border-[#FF2D55]/30 flex items-center justify-center mx-auto mb-3">
-                  <Play className="w-7 h-7 text-[#FF2D55] ml-1" />
-                </div>
-                <p className="text-xs text-white/30 font-mono">Promo video coming soon</p>
-              </div>
+            <div className="glass-panel rounded-xl overflow-hidden border border-[#FF2D55]/10" data-testid="img-forge-flow">
+              <img
+                src={forgeFlowImg}
+                alt="Soul Forge Flow"
+                className="w-full h-full object-cover"
+              />
             </div>
           </div>
         </div>

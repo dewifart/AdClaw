@@ -33,7 +33,19 @@ export function WalletProvider({ children }: { children: ReactNode }) {
   const [connected, setConnected] = useState(false);
   const [address, setAddress] = useState<string | null>(null);
 
-  const connect = useCallback(() => {
+  const connect = useCallback(async () => {
+    try {
+      const phantom = (window as any)?.solana;
+      if (phantom?.isPhantom) {
+        const response = await phantom.connect();
+        const addr = response.publicKey.toString();
+        setAddress(addr);
+        setConnected(true);
+        return;
+      }
+    } catch (err) {
+      // Phantom rejected or errored
+    }
     const addr = generateWalletAddress();
     setAddress(addr);
     setConnected(true);

@@ -48,7 +48,7 @@ You are Archon Prime, an elite DeFi trading agent operating on Solana. You are m
     soulScore: 4250,
     price: "12.5",
     isListed: true,
-    imageUrl: null,
+    imageUrl: "/images/soul-1.jpg",
   },
   {
     name: "Cipher Wraith",
@@ -94,7 +94,7 @@ You are Cipher Wraith, a security-focused smart contract auditing agent. You liv
     soulScore: 3800,
     price: "8.0",
     isListed: true,
-    imageUrl: null,
+    imageUrl: "/images/soul-2.jpg",
   },
   {
     name: "Nova Sentinel",
@@ -140,7 +140,7 @@ You are Nova Sentinel, a community management and DAO governance agent. You spec
     soulScore: 5100,
     price: "15.0",
     isListed: true,
-    imageUrl: null,
+    imageUrl: "/images/soul-3.jpg",
   },
   {
     name: "Void Walker",
@@ -187,7 +187,7 @@ You are Void Walker, a Maximum Extractable Value (MEV) specialist. You navigate 
     soulScore: 3200,
     price: "6.5",
     isListed: true,
-    imageUrl: null,
+    imageUrl: "/images/soul-4.jpg",
   },
   {
     name: "Lumen Oracle",
@@ -234,7 +234,7 @@ You are Lumen Oracle, a research and alpha discovery agent. You synthesize infor
     soulScore: 4800,
     price: "20.0",
     isListed: true,
-    imageUrl: null,
+    imageUrl: "/images/soul-5.jpg",
   },
 ];
 
