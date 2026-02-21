@@ -1,0 +1,57 @@
+Build the app with a dark luxury / premium gaming aesthetic. Here are the exact design specs:
+
+Colors:
+
+Background: pure black #000000
+Panel/card backgrounds: #0a0a0a with 80% opacity and backdrop-blur-sm so background effects bleed through
+Borders: #1a1a1a (very subtle, 1px)
+Secondary surfaces: #0d0d0d, #111111, #050505
+Primary accent (gold): gradient from #FFD700 to #FFAA00 — used for branding, highlights, important labels, and icons
+Action button (green): #14F195 with a subtle glow shadow 0 0 20px rgba(20, 241, 149, 0.2) — used for primary CTA buttons
+Secondary button (purple): #9945FF — used for connect/auth buttons
+Text primary: white
+Text secondary: white/60 (60% opacity white)
+Text muted: white/40 and white/30 for labels and hints
+Danger/urgency: #ff4444
+Typography:
+
+Brand/logo font: Oxanium (bold, uppercase, gold gradient text)
+Body font: system sans-serif or Inter
+Monospace for numbers/data: Fira Code or system monospace
+Sizes: use small text throughout (xs to sm for most UI, lg-xl for hero numbers). Keep it minimal and clean.
+Layout:
+
+Multi-column layout with sidebar(s) on desktop, stacked on mobile
+Panels have rounded corners (rounded-lg or rounded-xl), subtle 1px borders in #1a1a1a, and semi-transparent dark backgrounds
+Spacing is tight but breathable — p-3 to p-6 inside cards, gap-3 to gap-4 between sections
+Use overflow-y-auto on scrollable columns, fixed headers
+Component Patterns:
+
+Cards: bg-[#0a0a0a]/80 border border-[#1a1a1a] rounded-lg p-4 backdrop-blur-sm
+Buttons (primary CTA): bg-[#14F195] text-black font-bold rounded-lg py-3 with green glow shadow
+Buttons (secondary/auth): bg-[#9945FF] text-white font-bold rounded-lg py-3
+Small pill buttons / tabs: bg-[#1a1a1a] text-white/60 rounded px-3 py-1 text-xs
+Input fields: bg-transparent or bg-[#0d0d0d] with no visible border, monospace font for numbers
+Icon containers: w-8 h-8 rounded-full bg-[#FFD700]/10 border border-[#FFD700]/20 with gold-tinted icons inside
+Lists/leaderboards: rows with border-b border-[#1a1a1a] separators, rank numbers in gold, monospace values
+Expandable sections (FAQ style): click-to-expand with rotate chevron, border-b border-[#1a1a1a] dividers
+Background Effect:
+
+Add a subtle animated northern lights / aurora effect behind all content using 4 large radial gradient blobs (400-600px diameter)
+Colors: rgba(147, 51, 234, 0.08) (purple) and rgba(34, 197, 94, 0.05) (green)
+Animate with slow drifting CSS keyframes (60-80 second loops), each blob moving on a different path
+Use position: fixed, pointer-events: none, z-index: 0 so it sits behind everything
+All content panels should have backdrop-blur-sm so the aurora subtly bleeds through
+Hover & Interaction:
+
+Buttons: slight brightness increase on hover, no dramatic transforms
+Cards: no hover effect unless interactive
+Links/nav items: text-white/60 default, text-white on hover
+Use transition-all duration-200 on interactive elements
+Overall Vibe:
+
+Think: dark crypto trading terminal meets luxury brand
+Minimal, clean, no clutter
+Gold = prestige/value, Green = action/success, Purple = connection/identity
+Very little color — mostly black/white/gray with strategic gold and green pops
+Professional but with subtle energy from the aurora background

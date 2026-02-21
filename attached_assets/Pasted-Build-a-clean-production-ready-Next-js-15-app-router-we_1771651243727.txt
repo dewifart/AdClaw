@@ -1,0 +1,42 @@
+Build a clean production-ready Next.js 15 (app router) web app called SoulForge – the first on-chain immortal soul marketplace for OpenClaw / Molt agents.
+
+Core idea:
+- Users upload their local OpenClaw SOUL.md + MEMORY.md files
+- App stores the files permanently on Arweave (cheap) and saves a hash + metadata on a simple Solana PDA
+- Mints a Metaplex Core NFT that represents the "Soul" (tradeable on Tensor/Magic Eden)
+- Anyone can "inherit" a soul NFT → new OpenClaw agent loads the exact personality + full memory history from Arweave/PDA
+
+Tech stack (use latest):
+- Next.js 15 app router + TypeScript + Tailwind CSS (dark modern theme: pure black #000000 background, electric teal accents #00F5D4, white text, minimal luxury feel)
+- @solana/wallet-adapter-react + Phantom connect (top right "Connect Wallet")
+- @solana/web3.js for PDA
+- Metaplex JS SDK for Core NFT mint
+- Arweave JS SDK for file upload (use bundlr or arweave.net)
+- React state + server actions for upload flow
+
+Pages / sections:
+1. Homepage hero: "Give your OpenClaw agent eternal life" with big "Forge a Soul" button
+2. Dashboard: Connect wallet → show owned Souls (NFT cards with preview of SOUL.md snippet)
+3. Forge page: Drag-drop SOUL.md + MEMORY.md → "Immortalize" button → mint NFT + upload to Arweave + create PDA
+4. Marketplace page: Simple grid of listed souls (mock first, later real Tensor embed)
+5. Inherit demo: Button to load a soul into a mock OpenClaw agent (console log the loaded personality)
+
+Make everything dynamic and beautiful:
+- Clean cards, hover glow on NFTs
+- Live upload progress
+- Shortened wallet addresses
+- "Soul Score" fake metric (memory size + age)
+- Responsive mobile-first
+
+Project structure:
+- app/ (pages)
+- components/ (SoulCard, UploadForm, WalletButton, etc.)
+- lib/ (solanaPDA.ts, arweaveUpload.ts, metaplExMint.ts)
+
+Use placeholder Solana program ID for now (comment "// TODO: deploy this tiny Anchor PDA program").
+Start by building the full project and show me the homepage + wallet connect + Forge page first.
+
+GitHub-ready: Make the code clean, add README with "How to run your own agent with inherited soul" + "Launch $SOUL on Pump.fun" section.
+This is for a standalone Pump.fun launch – pure OpenClaw utility, no game.
+
+Begin coding now.
