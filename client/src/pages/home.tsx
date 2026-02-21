@@ -60,12 +60,18 @@ export default function Home() {
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8 items-start">
-            <div className="glass-panel rounded-xl overflow-hidden border border-[#FF2D55]/10" data-testid="img-forge-flow">
+            <div className="glass-panel rounded-xl overflow-hidden border border-[#FF2D55]/10 aspect-video flex items-center justify-center relative group cursor-pointer" data-testid="video-placeholder">
               <img
                 src={forgeFlowImg}
                 alt="Soul Forge Flow"
-                className="w-full h-full object-cover"
+                className="absolute inset-0 w-full h-full object-cover opacity-40"
               />
+              <div className="relative z-10 text-center">
+                <div className="w-16 h-16 rounded-full bg-[#FF2D55]/20 border border-[#FF2D55]/40 flex items-center justify-center mx-auto mb-3 group-hover:bg-[#FF2D55]/30 group-hover:scale-110 transition-all duration-300">
+                  <svg className="w-7 h-7 text-[#FF2D55] ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </div>
+                <p className="text-xs text-white/50 font-mono">Watch Demo</p>
+              </div>
             </div>
 
             <div className="space-y-4">
