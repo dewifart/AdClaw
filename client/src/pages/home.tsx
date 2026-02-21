@@ -3,6 +3,7 @@ import { useWallet } from "@/lib/wallet";
 import { Flame, ArrowRight } from "lucide-react";
 import { LiveForgeTerminal } from "@/components/LiveForgeTerminal";
 import forgeFlowImg from "@/assets/images/forge-flow.png";
+import crabLogo from "@assets/soulclaw-crab-v2.png";
 
 export default function Home() {
   const { connected } = useWallet();
@@ -59,6 +60,14 @@ export default function Home() {
           </h2>
 
           <div className="grid md:grid-cols-2 gap-8 items-start">
+            <div className="glass-panel rounded-xl overflow-hidden border border-[#FF2D55]/10" data-testid="img-forge-flow">
+              <img
+                src={forgeFlowImg}
+                alt="Soul Forge Flow"
+                className="w-full h-full object-cover"
+              />
+            </div>
+
             <div className="space-y-4">
               {[
                 { step: "1", text: "Upload your SOUL.md and MEMORY.md files", color: "#FF2D55" },
@@ -77,23 +86,15 @@ export default function Home() {
                 </div>
               ))}
             </div>
-
-            <div className="glass-panel rounded-xl overflow-hidden border border-[#FF2D55]/10" data-testid="img-forge-flow">
-              <img
-                src={forgeFlowImg}
-                alt="Soul Forge Flow"
-                className="w-full h-full object-cover"
-              />
-            </div>
           </div>
         </div>
       </section>
 
       <footer className="py-12 px-4 border-t border-[#1a1a1a]">
         <div className="max-w-5xl mx-auto text-center">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <Flame className="w-4 h-4 text-[#FF2D55]" />
-            <span className="font-brand font-extrabold uppercase brand-3d-sm text-sm">SoulClaw</span>
+          <div className="flex items-center justify-center gap-2.5 mb-4">
+            <img src={crabLogo} alt="SoulClaw" className="h-11 w-11 object-contain drop-shadow-[0_0_10px_rgba(255,45,85,0.6)]" data-testid="img-footer-logo" />
+            <span className="font-brand font-extrabold text-[28px] tracking-tight uppercase text-[#FF2D55] drop-shadow-[0_0_12px_rgba(255,45,85,0.6)]" style={{textShadow: '0 0 20px rgba(255,45,85,0.4), 0 2px 4px rgba(0,0,0,0.8)'}} data-testid="text-footer-brand">SOULCLAW</span>
           </div>
           <p className="text-xs text-white/30">
             Built for the OpenClaw ecosystem. SoulClaw keeps souls alive forever on-chain.
