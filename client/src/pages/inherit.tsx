@@ -43,9 +43,9 @@ export default function Inherit() {
     <div className="min-h-screen pt-24 px-4 pb-12">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-[#00FFFF]/10 border border-[#00FFFF]/20 rounded-full px-4 py-1.5 mb-4">
-            <Zap className="w-3.5 h-3.5 text-[#00FFFF]" />
-            <span className="text-xs font-medium text-[#00FFFF]">Soul Inheritance</span>
+          <div className="inline-flex items-center gap-2.5 bg-[#00FFFF]/10 border border-[#00FFFF]/30 rounded-full px-5 py-2 mb-4" style={{ boxShadow: "0 0 15px #00FFFF20, inset 0 0 15px #00FFFF10" }}>
+            <Zap className="w-4 h-4 text-[#00FFFF]" style={{ filter: "drop-shadow(0 0 4px #00FFFF80)" }} strokeWidth={2.5} />
+            <span className="text-sm font-semibold text-[#00FFFF]">Soul Inheritance</span>
           </div>
           <h1 className="font-brand font-bold text-3xl uppercase gold-gradient mb-2" data-testid="text-inherit-title">
             Inherit a Soul

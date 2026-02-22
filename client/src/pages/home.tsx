@@ -12,9 +12,9 @@ export default function Home() {
     <div className="min-h-screen">
       <section className="relative pt-32 pb-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 bg-[#FF2D55]/10 border border-[#FF2D55]/20 rounded-full px-4 py-1.5 mb-8">
-            <Flame className="w-3.5 h-3.5 text-[#FF2D55]" />
-            <span className="text-xs font-medium text-[#FF2D55]">The First On-Chain Soul Marketplace by SoulClaw</span>
+          <div className="inline-flex items-center gap-2.5 bg-[#FF2D55]/10 border border-[#FF2D55]/30 rounded-full px-5 py-2 mb-8" style={{ boxShadow: "0 0 15px #FF2D5520, inset 0 0 15px #FF2D5510" }}>
+            <Flame className="w-4 h-4 text-[#FF2D55]" style={{ filter: "drop-shadow(0 0 4px #FF2D5580)" }} strokeWidth={2.5} />
+            <span className="text-sm font-semibold text-[#FF2D55]">The First On-Chain Soul Marketplace by SoulClaw</span>
           </div>
 
           <h1 className="font-brand font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase leading-tight mb-6">

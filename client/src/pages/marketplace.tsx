@@ -428,9 +428,9 @@ export default function Marketplace() {
     <div className="min-h-screen pt-24 px-4 pb-16">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2 bg-[#FF2D55]/10 border border-[#FF2D55]/20 rounded-full px-5 py-2 mb-5">
-            <Store className="w-4 h-4 text-[#FF2D55]" />
-            <span className="text-sm font-medium text-[#FF2D55]">Soul Marketplace</span>
+          <div className="inline-flex items-center gap-2.5 bg-[#FF2D55]/10 border border-[#FF2D55]/30 rounded-full px-5 py-2 mb-5" style={{ boxShadow: "0 0 15px #FF2D5520, inset 0 0 15px #FF2D5510" }}>
+            <Store className="w-4 h-4 text-[#FF2D55]" style={{ filter: "drop-shadow(0 0 4px #FF2D5580)" }} strokeWidth={2.5} />
+            <span className="text-sm font-semibold text-[#FF2D55]">Soul Marketplace</span>
           </div>
           <h1 className="font-brand font-bold text-4xl md:text-5xl uppercase gold-gradient mb-3" data-testid="text-marketplace-title">
             Browse Souls
