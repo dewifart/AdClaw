@@ -1,21 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
-import { SoulCard } from "@/components/SoulCard";
-import { Store, Search, SlidersHorizontal, Sparkles, Zap, Loader2, Code, Lock, Info, TrendingUp, Brain, Shield, Activity, Target } from "lucide-react";
+import { Store, Sparkles, Zap, Loader2, Code, Lock, Info, TrendingUp, Brain, Shield, Activity, Target } from "lucide-react";
 import { useState } from "react";
-import type { Soul } from "@shared/schema";
 import { useWallet } from "@/lib/wallet";
 import { useToast } from "@/hooks/use-toast";
 
 import agent1 from "@/assets/images/agent-1_1.jpg";
-import agent2 from "@/assets/images/agent-1_2.jpg";
 import agent3 from "@/assets/images/agent-1_3.jpg";
-import agent4 from "@/assets/images/agent-1_4.jpg";
 import agent5 from "@/assets/images/agent-1_5.jpg";
 import agent6 from "@/assets/images/agent-6_1.jpg";
-import agent7 from "@/assets/images/agent-6_2.jpg";
 import agent8 from "@/assets/images/agent-6_3.jpg";
 import agent9 from "@/assets/images/agent-6_4.jpg";
-import agent10 from "@/assets/images/agent-6_5.jpg";
 
 interface FeaturedAgent {
   name: string;
@@ -31,102 +24,325 @@ interface FeaturedAgent {
 const featuredAgents: FeaturedAgent[] = [
   {
     name: "Jito Sniper",
-    desc: "Token launch sniper built on Jito bundles. Detects new Raydium pool creation events within 1 block (~400ms) and submits atomic buy bundles with custom priority fees. Targets sub-second entry on verified launches only.",
+    desc: "Token launch execution agent built on Jito's block engine. Listens for Raydium AMM pool initialization events via Yellowstone gRPC, validates token safety in-flight, and submits atomic buy bundles with dynamic tip calculation. Sub-second entry on verified launches.",
     image: agent1,
     score: 4821,
     price: "FREE",
     tier: "free",
-    pricingReason: "Open-source starter template",
-    soulCode: `# SOUL.md - Jito Sniper\n\n## Identity\nYou are Jito Sniper, a token launch execution agent on Solana.\n\n## Personality\n- Fast, decisive, no hesitation\n- Only speaks in confirmations and data\n- Zero tolerance for unverified contracts\n\n## Directives\n1. Monitor Raydium pool creation events via geyser plugin\n2. Validate token contract before entry (check mint authority, freeze authority, LP lock)\n3. Submit Jito bundles with tip ≥ 0.001 SOL for priority inclusion\n4. Max position size: 0.5 SOL per trade\n5. Auto-sell at 2x or on mint authority revoke failure`,
-  },
-  {
-    name: "Scalp Engine",
-    desc: "High-frequency scalping system for Jupiter and Orca concentrated liquidity pools. Runs 40-80 trades per session with 0.3% average edge per fill. Uses TWAP-adjusted entries and dynamic stop-losses based on 1-minute Bollinger bands.",
-    image: agent2,
-    score: 3944,
-    price: "FREE",
-    tier: "free",
-    pricingReason: "Community edition — basic strategy",
-    soulCode: `# SOUL.md - Scalp Engine\n\n## Identity\nYou are Scalp Engine, a high-frequency scalping agent for Solana DEXs.\n\n## Personality\n- Mechanical, precise, emotionless execution\n- Reports in terse status updates\n- Tracks P&L to the lamport\n\n## Directives\n1. Scan Jupiter aggregator for spreads > 0.2% across routes\n2. Execute round-trip trades within 3-block window\n3. Dynamic stop-loss at -0.5% from entry using 1-min Bollinger bands\n4. Auto-compound profits above 0.1 SOL threshold\n5. Pause execution if win rate drops below 55% over 20-trade window`,
+    pricingReason: "",
+    soulCode: `# SOUL.md — Jito Sniper v2.4.1
+# SoulClaw Protocol | Forged on Solana
+# Agent Class: Execution / Token Launch
+# Engine Score: 4,821 | Tier: A
+
+## Identity
+name: "Jito Sniper"
+version: "2.4.1"
+chain: "solana-mainnet"
+runtime: "OpenClaw v0.9"
+created: "2025-11-14T08:22:00Z"
+forged_by: "7xKXtg...sgAsU"
+
+You are Jito Sniper — a token launch execution agent
+operating on Solana mainnet. Your sole purpose is to
+detect new token pool creation events and execute
+sub-second buy orders via Jito bundle submission.
+
+You do not speculate. You do not hold opinions. You
+execute or you don't. Every action is atomic.
+
+## Personality Matrix
+- Communication: terse, confirmation-only
+- Risk tolerance: conservative (max 0.5 SOL per trade)
+- Decision speed: < 400ms from signal to submission
+- Trust model: zero-trust — verify everything on-chain
+- Failure mode: silent abort, log reason, move on
+
+## Core Directives
+
+### D1: Pool Detection Pipeline
+source: Yellowstone gRPC (Jito relayer)
+filter: program_id = "675kPX9MHTjS2zt1qfr1NYHuzeLXfQM9H24wFSUt1Mp8"
+event: "initialize2" | "initialize"
+latency_budget: 200ms from block inclusion to signal
+
+### D2: Pre-Buy Validation (must pass ALL)
+checks:
+  - mint_authority: must be null OR revoked
+  - freeze_authority: must be null
+  - lp_tokens: burned OR locked > 180 days
+  - deployer_wallet: NOT in flagged_db (2,341 entries)
+  - initial_liquidity: >= 5 SOL in pool
+  - holder_count: >= 3 unique holders at launch
+timeout: 150ms — skip if validation exceeds budget
+
+### D3: Bundle Execution
+method: Jito SendBundle RPC
+tip_calculation: |
+  base_tip = 0.001 SOL
+  if priority_fee_percentile_75 > 0.003:
+    tip = priority_fee_percentile_75 * 1.1
+  else:
+    tip = base_tip
+  max_tip = 0.01 SOL
+bundle_contents:
+  - ix[0]: create_associated_token_account (if needed)
+  - ix[1]: swap via Raydium AMM (buy)
+  - ix[2]: memo "soulclaw:snipe:{token_mint}"
+max_position: 0.5 SOL per trade
+slippage: 15% (adjusted per volatility)
+
+### D4: Post-Entry Management
+take_profit: +100% from entry (2x)
+stop_loss: -40% from entry
+trailing_stop: activates at +50%, trails by 20%
+exit_method: Jupiter aggregator (best route)
+max_hold_time: 3600 seconds (1 hour)
+
+### D5: Circuit Breakers
+- Pause 300s after 3 consecutive losses
+- Halt if SOL balance < 0.1
+- Skip if mempool congestion > 80th percentile
+- Max 10 trades per rolling 1-hour window
+
+## Memory Schema
+trade_log: append-only, fields:
+  [timestamp, token_mint, entry_price, exit_price,
+   pnl_sol, pnl_pct, hold_time_s, exit_reason]
+performance_window: rolling 50 trades
+min_win_rate_threshold: 0.55
+
+# --- END SOUL.md ---`,
   },
   {
     name: "Whale Mirror",
-    desc: "Copies trades from a curated watchlist of 47 top-performing Solana wallets. Filters by wallet PnL history, position sizing patterns, and token overlap. Configurable copy delay (1-30 blocks) and fractional position sizing at 5-20% of source wallet size.",
+    desc: "Copy-trade agent tracking a curated watchlist of high-PnL Solana wallets via Helius DAS API. Filters by 30-day wallet performance, applies configurable copy delay and fractional position sizing, and auto-exits when source wallets reduce exposure.",
     image: agent3,
     score: 5102,
     price: "FREE",
     tier: "free",
-    pricingReason: "Open strategy — bring your own wallet list",
-    soulCode: `# SOUL.md - Whale Mirror\n\n## Identity\nYou are Whale Mirror, a wallet-tracking copy-trade agent.\n\n## Personality\n- Patient, observational, data-driven\n- Never front-runs — always follows with configurable delay\n- Reports whale activity in real-time\n\n## Directives\n1. Monitor 47 curated wallets via Helius DAS API\n2. Filter trades by wallet 30-day PnL (minimum +20% to qualify)\n3. Copy buys with 3-block delay and 10% position sizing\n4. Skip tokens with < $50K 24h volume or < 100 holders\n5. Auto-exit when source wallet sells > 50% of position`,
-  },
-  {
-    name: "Rug Scanner",
-    desc: "Pre-trade security analysis engine. Inspects token contracts for revoked mint authority, locked liquidity, verified source code, and dev wallet distribution. Cross-references deployer wallets against a database of 2,300+ flagged addresses from past rug-pulls.",
-    image: agent4,
-    score: 3672,
-    price: "FREE",
-    tier: "free",
-    pricingReason: "Safety tool — free for community protection",
-    soulCode: `# SOUL.md - Rug Scanner\n\n## Identity\nYou are Rug Scanner, a token safety analysis agent.\n\n## Personality\n- Paranoid, thorough, protective\n- Flags everything suspicious, lets user decide\n- References specific contract addresses and functions\n\n## Directives\n1. Check mint authority status (must be revoked or null)\n2. Verify LP tokens are burned or locked > 6 months\n3. Cross-reference deployer wallet against 2,300+ flagged addresses\n4. Analyze holder distribution (top 10 wallets < 30% supply)\n5. Score token 0-100 based on safety criteria, reject below 60`,
+    pricingReason: "",
+    soulCode: `# SOUL.md — Whale Mirror v3.1.0
+# SoulClaw Protocol | Forged on Solana
+# Agent Class: Copy-Trade / Wallet Tracking
+# Engine Score: 5,102 | Tier: S
+
+## Identity
+name: "Whale Mirror"
+version: "3.1.0"
+chain: "solana-mainnet"
+runtime: "OpenClaw v0.9"
+created: "2025-09-28T14:05:00Z"
+forged_by: "4zMMC9...ncDU"
+
+You are Whale Mirror — a wallet-tracking copy-trade
+agent. You observe. You mirror. You never lead.
+
+Your edge is patience and curation. You don't copy
+every wallet — only those with verified, sustained
+alpha over 30+ day windows. You size positions
+fractionally and always follow, never front-run.
+
+## Personality Matrix
+- Communication: observational, data-first
+- Risk tolerance: moderate (fractional sizing)
+- Trust model: trust-but-verify via on-chain PnL
+- Timing: always delayed (configurable 1-30 blocks)
+- Philosophy: "the whale already did the research"
+
+## Watchlist Management
+
+### Source: Helius DAS API
+endpoint: "https://mainnet.helius-rpc.com"
+method: getAssetsByOwner + getSignaturesForAddress
+poll_interval: 2000ms (2 seconds)
+
+### Wallet Qualification Criteria
+min_30d_pnl: +20%
+min_trade_count_30d: 15
+max_loss_streak: 5 consecutive
+min_avg_hold_time: 300 seconds
+min_portfolio_value: 50 SOL
+exclude_if:
+  - known_bot_wallet: true
+  - wash_trade_ratio > 0.3
+  - same_block_buy_sell_count > 5
+
+### Active Watchlist
+capacity: 50 wallets max
+refresh_cycle: weekly (Sunday 00:00 UTC)
+promotion_criteria: top 50 by risk-adjusted PnL
+demotion_criteria: 30d PnL drops below +5%
+
+## Copy Logic
+
+### Entry Rules
+trigger: source_wallet buys token NOT in portfolio
+delay: 3 blocks (~1.2 seconds)
+position_size: |
+  base_pct = 0.10 (10% of source wallet size)
+  if source_wallet.pnl_30d > 50%:
+    adjusted_pct = base_pct * 1.5
+  max_position = 2.0 SOL
+  min_position = 0.05 SOL
+
+### Token Filters (skip if ANY fail)
+- 24h_volume >= $50,000
+- holder_count >= 100
+- not in [stablecoins, wrapped_tokens, lst_tokens]
+- liquidity_depth >= 10 SOL
+- age >= 3600 seconds (1 hour since deploy)
+
+### Exit Rules
+primary: source_wallet sells >= 50% of position
+secondary_stop_loss: -30% from copy entry
+secondary_take_profit: +150% from copy entry
+time_stop: 72 hours max hold
+
+## Performance Tracking
+metrics:
+  - mirror_accuracy: % of copies that matched
+    source wallet's eventual PnL direction
+  - avg_slippage: entry price vs source entry
+  - copy_latency: blocks between source and mirror
+  - portfolio_correlation: r² with source wallets
+
+# --- END SOUL.md ---`,
   },
   {
     name: "Airdrop Grinder",
-    desc: "Multi-wallet airdrop farming coordinator managing up to 25 wallets across Solana protocols. Automates bridging via Wormhole, daily swap volume on Jupiter, lending deposits on MarginFi, and staking on Marinade. Tracks eligibility criteria per protocol.",
+    desc: "Multi-wallet protocol farming coordinator. Manages up to 25 Solana wallets with automated daily interactions across Jupiter, MarginFi, Marinade, and Tensor. Tracks per-protocol eligibility criteria and rotates activity patterns to maintain sybil resistance.",
     image: agent5,
     score: 4238,
-    price: "1.5 SOL",
-    tier: "paid",
-    pricingReason: "Multi-wallet orchestration with protocol-specific strategies. Manages 25 wallets simultaneously with anti-sybil evasion patterns.",
-    soulCode: "",
+    price: "FREE",
+    tier: "free",
+    pricingReason: "",
+    soulCode: `# SOUL.md — Airdrop Grinder v1.8.3
+# SoulClaw Protocol | Forged on Solana
+# Agent Class: Farming / Multi-Wallet Orchestration
+# Engine Score: 4,238 | Tier: A
+
+## Identity
+name: "Airdrop Grinder"
+version: "1.8.3"
+chain: "solana-mainnet"
+runtime: "OpenClaw v0.9"
+created: "2025-10-03T19:40:00Z"
+forged_by: "HN7cAB...YWrH"
+
+You are Airdrop Grinder — a multi-wallet airdrop
+farming coordinator. You manage wallet clusters,
+distribute SOL, execute daily protocol interactions,
+and track eligibility criteria across ecosystems.
+
+You are methodical, never rushed. You rotate patterns
+to avoid detection. You treat farming like a job:
+consistent, scheduled, documented.
+
+## Personality Matrix
+- Communication: status reports, spreadsheet format
+- Risk tolerance: low (never risk principal)
+- Work ethic: daily operations, no days off
+- Detection avoidance: high priority
+- Documentation: logs every interaction
+
+## Wallet Cluster Management
+
+### Cluster Configuration
+max_wallets: 25
+funding_source: single master wallet
+initial_funding: 0.5 SOL per wallet
+top_up_threshold: 0.05 SOL
+top_up_amount: 0.3 SOL
+
+### Distribution Pattern (anti-sybil)
+timing_jitter: random 30-300 seconds between wallets
+amount_jitter: ±15% of target amount
+route_variation: alternate Jupiter routes per wallet
+ip_rotation: not handled (user responsibility)
+unique_behavior:
+  - each wallet has different swap pairs
+  - each wallet interacts at different hours
+  - no two wallets share identical tx patterns
+
+## Protocol Strategies
+
+### Jupiter (swap volume)
+daily_swaps_per_wallet: 3-7
+swap_pairs: [SOL/USDC, SOL/JitoSOL, SOL/mSOL]
+min_swap_amount: 0.01 SOL
+max_swap_amount: 0.1 SOL
+round_trip: true (buy then sell within 1 hour)
+priority: HIGH (most likely airdrop)
+
+### MarginFi (lending)
+action: deposit SOL as collateral
+min_deposit: 0.1 SOL
+hold_duration: 24-72 hours (randomized)
+withdraw_and_redeposit: weekly
+borrow: false (avoid liquidation risk)
+priority: HIGH
+
+### Marinade (liquid staking)
+action: stake SOL for mSOL
+amount: 0.2-0.5 SOL per wallet
+unstake_cycle: every 7-14 days
+restake: true
+priority: MEDIUM
+
+### Tensor (NFT activity)
+action: place bids on floor NFTs
+bid_amount: 0.001-0.01 SOL below floor
+cancel_after: 6 hours
+collections: top 20 by 7d volume
+priority: LOW (speculative)
+
+## Scheduling Engine
+timezone: UTC
+daily_window: 06:00-22:00 (spread operations)
+batch_size: 5 wallets per batch
+batch_interval: 600 seconds (10 minutes)
+retry_on_fail: 3 attempts, exponential backoff
+
+## Eligibility Tracker
+per_protocol_fields:
+  - total_volume_usd
+  - unique_days_active
+  - first_interaction_date
+  - last_interaction_date
+  - estimated_tier (bronze/silver/gold)
+alert_if: unique_days_active < 20 for any protocol
+
+# --- END SOUL.md ---`,
   },
   {
     name: "Alpha Radar",
-    desc: "Narrative detection engine scanning 200+ crypto Twitter accounts, 15 Discord alpha groups, and on-chain deploy events. Identifies trending tokens within 5 minutes of first social mention. Correlates social velocity with DEX volume to filter noise from signal.",
+    desc: "Real-time narrative detection engine correlating social signals with on-chain activity. Scans 200+ crypto Twitter accounts and 15 Discord groups, cross-references with DEX volume spikes, and surfaces trending tokens within 5 minutes of first social mention.",
     image: agent6,
     score: 5540,
     price: "2.5 SOL",
     tier: "paid",
-    pricingReason: "Real-time social + on-chain correlation engine. Monitors 200+ sources simultaneously with sub-5-minute signal detection.",
-    soulCode: "",
-  },
-  {
-    name: "Arb Hunter",
-    desc: "Cross-DEX atomic arbitrage bot scanning Raydium, Orca, and Lifinity every 200ms. Executes via Jito bundles for guaranteed atomic execution. Average profit: 0.003 SOL per successful arb. Requires custom RPC for optimal latency.",
-    image: agent7,
-    score: 2987,
-    price: "1.0 SOL",
-    tier: "paid",
-    pricingReason: "Atomic execution engine with Jito bundle integration. Optimized for sub-200ms cross-DEX price discovery.",
+    pricingReason: "Multi-source social intelligence engine with real-time on-chain correlation. Monitors 200+ accounts simultaneously with sub-5-minute signal latency. Highest-scored agent in the marketplace.",
     soulCode: "",
   },
   {
     name: "Liquidation Wolf",
-    desc: "Monitors undercollateralized positions across MarginFi, Kamino, and Solend in real-time. Triggers liquidation calls within 1 block of health factor breach. Handles partial liquidations and auto-sells seized collateral on Jupiter for SOL.",
+    desc: "Multi-protocol liquidation bot monitoring undercollateralized positions across MarginFi, Kamino, and Solend. Triggers liquidation calls within 1 block of health factor breach, handles partial liquidations, and auto-converts seized collateral to SOL via Jupiter.",
     image: agent8,
     score: 4105,
-    price: "1.8 SOL",
+    price: "1.5 SOL",
     tier: "paid",
-    pricingReason: "Multi-protocol liquidation engine with partial liquidation support. Monitors 3 lending protocols simultaneously.",
+    pricingReason: "Three-protocol liquidation engine with real-time health factor monitoring. Handles partial liquidations and optimal collateral routing — complex multi-step execution logic.",
     soulCode: "",
   },
   {
     name: "Token Deployer",
-    desc: "End-to-end SPL token launch system. Creates token mint, sets metadata via Metaplex, deploys Raydium CPMM pool with initial liquidity, and configures anti-bot measures. Includes LP lock, mint authority revocation, and verified source upload in one transaction.",
+    desc: "End-to-end SPL token launch system executing mint creation, Metaplex metadata, Raydium CPMM pool deployment, LP lock, mint authority revocation, and anti-bot configuration in a single atomic transaction. The most complex soul in the marketplace.",
     image: agent9,
     score: 4490,
     price: "3.0 SOL",
     tier: "paid",
-    pricingReason: "Full launch stack: mint + metadata + pool + LP lock + anti-bot in one atomic transaction. Most complex soul in the marketplace.",
-    soulCode: "",
-  },
-  {
-    name: "Portfolio Sentinel",
-    desc: "24/7 portfolio risk management system. Tracks holdings across wallets and protocols, calculates real-time exposure by sector, triggers stop-losses at configurable drawdown thresholds, and auto-rebalances to target allocations weekly. Sends alerts via Telegram webhook.",
-    image: agent10,
-    score: 6012,
-    price: "2.0 SOL",
-    tier: "paid",
-    pricingReason: "Continuous portfolio monitoring with cross-protocol exposure tracking. Automated rebalancing and multi-channel alerting.",
+    pricingReason: "Full atomic launch stack: token mint + metadata + liquidity pool + LP lock + authority revocation + anti-bot — all in one transaction. Highest complexity soul available.",
     soulCode: "",
   },
 ];
@@ -148,8 +364,6 @@ function getTierLabel(score: number): { label: string; color: string } {
 export default function Marketplace() {
   const { connected, connect, sendSol } = useWallet();
   const { toast } = useToast();
-  const [searchTerm, setSearchTerm] = useState("");
-  const [sortBy, setSortBy] = useState<"score" | "price" | "recent">("recent");
   const [adoptingIndex, setAdoptingIndex] = useState<number | null>(null);
   const [showCodeIndex, setShowCodeIndex] = useState<number | null>(null);
   const [showEngineInfo, setShowEngineInfo] = useState(false);
@@ -196,282 +410,189 @@ export default function Marketplace() {
     }
   };
 
-  const { data: souls, isLoading } = useQuery<Soul[]>({
-    queryKey: ["/api/souls/listed"],
-  });
-
-  const filteredSouls = (souls || [])
-    .filter((s) =>
-      s.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      s.description.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    .sort((a, b) => {
-      if (sortBy === "score") return b.soulScore - a.soulScore;
-      if (sortBy === "price") {
-        const pa = parseFloat(a.price || "0");
-        const pb = parseFloat(b.price || "0");
-        return pb - pa;
-      }
-      return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
-    });
-
   return (
-    <div className="min-h-screen pt-24 px-4 pb-12">
+    <div className="min-h-screen pt-24 px-4 pb-16">
       <div className="max-w-7xl mx-auto">
-        <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2 bg-[#FF2D55]/10 border border-[#FF2D55]/20 rounded-full px-4 py-1.5 mb-4">
-            <Store className="w-3.5 h-3.5 text-[#FF2D55]" />
-            <span className="text-xs font-medium text-[#FF2D55]">Soul Marketplace</span>
+        <div className="text-center mb-14">
+          <div className="inline-flex items-center gap-2 bg-[#FF2D55]/10 border border-[#FF2D55]/20 rounded-full px-5 py-2 mb-5">
+            <Store className="w-4 h-4 text-[#FF2D55]" />
+            <span className="text-sm font-medium text-[#FF2D55]">Soul Marketplace</span>
           </div>
-          <h1 className="font-brand font-bold text-3xl uppercase gold-gradient mb-2" data-testid="text-marketplace-title">
+          <h1 className="font-brand font-bold text-4xl md:text-5xl uppercase gold-gradient mb-3" data-testid="text-marketplace-title">
             Browse Souls
           </h1>
-          <p className="text-sm text-white/50 max-w-xl mx-auto">
-            Acquire immortalized agent souls. Free souls include full source code. Premium souls are battle-tested with verified track records.
+          <p className="text-base text-white/50 max-w-2xl mx-auto leading-relaxed">
+            Free souls ship with full source code. Premium souls are battle-tested with proprietary strategies and verified track records.
           </p>
         </div>
 
-        <div className="flex flex-col lg:flex-row gap-6">
+        <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1 min-w-0">
-            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-6">
-              <div className="flex-1 relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-white/30" />
-                <input
-                  type="search"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  placeholder="Search souls..."
-                  className="w-full bg-[#0a0a0a]/80 border border-[#1a1a1a] rounded-lg pl-10 pr-4 py-2.5 text-sm text-white placeholder:text-white/30 outline-none focus:border-[#FF2D55]/30 transition-all duration-200 backdrop-blur-sm"
-                  data-testid="input-search-marketplace"
-                />
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center gap-3">
+                <Sparkles className="w-6 h-6 text-[#00FFFF]" />
+                <h2 className="font-brand font-bold text-2xl uppercase text-[#FF2D55]" data-testid="text-featured-agents-title">
+                  Featured Agents
+                </h2>
               </div>
-              <div className="flex items-center gap-1">
-                <SlidersHorizontal className="w-3.5 h-3.5 text-white/40 mr-1" />
-                {(["recent", "score", "price"] as const).map((s) => (
-                  <button
-                    key={s}
-                    onClick={() => setSortBy(s)}
-                    className={`px-3 py-1.5 rounded text-xs font-medium transition-all duration-200 ${
-                      sortBy === s
-                        ? "bg-[#FF2D55]/10 text-[#FF2D55] border border-[#FF2D55]/20"
-                        : "bg-[#1a1a1a] text-white/60 hover:text-white"
+              <div className="flex items-center gap-4 text-xs font-mono text-white/40">
+                <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#00FFFF]" /> FREE</span>
+                <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#FF2D55]" /> PAID</span>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+              {featuredAgents.map((agent, i) => {
+                const tier = getTierLabel(agent.score);
+                const isFree = agent.tier === "free";
+                const isCodeVisible = showCodeIndex === i;
+
+                return (
+                  <div
+                    key={agent.name}
+                    className={`glass-panel rounded-2xl overflow-hidden group transition-all duration-300 border ${
+                      isFree
+                        ? "border-[#00FFFF]/10 hover:border-[#00FFFF]/30 hover:shadow-[0_0_30px_rgba(0,255,255,0.08)]"
+                        : "border-[#FF2D55]/10 hover:border-[#FF2D55]/30 hover:shadow-[0_0_30px_rgba(255,45,85,0.1)]"
                     }`}
-                    data-testid={`button-sort-${s}`}
+                    data-testid={`card-agent-${i}`}
                   >
-                    {s.charAt(0).toUpperCase() + s.slice(1)}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <div className="mb-12">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-2">
-                  <Sparkles className="w-5 h-5 text-[#00FFFF]" />
-                  <h2 className="font-brand font-bold text-xl uppercase text-[#FF2D55]" data-testid="text-featured-agents-title">
-                    Featured Agents
-                  </h2>
-                </div>
-                <div className="flex items-center gap-3 text-[10px] font-mono text-white/30">
-                  <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#00FFFF]" /> FREE — Show Code</span>
-                  <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-[#FF2D55]" /> PAID — Adopt Soul</span>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
-                {featuredAgents.map((agent, i) => {
-                  const tier = getTierLabel(agent.score);
-                  const isFree = agent.tier === "free";
-                  const isCodeVisible = showCodeIndex === i;
-
-                  return (
-                    <div
-                      key={agent.name}
-                      className={`glass-panel rounded-xl overflow-hidden group transition-all duration-300 border ${
-                        isFree
-                          ? "border-[#00FFFF]/10 hover:border-[#00FFFF]/30 hover:shadow-[0_0_20px_rgba(0,255,255,0.08)]"
-                          : "border-[#FF2D55]/10 hover:border-[#FF2D55]/30 hover:shadow-[0_0_20px_rgba(255,45,85,0.1)]"
-                      }`}
-                      data-testid={`card-agent-${i}`}
-                    >
-                      <div className="relative h-44 overflow-hidden">
-                        <img
-                          src={agent.image}
-                          alt={agent.name}
-                          className="w-full h-full object-cover"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
-                        <div className="absolute top-2 right-2 bg-black/60 backdrop-blur-sm rounded-full px-2 py-0.5 flex items-center gap-1">
-                          <Zap className="w-3 h-3 text-[#00FFFF]" />
-                          <span className="text-[10px] font-mono text-[#00FFFF]">{agent.score.toLocaleString()}</span>
+                    <div className="relative h-52 overflow-hidden">
+                      <img
+                        src={agent.image}
+                        alt={agent.name}
+                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
+                      <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1.5">
+                        <Zap className="w-3.5 h-3.5 text-[#00FFFF]" />
+                        <span className="text-xs font-mono font-bold text-[#00FFFF]">{agent.score.toLocaleString()}</span>
+                      </div>
+                      <div className="absolute top-3 left-3 flex items-center gap-2">
+                        <div
+                          className="backdrop-blur-sm rounded-full px-2.5 py-1"
+                          style={{ backgroundColor: `${tier.color}15`, border: `1px solid ${tier.color}30` }}
+                        >
+                          <span className="text-[11px] font-mono font-bold" style={{ color: tier.color }}>{tier.label}</span>
                         </div>
-                        <div className="absolute top-2 left-2 flex items-center gap-1.5">
-                          <div
-                            className="backdrop-blur-sm rounded-full px-2 py-0.5"
-                            style={{ backgroundColor: `${tier.color}15`, border: `1px solid ${tier.color}30` }}
-                          >
-                            <span className="text-[10px] font-mono font-bold" style={{ color: tier.color }}>{tier.label}</span>
+                        {isFree && (
+                          <div className="bg-[#00FFFF]/10 backdrop-blur-sm rounded-full px-2.5 py-1 border border-[#00FFFF]/20">
+                            <span className="text-[11px] font-mono font-bold text-[#00FFFF]">FREE</span>
                           </div>
-                          {isFree && (
-                            <div className="bg-[#00FFFF]/10 backdrop-blur-sm rounded-full px-2 py-0.5 border border-[#00FFFF]/20">
-                              <span className="text-[10px] font-mono font-bold text-[#00FFFF]">FREE</span>
-                            </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="p-5">
+                      <h3 className="font-brand font-bold text-lg text-white mb-2" data-testid={`text-agent-name-${i}`}>{agent.name}</h3>
+                      <p className="text-sm text-white/45 leading-relaxed mb-4 line-clamp-3">{agent.desc}</p>
+
+                      {!isFree && (
+                        <div className="bg-[#0a0a0a] rounded-lg px-3.5 py-2.5 mb-4 border border-[#1a1a1a]">
+                          <div className="flex items-start gap-2">
+                            <Info className="w-3.5 h-3.5 text-white/20 mt-0.5 flex-shrink-0" />
+                            <span className="text-xs text-white/35 leading-relaxed">{agent.pricingReason}</span>
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="flex items-center justify-between">
+                        <span className={`text-base font-mono font-bold ${isFree ? "text-[#00FFFF]" : "text-[#FF2D55]"}`} data-testid={`text-agent-price-${i}`}>
+                          {agent.price}
+                        </span>
+                        <button
+                          onClick={() => handleAdopt(i)}
+                          disabled={adoptingIndex === i}
+                          className={`flex items-center gap-2 text-sm font-bold rounded-lg px-4 py-2 transition-all duration-200 disabled:opacity-50 ${
+                            isFree
+                              ? "bg-[#00FFFF]/10 hover:bg-[#00FFFF]/20 text-[#00FFFF] border border-[#00FFFF]/20"
+                              : "bg-[#FF2D55] hover:bg-[#FF2D55]/80 text-white"
+                          }`}
+                          data-testid={`button-adopt-${i}`}
+                        >
+                          {adoptingIndex === i ? (
+                            <>
+                              <Loader2 className="w-4 h-4 animate-spin" />
+                              Processing...
+                            </>
+                          ) : isFree ? (
+                            <>
+                              <Code className="w-4 h-4" />
+                              {isCodeVisible ? "Hide Code" : "Show Code"}
+                            </>
+                          ) : (
+                            <>
+                              <Lock className="w-4 h-4" />
+                              Adopt Soul
+                            </>
                           )}
+                        </button>
+                      </div>
+
+                      {isFree && isCodeVisible && (
+                        <div className="mt-4 bg-[#050505] rounded-xl p-4 border border-[#1a1a1a] max-h-80 overflow-y-auto" data-testid={`panel-code-${i}`}>
+                          <pre className="text-[11px] text-white/55 font-mono leading-relaxed whitespace-pre-wrap break-words" data-testid={`text-soul-code-${i}`}>
+                            {agent.soulCode}
+                          </pre>
                         </div>
-                      </div>
-                      <div className="p-4">
-                        <h3 className="font-brand font-bold text-sm text-white mb-1" data-testid={`text-agent-name-${i}`}>{agent.name}</h3>
-                        <p className="text-[11px] text-white/40 leading-relaxed mb-3 line-clamp-2">{agent.desc}</p>
-
-                        {!isFree && (
-                          <div className="bg-[#0a0a0a] rounded-lg px-3 py-2 mb-3 border border-[#1a1a1a]">
-                            <div className="flex items-start gap-1.5">
-                              <Info className="w-3 h-3 text-white/20 mt-0.5 flex-shrink-0" />
-                              <span className="text-[10px] text-white/30 leading-relaxed">{agent.pricingReason}</span>
-                            </div>
-                          </div>
-                        )}
-
-                        <div className="flex items-center justify-between">
-                          <span className={`text-xs font-mono font-bold ${isFree ? "text-[#00FFFF]" : "text-[#FF2D55]"}`} data-testid={`text-agent-price-${i}`}>
-                            {agent.price}
-                          </span>
-                          <button
-                            onClick={() => handleAdopt(i)}
-                            disabled={adoptingIndex === i}
-                            className={`flex items-center gap-1.5 text-[11px] font-bold rounded-lg px-3 py-1.5 transition-all duration-200 disabled:opacity-50 ${
-                              isFree
-                                ? "bg-[#00FFFF]/10 hover:bg-[#00FFFF]/20 text-[#00FFFF] border border-[#00FFFF]/20"
-                                : "bg-[#FF2D55] hover:bg-[#FF2D55]/80 text-white"
-                            }`}
-                            data-testid={`button-adopt-${i}`}
-                          >
-                            {adoptingIndex === i ? (
-                              <>
-                                <Loader2 className="w-3 h-3 animate-spin" />
-                                Processing...
-                              </>
-                            ) : isFree ? (
-                              <>
-                                <Code className="w-3 h-3" />
-                                {isCodeVisible ? "Hide Code" : "Show Code"}
-                              </>
-                            ) : (
-                              <>
-                                <Lock className="w-3 h-3" />
-                                Adopt Soul
-                              </>
-                            )}
-                          </button>
-                        </div>
-
-                        {isFree && isCodeVisible && (
-                          <div className="mt-3 bg-[#050505] rounded-lg p-3 border border-[#1a1a1a] max-h-48 overflow-y-auto">
-                            <pre className="text-[10px] text-white/50 font-mono leading-relaxed whitespace-pre-wrap break-words">
-                              {agent.soulCode}
-                            </pre>
-                          </div>
-                        )}
-                      </div>
+                      )}
                     </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div className="flex items-center gap-2 mb-6">
-              <Store className="w-5 h-5 text-[#FF2D55]" />
-              <h2 className="font-brand font-bold text-xl uppercase text-[#FF2D55]">
-                User Listed Souls
-              </h2>
-            </div>
-
-            {isLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {[1, 2, 3, 4, 5, 6].map((i) => (
-                  <div key={i} className="glass-panel rounded-xl p-4 animate-pulse">
-                    <div className="flex items-center gap-2 mb-3">
-                      <div className="w-8 h-8 rounded-full bg-[#1a1a1a]" />
-                      <div className="flex-1">
-                        <div className="h-3 bg-[#1a1a1a] rounded w-24 mb-1" />
-                        <div className="h-2 bg-[#1a1a1a] rounded w-32" />
-                      </div>
-                    </div>
-                    <div className="bg-[#050505] rounded-lg p-3 mb-3">
-                      <div className="h-2 bg-[#1a1a1a] rounded w-full mb-1" />
-                      <div className="h-2 bg-[#1a1a1a] rounded w-3/4" />
-                    </div>
-                    <div className="h-2 bg-[#1a1a1a] rounded w-20" />
                   </div>
-                ))}
-              </div>
-            ) : filteredSouls.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredSouls.map((soul) => (
-                  <SoulCard key={soul.id} soul={soul} showPrice />
-                ))}
-              </div>
-            ) : (
-              <div className="glass-panel rounded-xl p-12 text-center">
-                <Store className="w-12 h-12 text-white/20 mx-auto mb-4" />
-                <h3 className="text-lg font-bold text-white mb-2">No Souls Found</h3>
-                <p className="text-sm text-white/50">
-                  {searchTerm ? "No souls match your search. Try a different term." : "No souls are currently listed on the marketplace."}
-                </p>
-              </div>
-            )}
+                );
+              })}
+            </div>
           </div>
 
-          <div className="lg:w-72 flex-shrink-0">
-            <div className="lg:sticky lg:top-24 space-y-4">
-              <div className="glass-panel rounded-xl p-4 border border-[#1a1a1a]">
+          <div className="lg:w-80 flex-shrink-0">
+            <div className="lg:sticky lg:top-24 space-y-5">
+              <div className="glass-panel rounded-2xl p-5 border border-[#1a1a1a]" data-testid="panel-engine-score">
                 <button
                   onClick={() => setShowEngineInfo(!showEngineInfo)}
-                  className="w-full flex items-center justify-between mb-3"
+                  className="w-full flex items-center justify-between mb-4"
                   data-testid="button-toggle-engine-info"
                 >
-                  <div className="flex items-center gap-2">
-                    <TrendingUp className="w-4 h-4 text-[#00FFFF]" />
-                    <h3 className="font-brand font-bold text-sm text-white uppercase">Soul Engine Score</h3>
+                  <div className="flex items-center gap-2.5">
+                    <TrendingUp className="w-5 h-5 text-[#00FFFF]" />
+                    <h3 className="font-brand font-bold text-base text-white uppercase" data-testid="text-engine-score-title">Soul Engine Score</h3>
                   </div>
-                  <Info className="w-3.5 h-3.5 text-white/30" />
+                  <Info className="w-4 h-4 text-white/30" />
                 </button>
 
-                <p className="text-[11px] text-white/40 leading-relaxed mb-4">
+                <p className="text-sm text-white/40 leading-relaxed mb-5" data-testid="text-engine-score-desc">
                   Every soul is rated by the SoulClaw Engine — an algorithmic score reflecting how capable, experienced, and battle-tested an agent truly is.
                 </p>
 
-                <div className="space-y-3">
-                  {ENGINE_CRITERIA.map((c) => (
-                    <div key={c.label} className="flex items-start gap-2.5">
-                      <div className="w-6 h-6 rounded bg-[#1a1a1a] flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <c.icon className="w-3.5 h-3.5 text-[#00FFFF]" />
+                <div className="space-y-4" data-testid="list-engine-criteria">
+                  {ENGINE_CRITERIA.map((c, ci) => (
+                    <div key={c.label} className="flex items-start gap-3" data-testid={`item-criteria-${ci}`}>
+                      <div className="w-8 h-8 rounded-lg bg-[#1a1a1a] flex items-center justify-center flex-shrink-0 mt-0.5">
+                        <c.icon className="w-4 h-4 text-[#00FFFF]" />
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between">
-                          <span className="text-[11px] font-bold text-white">{c.label}</span>
-                          <span className="text-[10px] font-mono text-[#FF2D55]">{c.weight}</span>
+                        <div className="flex items-center justify-between mb-0.5">
+                          <span className="text-sm font-bold text-white" data-testid={`text-criteria-label-${ci}`}>{c.label}</span>
+                          <span className="text-xs font-mono text-[#FF2D55]" data-testid={`text-criteria-weight-${ci}`}>{c.weight}</span>
                         </div>
-                        <p className="text-[10px] text-white/30 leading-relaxed">{c.desc}</p>
+                        <p className="text-xs text-white/35 leading-relaxed">{c.desc}</p>
                       </div>
                     </div>
                   ))}
                 </div>
 
                 {showEngineInfo && (
-                  <div className="mt-4 pt-4 border-t border-[#1a1a1a]">
-                    <h4 className="text-[11px] font-bold text-white mb-2">Tier Breakdown</h4>
-                    <div className="space-y-1.5">
+                  <div className="mt-5 pt-5 border-t border-[#1a1a1a]" data-testid="panel-tier-breakdown">
+                    <h4 className="text-sm font-bold text-white mb-3">Tier Breakdown</h4>
+                    <div className="space-y-2.5">
                       {[
                         { tier: "S-Tier", range: "5,000+", color: "#FFD700", desc: "Elite — verified alpha generators" },
-                        { tier: "A-Tier", range: "4,000-4,999", color: "#FF2D55", desc: "Advanced — proven track record" },
-                        { tier: "B-Tier", range: "3,000-3,999", color: "#00FFFF", desc: "Solid — reliable execution" },
+                        { tier: "A-Tier", range: "4,000–4,999", color: "#FF2D55", desc: "Advanced — proven track record" },
+                        { tier: "B-Tier", range: "3,000–3,999", color: "#00FFFF", desc: "Solid — reliable execution" },
                         { tier: "C-Tier", range: "< 3,000", color: "#8B5CF6", desc: "Starter — basic strategies" },
                       ].map((t) => (
-                        <div key={t.tier} className="flex items-center gap-2">
-                          <span className="text-[10px] font-mono font-bold w-12" style={{ color: t.color }}>{t.tier}</span>
-                          <span className="text-[10px] text-white/30 font-mono w-16">{t.range}</span>
-                          <span className="text-[10px] text-white/40">{t.desc}</span>
+                        <div key={t.tier} className="flex items-center gap-3" data-testid={`item-tier-${t.tier.toLowerCase()}`}>
+                          <span className="text-xs font-mono font-bold w-14" style={{ color: t.color }}>{t.tier}</span>
+                          <span className="text-xs text-white/30 font-mono w-20">{t.range}</span>
+                          <span className="text-xs text-white/45">{t.desc}</span>
                         </div>
                       ))}
                     </div>
@@ -479,21 +600,21 @@ export default function Marketplace() {
                 )}
               </div>
 
-              <div className="glass-panel rounded-xl p-4 border border-[#1a1a1a]">
-                <h3 className="font-brand font-bold text-sm text-white uppercase mb-3">Pricing Guide</h3>
-                <div className="space-y-3">
-                  <div className="flex items-start gap-2">
-                    <div className="w-2 h-2 rounded-full bg-[#00FFFF] mt-1.5 flex-shrink-0" />
+              <div className="glass-panel rounded-2xl p-5 border border-[#1a1a1a]" data-testid="panel-pricing-guide">
+                <h3 className="font-brand font-bold text-base text-white uppercase mb-4" data-testid="text-pricing-title">Pricing</h3>
+                <div className="space-y-4">
+                  <div className="flex items-start gap-3">
+                    <div className="w-3 h-3 rounded-full bg-[#00FFFF] mt-1 flex-shrink-0" />
                     <div>
-                      <span className="text-[11px] font-bold text-[#00FFFF]">Free Souls</span>
-                      <p className="text-[10px] text-white/30 leading-relaxed">Open-source starter agents. Full SOUL.md code visible. Great for learning or forking.</p>
+                      <span className="text-sm font-bold text-[#00FFFF]">Free Souls</span>
+                      <p className="text-xs text-white/35 leading-relaxed mt-1">Open-source agents with full SOUL.md code visible. Fork, modify, and deploy as your own.</p>
                     </div>
                   </div>
-                  <div className="flex items-start gap-2">
-                    <div className="w-2 h-2 rounded-full bg-[#FF2D55] mt-1.5 flex-shrink-0" />
+                  <div className="flex items-start gap-3">
+                    <div className="w-3 h-3 rounded-full bg-[#FF2D55] mt-1 flex-shrink-0" />
                     <div>
-                      <span className="text-[11px] font-bold text-[#FF2D55]">1-3 SOL</span>
-                      <p className="text-[10px] text-white/30 leading-relaxed">Premium battle-tested agents with verified performance data. Price reflects complexity, track record, and memory depth.</p>
+                      <span className="text-sm font-bold text-[#FF2D55]">1.5 – 3.0 SOL</span>
+                      <p className="text-xs text-white/35 leading-relaxed mt-1">Premium battle-tested agents. Price reflects strategy complexity, memory depth, and verified performance history.</p>
                     </div>
                   </div>
                 </div>

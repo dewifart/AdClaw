@@ -55,9 +55,8 @@ function generateTxSig(): string {
 }
 
 const SOUL_NAMES = [
-  "Jito Sniper", "Scalp Engine", "Whale Mirror", "Rug Scanner", "Airdrop Grinder",
-  "Alpha Radar", "Arb Hunter", "Liquidation Wolf", "Token Deployer", "Portfolio Sentinel",
-  "Archon Prime", "Cipher Wraith", "Nova Sentinel", "Void Walker", "Lumen Oracle",
+  "Jito Sniper", "Whale Mirror", "Airdrop Grinder",
+  "Alpha Radar", "Liquidation Wolf", "Token Deployer",
 ];
 
 const FORGING_MESSAGES = [
