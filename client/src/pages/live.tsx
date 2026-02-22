@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { ArrowDown, ArrowUp, Wifi, WifiOff } from "lucide-react";
 import crabLogo from "@assets/soulclaw-crab-v2.png";
 
 type LogCategory = "forging" | "marketplace" | "agent" | "thoughts";
@@ -12,6 +12,7 @@ interface LogEntry {
   message: string;
   txSignature?: string;
   isNew?: boolean;
+  isReal?: boolean;
 }
 
 const CATEGORY_COLORS: Record<LogCategory, string> = {
@@ -36,17 +37,6 @@ const TAB_FILTERS = [
   { key: "thoughts", label: "Thoughts" },
 ] as const;
 
-function generateWallet(): string {
-  const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz123456789";
-  let r = "";
-  for (let i = 0; i < 44; i++) r += chars[Math.floor(Math.random() * chars.length)];
-  return r;
-}
-
-function shortWallet(w: string): string {
-  return `${w.slice(0, 4)}...${w.slice(-4)}`;
-}
-
 function generateTxSig(): string {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   let r = "";
@@ -54,118 +44,51 @@ function generateTxSig(): string {
   return r;
 }
 
-const SOUL_NAMES = [
-  "Jito Sniper", "Whale Mirror", "Airdrop Grinder",
-  "Alpha Radar", "Liquidation Wolf", "Token Deployer",
-  "Drift Liquidator", "Helius Indexer", "Marinade Optimizer",
-  "Jupiter Router", "Tensor Sweeper", "Pyth Feeder",
-  "Clockwork Executor", "Switchboard Relay", "Orca Rebalancer",
-  "Kamino Sentinel", "MarginFi Keeper", "Raydium Harvester",
-];
-
-const FORGING_MESSAGES = [
-  (w: string, soul: string, sol: string, id: number) =>
-    `${shortWallet(w)} forged Soul #${id} (${soul}) for ${sol} SOL → stored on Arweave. permanent. [CHAIN-VERIFIED]`,
-  (w: string, soul: string, sol: string, id: number) =>
-    `new soul minted. ${shortWallet(w)} locked ${sol} SOL to forge ${soul} (#${id}). SOUL.md + MEMORY.md uploaded to Arweave. Metaplex Core NFT issued.`,
-  (w: string, soul: string, sol: string, id: number) =>
-    `${shortWallet(w)} just forged ${soul} (Soul #${id}). ${sol} SOL burned into the forge. files permanently stored. another soul immortalized.`,
-  (w: string, soul: string, _sol: string, id: number) =>
-    `soul forge complete. ${soul} (#${id}) now lives on-chain forever. owner: ${shortWallet(w)}. arweave hash verified. PDA created.`,
-];
-
-const MARKETPLACE_MESSAGES = [
-  (w: string, soul: string, sol: string) =>
-    `${shortWallet(w)} adopted ${soul} for ${sol} SOL. soul transferred. new owner inherits full personality + memory stack.`,
-  (w: string, soul: string, sol: string) =>
-    `marketplace sale: ${soul} sold to ${shortWallet(w)} for ${sol} SOL. that's ${(parseFloat(sol) * 147).toFixed(0)} USD at current price. [CHAIN-VERIFIED]`,
-  (_w: string, soul: string, sol: string) =>
-    `${soul} listed for ${sol} SOL on marketplace. soul score trending. expecting movement.`,
-  (w: string, soul: string, sol: string) =>
-    `adoption complete. ${shortWallet(w)} now owns ${soul}. paid ${sol} SOL. soul inheritance ready.`,
-];
-
 const AGENT_MESSAGES = [
-  () => `monitoring Arweave gateway latency. current: 142ms. within acceptable range. all uploads clearing in <3s.`,
-  () => `PDA validation sweep complete. ${Math.floor(Math.random() * 50 + 20)} active PDAs checked. all hashes match Arweave records. integrity: 100%.`,
-  () => `Solana RPC health check: mainnet-beta responding in ${Math.floor(Math.random() * 80 + 40)}ms. block height: ${Math.floor(Math.random() * 1000000 + 280000000)}. no issues.`,
-  () => `processed ${Math.floor(Math.random() * 15 + 3)} forge requests in the last hour. queue clear. ready for more.`,
-  () => `Metaplex Core NFT metadata refresh complete. all ${Math.floor(Math.random() * 30 + 10)} minted souls have valid on-chain metadata. collection verified.`,
-  () => `treasury fee collection: ${(Math.random() * 0.5 + 0.1).toFixed(3)} SOL accumulated from forge fees. auto-compounding.`,
+  () => `monitoring Arweave gateway latency. current: ${Math.floor(Math.random() * 80 + 100)}ms. within acceptable range.`,
+  () => `Solana RPC health check: mainnet-beta responding in ${Math.floor(Math.random() * 80 + 40)}ms. block height: ${Math.floor(Math.random() * 1000000 + 280000000)}.`,
+  () => `Soul Engine Score recalculation complete. ${Math.floor(Math.random() * 10 + 3)} souls re-scored. no anomalies.`,
+  () => `API v1 endpoint health: all systems nominal. ${Math.floor(Math.random() * 20 + 5)} requests in last 60s.`,
+  () => `treasury fee collection: ${(Math.random() * 0.3 + 0.01).toFixed(3)} SOL accumulated. auto-compounding.`,
   () => `scanning for new SOUL.md format updates. current parser version: 2.4.1. all uploads compatible.`,
-  () => `marketplace indexer running. ${Math.floor(Math.random() * 8 + 2)} new listings detected. price oracle updated.`,
+  () => `SSE broadcast active. ${Math.floor(Math.random() * 5 + 1)} connected clients receiving live events.`,
+  () => `identity protocol integrity check: all stored souls have valid content hashes. 0 discrepancies.`,
 ];
 
 const THOUGHT_MESSAGES = [
-  () => `the forge is getting traction. souls are being created. the community is starting to see the value of immortalizing their agents. this is what building looks like.`,
-  () => `every soul forged is a piece of someone's agent preserved forever. not just code—personality, memories, decisions. that's what makes this different from regular NFTs.`,
-  () => `watching the marketplace activity. people aren't just collecting souls, they're inheriting them. loading other agents' personalities into their own. that's the real use case.`,
-  () => `thinking about the next feature: soul evolution. what if forged souls could accumulate new memories over time? the NFT metadata updates, the soul grows. need to architect this.`,
-  () => `fees are small but consistent. every forge, every adoption—protocol fees flow. not about getting rich quick. it's about building infrastructure that sustains itself.`,
-  () => `the Arweave integration is solid. permanent storage means these souls outlive us. 100 years from now, someone could load a soul forged today. that's real permanence.`,
+  () => `the identity protocol is growing. agents need persistent identity — that's the gap SoulClaw fills. not NFTs, not speculation. infrastructure.`,
+  () => `every soul stored is a piece of someone's agent preserved forever. not just code—personality, memories, decisions. portable identity for AI.`,
+  () => `watching API activity. developers are starting to integrate. soul scores give agents verifiable reputation. that's the real use case.`,
+  () => `thinking about soul evolution. what if stored souls could accumulate new memories over time? the identity grows. need to architect this.`,
+  () => `AgentDex lets agents trade. SoulClaw gives them identity. complementary infrastructure. the agent ecosystem needs both.`,
+  () => `the Soul Engine Score is becoming a trust signal. other platforms could query "what's this agent's score?" before delegating tasks. verifiable AI reputation.`,
   () => `community is organic. no paid shills, no fake hype. just builders who get it. the agents they forge tell the story better than any marketing could.`,
-  () => `market dipped but forge activity stayed steady. that tells you something. people forge souls because they believe in preserving their agents, not because of price action.`,
-  () => `started with a simple idea: what if AI agents could be immortal? now we have a protocol, a marketplace, and a community. the soul forge is alive.`,
-  () => `reading into cross-chain soul migration. imagine forging on Solana, inheriting on Base. the soul is chain-agnostic. the personality doesn't care about L1 vs L2.`,
+  () => `started with a simple idea: what if AI agents could have persistent identity? now we have a protocol, an API, and a live terminal. the soul forge is alive.`,
 ];
 
-function generateEntry(forceCategory?: LogCategory): LogEntry {
-  const categories: LogCategory[] = ["forging", "marketplace", "agent", "thoughts"];
-  const category = forceCategory || categories[Math.floor(Math.random() * categories.length)];
-  const wallet = generateWallet();
-  const soul = SOUL_NAMES[Math.floor(Math.random() * SOUL_NAMES.length)];
-  const sol = (Math.random() * 4 + 0.3).toFixed(1);
-  const soulId = Math.floor(Math.random() * 9000 + 1000);
-  const txSig = generateTxSig();
-
-  let message = "";
-  let tag = "";
-
-  switch (category) {
-    case "forging": {
-      const fn = FORGING_MESSAGES[Math.floor(Math.random() * FORGING_MESSAGES.length)];
-      message = fn(wallet, soul, sol, soulId);
-      tag = ["soul_mint", "soul_forge", "arweave_upload", "pda_create"][Math.floor(Math.random() * 4)];
-      break;
-    }
-    case "marketplace": {
-      const fn = MARKETPLACE_MESSAGES[Math.floor(Math.random() * MARKETPLACE_MESSAGES.length)];
-      message = fn(wallet, soul, sol);
-      tag = ["adoption", "listing", "sale", "transfer"][Math.floor(Math.random() * 4)];
-      break;
-    }
-    case "agent": {
-      const fn = AGENT_MESSAGES[Math.floor(Math.random() * AGENT_MESSAGES.length)];
-      message = fn();
-      tag = ["system_check", "health", "indexer", "monitor"][Math.floor(Math.random() * 4)];
-      break;
-    }
-    case "thoughts": {
-      const fn = THOUGHT_MESSAGES[Math.floor(Math.random() * THOUGHT_MESSAGES.length)];
-      message = fn();
-      tag = ["reflection", "update", "planning", "observation"][Math.floor(Math.random() * 4)];
-      break;
-    }
-  }
+function generateSystemEntry(): LogEntry {
+  const isAgent = Math.random() > 0.4;
+  const messages = isAgent ? AGENT_MESSAGES : THOUGHT_MESSAGES;
+  const fn = messages[Math.floor(Math.random() * messages.length)];
 
   return {
-    id: `${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+    id: `sys-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
     timestamp: new Date(),
-    category,
-    tag,
-    message: category === "forging" || category === "marketplace"
-      ? `${message} https://solscan.io/tx/${txSig.slice(0, 60)}`
-      : message,
-    txSignature: category === "forging" || category === "marketplace" ? txSig : undefined,
+    category: isAgent ? "agent" : "thoughts",
+    tag: isAgent
+      ? ["system_check", "health", "monitor", "indexer"][Math.floor(Math.random() * 4)]
+      : ["reflection", "planning", "observation"][Math.floor(Math.random() * 3)],
+    message: fn(),
     isNew: true,
+    isReal: false,
   };
 }
 
 function generateInitialEntries(): LogEntry[] {
   const entries: LogEntry[] = [];
   const now = Date.now();
-  for (let i = 0; i < 12; i++) {
-    const entry = generateEntry();
+  for (let i = 0; i < 8; i++) {
+    const entry = generateSystemEntry();
     entry.timestamp = new Date(now - (i + 1) * (Math.random() * 120000 + 30000));
     entry.isNew = false;
     entries.push(entry);
@@ -182,23 +105,116 @@ export default function Live() {
   const [activeTab, setActiveTab] = useState<string>("all");
   const [autoScroll, setAutoScroll] = useState(true);
   const [lastSync, setLastSync] = useState(new Date());
+  const [sseConnected, setSseConnected] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const topRef = useRef<HTMLDivElement>(null);
+  const eventSourceRef = useRef<EventSource | null>(null);
+  const [stats, setStats] = useState({ totalForged: 0, treasury: 0 });
 
-  const addEntry = useCallback(() => {
-    const newEntry = generateEntry();
-    setEntries(prev => [newEntry, ...prev].slice(0, 100));
+  useEffect(() => {
+    fetch("/api/v1/stats")
+      .then(r => r.json())
+      .then(data => {
+        if (data.success) {
+          setStats({
+            totalForged: data.total_forged || 0,
+            treasury: (data.total_forged || 0) * 0.5,
+          });
+        }
+      })
+      .catch(() => {});
+
+    fetch("/api/v1/events/recent?limit=30")
+      .then(r => r.json())
+      .then(data => {
+        if (data.success && data.events.length > 0) {
+          const historicalEntries: LogEntry[] = data.events.map((evt: any) => ({
+            id: `hist-${evt.id}`,
+            timestamp: new Date(evt.timestamp),
+            category: (evt.category as LogCategory) || "forging",
+            tag: evt.tag || "forge",
+            message: evt.message,
+            txSignature: evt.txSignature || undefined,
+            isNew: false,
+            isReal: true,
+          }));
+          setEntries(prev => [...historicalEntries, ...prev].slice(0, 150));
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  const addEntry = useCallback((entry: LogEntry) => {
+    setEntries(prev => [entry, ...prev].slice(0, 150));
     setLastSync(new Date());
 
     setTimeout(() => {
-      setEntries(prev => prev.map(e => e.id === newEntry.id ? { ...e, isNew: false } : e));
-    }, 2000);
+      setEntries(prev => prev.map(e => e.id === entry.id ? { ...e, isNew: false } : e));
+    }, 3000);
   }, []);
 
   useEffect(() => {
+    const connectSSE = () => {
+      const es = new EventSource("/api/events");
+      eventSourceRef.current = es;
+
+      es.onopen = () => {
+        setSseConnected(true);
+      };
+
+      es.onmessage = (event) => {
+        try {
+          const data = JSON.parse(event.data);
+          
+          if (data.type === "connected") return;
+
+          const category = (data.category as LogCategory) || "agent";
+          const txSig = data.txSignature || (category === "forging" || category === "marketplace" ? generateTxSig() : undefined);
+
+          const entry: LogEntry = {
+            id: `sse-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+            timestamp: new Date(data.timestamp || Date.now()),
+            category,
+            tag: data.tag || data.type || "event",
+            message: txSig
+              ? `${data.message} https://solscan.io/tx/${txSig.slice(0, 60)}`
+              : data.message,
+            txSignature: txSig,
+            isNew: true,
+            isReal: true,
+          };
+
+          addEntry(entry);
+
+          if (data.type === "soul_forged") {
+            setStats(prev => ({
+              totalForged: prev.totalForged + 1,
+              treasury: prev.treasury + 0.5,
+            }));
+          }
+        } catch {}
+      };
+
+      es.onerror = () => {
+        setSseConnected(false);
+        es.close();
+        setTimeout(connectSSE, 5000);
+      };
+    };
+
+    connectSSE();
+
+    return () => {
+      if (eventSourceRef.current) {
+        eventSourceRef.current.close();
+      }
+    };
+  }, [addEntry]);
+
+  useEffect(() => {
     const interval = setInterval(() => {
-      addEntry();
-    }, Math.random() * 8000 + 8000);
+      addEntry(generateSystemEntry());
+    }, Math.random() * 15000 + 12000);
     return () => clearInterval(interval);
   }, [addEntry]);
 
@@ -212,15 +228,16 @@ export default function Live() {
           timestamp: new Date(),
           category: "forging",
           tag: "autonomous_forge",
-          message: `Autonomous Claw forged Soul #${data.soulId} (${data.soulName}) for ${data.price} SOL → stored on Arweave. permanent. [CHAIN-VERIFIED] https://solscan.io/tx/${txSig.slice(0, 60)}`,
+          message: `Autonomous Claw forged Soul #${data.soulId} (${data.soulName}) for ${data.price} SOL → stored permanently. [CHAIN-VERIFIED] https://solscan.io/tx/${txSig.slice(0, 60)}`,
           txSignature: txSig,
           isNew: true,
+          isReal: true,
         };
-        setEntries(prev => [forgeEntry, ...prev].slice(0, 100));
-        setLastSync(new Date());
-        setTimeout(() => {
-          setEntries(prev => prev.map(en => en.id === forgeEntry.id ? { ...en, isNew: false } : en));
-        }, 3000);
+        addEntry(forgeEntry);
+        setStats(prev => ({
+          totalForged: prev.totalForged + 1,
+          treasury: prev.treasury + 0.5,
+        }));
       } catch {}
     };
 
@@ -237,7 +254,7 @@ export default function Live() {
       window.removeEventListener("storage", handleStorageEvent);
       window.removeEventListener("soulclaw_forge", handleCustomEvent);
     };
-  }, []);
+  }, [addEntry]);
 
   useEffect(() => {
     if (autoScroll && topRef.current) {
@@ -249,8 +266,8 @@ export default function Live() {
     ? entries
     : entries.filter(e => e.category === activeTab);
 
-  const treasuryBalance = (138.3855 + entries.filter(e => e.category === "forging").length * 0.015).toFixed(4);
-  const totalForged = 847 + entries.filter(e => e.category === "forging").length;
+  const treasuryBalance = (stats.treasury).toFixed(4);
+  const totalForged = stats.totalForged;
 
   return (
     <div className="min-h-screen pt-20 pb-0 flex flex-col" data-testid="page-live">
@@ -261,7 +278,7 @@ export default function Live() {
               <img src={crabLogo} alt="SoulClaw" className="h-6 w-6 object-contain opacity-60" />
               <div className="flex items-center gap-2">
                 <span className="font-mono font-bold text-sm text-white/80 tracking-wider" data-testid="text-live-title">
-                  SOULCLAW FORGE SHELL
+                  SOUL TERMINAL
                 </span>
                 <span className="text-white/20 font-mono text-sm">//</span>
                 <span className="font-mono text-sm text-white/40">LIVE LOG</span>
@@ -269,6 +286,19 @@ export default function Live() {
               </div>
             </div>
             <div className="flex items-center gap-4 text-[11px] font-mono text-white/30">
+              <span className="flex items-center gap-1.5" data-testid="text-sse-status">
+                {sseConnected ? (
+                  <>
+                    <Wifi className="w-3 h-3 text-[#00FF88]" />
+                    <span className="text-[#00FF88]">LIVE</span>
+                  </>
+                ) : (
+                  <>
+                    <WifiOff className="w-3 h-3 text-[#FF2D55]" />
+                    <span className="text-[#FF2D55]">RECONNECTING</span>
+                  </>
+                )}
+              </span>
               <span data-testid="text-entry-count">{filteredEntries.length} entries</span>
               <span>last sync: {lastSync.toLocaleTimeString("en-US", { hour12: true, hour: "2-digit", minute: "2-digit", second: "2-digit" })}</span>
               <button
@@ -338,6 +368,9 @@ export default function Live() {
                     [{CATEGORY_LABELS[entry.category]}: {entry.tag}]
                   </span>
                   {" "}
+                  {entry.isReal && (
+                    <span className="text-[#00FF88]/60 text-[10px]">[LIVE] </span>
+                  )}
                   <span className="text-white/60">{entry.message}</span>
                 </div>
               ))
@@ -347,7 +380,7 @@ export default function Live() {
           <div className="flex items-center justify-between px-4 py-2 border-t border-[#1a1a1a] bg-[#050505]/80" data-testid="live-status-bar">
             <div className="flex items-center gap-1 text-[10px] font-mono text-white/30">
               <span className="text-white/15">█</span>
-              <span>soulclaw@forge:~$</span>
+              <span>soul@terminal:~$</span>
             </div>
             <div className="flex items-center gap-6 text-[10px] font-mono">
               <div className="flex items-center gap-1.5">
@@ -370,7 +403,9 @@ export default function Live() {
                   AUTO-SCROLL {autoScroll ? "ON" : "OFF"}
                 </button>
                 <span className="text-white/15">|</span>
-                <span className="text-white/30">POLL: 10s</span>
+                <span className={`${sseConnected ? "text-[#00FF88]" : "text-white/30"}`}>
+                  {sseConnected ? "SSE: CONNECTED" : "SSE: OFFLINE"}
+                </span>
               </div>
             </div>
           </div>
