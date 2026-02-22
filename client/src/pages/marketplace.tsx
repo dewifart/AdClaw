@@ -1,14 +1,18 @@
-import { Store, Sparkles, Zap, Loader2, Code, Lock, Info, TrendingUp, Brain, Shield, Activity, Target } from "lucide-react";
+import { Store, Sparkles, Zap, Loader2, Code, Lock, Info, TrendingUp } from "lucide-react";
 import { useState } from "react";
 import { useWallet } from "@/lib/wallet";
 import { useToast } from "@/hooks/use-toast";
 
-import agent1 from "@/assets/images/agent-1_1.jpg";
-import agent3 from "@/assets/images/agent-1_3.jpg";
-import agent5 from "@/assets/images/agent-1_5.jpg";
-import agent6 from "@/assets/images/agent-6_1.jpg";
-import agent8 from "@/assets/images/agent-6_3.jpg";
-import agent9 from "@/assets/images/agent-6_4.jpg";
+import agentJitoSniper from "@/assets/images/agent-jito-sniper.png";
+import agentWhaleMirror from "@/assets/images/agent-whale-mirror.png";
+import agentAirdropGrinder from "@/assets/images/agent-airdrop-grinder.png";
+import agentAlphaRadar from "@/assets/images/agent-alpha-radar.png";
+import agentLiquidationWolf from "@/assets/images/agent-liquidation-wolf.png";
+import agentTokenDeployer from "@/assets/images/agent-token-deployer.png";
+import iconMemoryDepth from "@/assets/images/icon-memory-depth.png";
+import iconDirectivePrecision from "@/assets/images/icon-directive-precision.png";
+import iconTrackRecord from "@/assets/images/icon-track-record.png";
+import iconSafetyScore from "@/assets/images/icon-safety-score.png";
 
 interface FeaturedAgent {
   name: string;
@@ -25,7 +29,7 @@ const featuredAgents: FeaturedAgent[] = [
   {
     name: "Jito Sniper",
     desc: "Token launch execution agent built on Jito's block engine. Listens for Raydium AMM pool initialization events via Yellowstone gRPC, validates token safety in-flight, and submits atomic buy bundles with dynamic tip calculation. Sub-second entry on verified launches.",
-    image: agent1,
+    image: agentJitoSniper,
     score: 4821,
     price: "FREE",
     tier: "free",
@@ -117,7 +121,7 @@ min_win_rate_threshold: 0.55
   {
     name: "Whale Mirror",
     desc: "Copy-trade agent tracking a curated watchlist of high-PnL Solana wallets via Helius DAS API. Filters by 30-day wallet performance, applies configurable copy delay and fractional position sizing, and auto-exits when source wallets reduce exposure.",
-    image: agent3,
+    image: agentWhaleMirror,
     score: 5102,
     price: "FREE",
     tier: "free",
@@ -212,7 +216,7 @@ metrics:
   {
     name: "Airdrop Grinder",
     desc: "Multi-wallet protocol farming coordinator. Manages up to 25 Solana wallets with automated daily interactions across Jupiter, MarginFi, Marinade, and Tensor. Tracks per-protocol eligibility criteria and rotates activity patterns to maintain sybil resistance.",
-    image: agent5,
+    image: agentAirdropGrinder,
     score: 4238,
     price: "FREE",
     tier: "free",
@@ -318,7 +322,7 @@ alert_if: unique_days_active < 20 for any protocol
   {
     name: "Alpha Radar",
     desc: "Real-time narrative detection engine correlating social signals with on-chain activity. Scans 200+ crypto Twitter accounts and 15 Discord groups, cross-references with DEX volume spikes, and surfaces trending tokens within 5 minutes of first social mention.",
-    image: agent6,
+    image: agentAlphaRadar,
     score: 5540,
     price: "2.5 SOL",
     tier: "paid",
@@ -328,7 +332,7 @@ alert_if: unique_days_active < 20 for any protocol
   {
     name: "Liquidation Wolf",
     desc: "Multi-protocol liquidation bot monitoring undercollateralized positions across MarginFi, Kamino, and Solend. Triggers liquidation calls within 1 block of health factor breach, handles partial liquidations, and auto-converts seized collateral to SOL via Jupiter.",
-    image: agent8,
+    image: agentLiquidationWolf,
     score: 4105,
     price: "1.5 SOL",
     tier: "paid",
@@ -338,7 +342,7 @@ alert_if: unique_days_active < 20 for any protocol
   {
     name: "Token Deployer",
     desc: "End-to-end SPL token launch system executing mint creation, Metaplex metadata, Raydium CPMM pool deployment, LP lock, mint authority revocation, and anti-bot configuration in a single atomic transaction. The most complex soul in the marketplace.",
-    image: agent9,
+    image: agentTokenDeployer,
     score: 4490,
     price: "3.0 SOL",
     tier: "paid",
@@ -348,10 +352,10 @@ alert_if: unique_days_active < 20 for any protocol
 ];
 
 const ENGINE_CRITERIA = [
-  { icon: Brain, label: "Memory Depth", desc: "Richness of trading history, learned patterns, and accumulated experience", weight: "30%" },
-  { icon: Target, label: "Directive Precision", desc: "Specificity and actionability of the soul's core operating rules", weight: "25%" },
-  { icon: Activity, label: "Track Record", desc: "Verified performance data — wins, losses, and risk-adjusted returns", weight: "25%" },
-  { icon: Shield, label: "Safety Score", desc: "Built-in risk controls, stop-losses, and capital preservation logic", weight: "20%" },
+  { image: iconMemoryDepth, label: "Memory Depth", desc: "Richness of trading history, learned patterns, and accumulated experience", weight: "30%" },
+  { image: iconDirectivePrecision, label: "Directive Precision", desc: "Specificity and actionability of the soul's core operating rules", weight: "25%" },
+  { image: iconTrackRecord, label: "Track Record", desc: "Verified performance data — wins, losses, and risk-adjusted returns", weight: "25%" },
+  { image: iconSafetyScore, label: "Safety Score", desc: "Built-in risk controls, stop-losses, and capital preservation logic", weight: "20%" },
 ];
 
 function getTierLabel(score: number): { label: string; color: string } {
@@ -565,8 +569,8 @@ export default function Marketplace() {
                 <div className="space-y-4" data-testid="list-engine-criteria">
                   {ENGINE_CRITERIA.map((c, ci) => (
                     <div key={c.label} className="flex items-start gap-3" data-testid={`item-criteria-${ci}`}>
-                      <div className="w-8 h-8 rounded-lg bg-[#1a1a1a] flex items-center justify-center flex-shrink-0 mt-0.5">
-                        <c.icon className="w-4 h-4 text-[#00FFFF]" />
+                      <div className="w-8 h-8 rounded-lg bg-[#1a1a1a] flex items-center justify-center flex-shrink-0 mt-0.5 overflow-hidden">
+                        <img src={c.image} alt={c.label} className="w-6 h-6 object-contain" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center justify-between mb-0.5">
