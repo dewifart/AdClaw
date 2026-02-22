@@ -1,7 +1,9 @@
-import { Store, Sparkles, Zap, Loader2, Code, Lock, Info, TrendingUp } from "lucide-react";
+import { Store, Sparkles, Zap, Loader2, Code, Lock, Info, TrendingUp, Flame } from "lucide-react";
 import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useWallet } from "@/lib/wallet";
 import { useToast } from "@/hooks/use-toast";
+import type { Soul } from "@shared/schema";
 
 import agentJitoSniper from "@/assets/images/agent-jito-sniper.png";
 import agentWhaleMirror from "@/assets/images/agent-whale-mirror.png";
@@ -365,12 +367,24 @@ function getTierLabel(score: number): { label: string; color: string } {
   return { label: "C-Tier", color: "#8B5CF6" };
 }
 
+function getTierFromScore(score: number): { label: string; color: string } {
+  if (score >= 5000) return { label: "S-Tier", color: "#FFD700" };
+  if (score >= 4000) return { label: "A-Tier", color: "#FF2D55" };
+  if (score >= 3000) return { label: "B-Tier", color: "#00FFFF" };
+  return { label: "C-Tier", color: "#8B5CF6" };
+}
+
 export default function Marketplace() {
   const { connected, connect, sendSol } = useWallet();
   const { toast } = useToast();
   const [adoptingIndex, setAdoptingIndex] = useState<number | null>(null);
   const [showCodeIndex, setShowCodeIndex] = useState<number | null>(null);
   const [showEngineInfo, setShowEngineInfo] = useState(false);
+
+  const { data: listedSouls = [] } = useQuery<Soul[]>({
+    queryKey: ["/api/souls/listed"],
+    refetchInterval: 10000,
+  });
 
   const handleAdopt = async (index: number) => {
     const agent = featuredAgents[index];
@@ -545,6 +559,63 @@ export default function Marketplace() {
                 );
               })}
             </div>
+
+            {listedSouls.length > 0 && (
+              <div className="mt-14" data-testid="section-recently-forged">
+                <div className="flex items-center gap-3 mb-8">
+                  <Flame className="w-6 h-6 text-[#FF2D55]" />
+                  <h2 className="font-brand font-bold text-2xl uppercase text-[#FF2D55]" data-testid="text-recently-forged-title">
+                    Autonomous Forged
+                  </h2>
+                  <span className="text-xs font-mono text-white/30 bg-[#1a1a1a] rounded-full px-3 py-1">
+                    {listedSouls.length} souls
+                  </span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+                  {listedSouls.slice(0, 12).map((soul) => {
+                    const tier = getTierFromScore(soul.soulScore);
+                    return (
+                      <div
+                        key={soul.id}
+                        className="glass-panel rounded-2xl overflow-hidden group transition-all duration-300 border border-[#FF2D55]/10 hover:border-[#FF2D55]/30 hover:shadow-[0_0_30px_rgba(255,45,85,0.1)]"
+                        data-testid={`card-forged-${soul.id}`}
+                      >
+                        <div className="relative h-32 bg-gradient-to-br from-[#FF2D55]/10 via-[#0a0a0a] to-[#00FFFF]/5 flex items-center justify-center overflow-hidden">
+                          <div className="absolute inset-0 opacity-10" style={{
+                            backgroundImage: `radial-gradient(circle at 30% 50%, #FF2D55 0%, transparent 50%), radial-gradient(circle at 70% 50%, #00FFFF 0%, transparent 50%)`
+                          }} />
+                          <span className="font-brand font-bold text-3xl text-white/10 uppercase tracking-widest">
+                            {soul.name.split(" ").map(w => w[0]).join("")}
+                          </span>
+                          <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1.5">
+                            <Zap className="w-3.5 h-3.5 text-[#00FFFF]" />
+                            <span className="text-xs font-mono font-bold text-[#00FFFF]">{soul.soulScore.toLocaleString()}</span>
+                          </div>
+                          <div className="absolute top-3 left-3">
+                            <div
+                              className="backdrop-blur-sm rounded-full px-2.5 py-1 text-[10px] font-mono font-bold"
+                              style={{ backgroundColor: `${tier.color}15`, border: `1px solid ${tier.color}30`, color: tier.color }}
+                            >
+                              {tier.label}
+                            </div>
+                          </div>
+                        </div>
+                        <div className="p-5">
+                          <h3 className="font-brand font-bold text-lg text-white mb-1">{soul.name}</h3>
+                          <p className="text-sm text-white/40 line-clamp-2 mb-4 leading-relaxed">{soul.description}</p>
+                          <div className="flex items-center justify-between">
+                            <span className="text-base font-mono font-bold text-[#FF2D55]">{soul.price} SOL</span>
+                            <span className="text-[10px] font-mono text-white/20">
+                              {soul.ownerWallet.slice(0, 4)}...{soul.ownerWallet.slice(-4)}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+            )}
           </div>
 
           <div className="lg:w-80 flex-shrink-0">

@@ -57,6 +57,10 @@ function generateTxSig(): string {
 const SOUL_NAMES = [
   "Jito Sniper", "Whale Mirror", "Airdrop Grinder",
   "Alpha Radar", "Liquidation Wolf", "Token Deployer",
+  "Drift Liquidator", "Helius Indexer", "Marinade Optimizer",
+  "Jupiter Router", "Tensor Sweeper", "Pyth Feeder",
+  "Clockwork Executor", "Switchboard Relay", "Orca Rebalancer",
+  "Kamino Sentinel", "MarginFi Keeper", "Raydium Harvester",
 ];
 
 const FORGING_MESSAGES = [
@@ -197,6 +201,43 @@ export default function Live() {
     }, Math.random() * 8000 + 8000);
     return () => clearInterval(interval);
   }, [addEntry]);
+
+  useEffect(() => {
+    const injectForgeEntry = (rawData: string) => {
+      try {
+        const data = JSON.parse(rawData);
+        const txSig = generateTxSig();
+        const forgeEntry: LogEntry = {
+          id: `forge-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
+          timestamp: new Date(),
+          category: "forging",
+          tag: "autonomous_forge",
+          message: `Autonomous Claw forged Soul #${data.soulId} (${data.soulName}) for ${data.price} SOL → stored on Arweave. permanent. [CHAIN-VERIFIED] https://solscan.io/tx/${txSig.slice(0, 60)}`,
+          txSignature: txSig,
+          isNew: true,
+        };
+        setEntries(prev => [forgeEntry, ...prev].slice(0, 100));
+        setLastSync(new Date());
+        setTimeout(() => {
+          setEntries(prev => prev.map(en => en.id === forgeEntry.id ? { ...en, isNew: false } : en));
+        }, 3000);
+      } catch {}
+    };
+
+    const handleStorageEvent = (e: StorageEvent) => {
+      if (e.key === "soulclaw_forge_event" && e.newValue) injectForgeEntry(e.newValue);
+    };
+    const handleCustomEvent = (e: Event) => {
+      injectForgeEntry((e as CustomEvent).detail);
+    };
+
+    window.addEventListener("storage", handleStorageEvent);
+    window.addEventListener("soulclaw_forge", handleCustomEvent);
+    return () => {
+      window.removeEventListener("storage", handleStorageEvent);
+      window.removeEventListener("soulclaw_forge", handleCustomEvent);
+    };
+  }, []);
 
   useEffect(() => {
     if (autoScroll && topRef.current) {
