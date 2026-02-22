@@ -1,4 +1,4 @@
-import { Store, Sparkles, Zap, Loader2, Code, Lock, Info, TrendingUp, Flame } from "lucide-react";
+import { Store, Zap, Loader2, Code, Lock, Info, TrendingUp, Flame, Brain, Crosshair, BarChart3, ShieldCheck } from "lucide-react";
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { useWallet } from "@/lib/wallet";
@@ -11,10 +11,6 @@ import agentAirdropGrinder from "@/assets/images/agent-airdrop-grinder.png";
 import agentAlphaRadar from "@/assets/images/agent-alpha-radar.png";
 import agentLiquidationWolf from "@/assets/images/agent-liquidation-wolf.png";
 import agentTokenDeployer from "@/assets/images/agent-token-deployer.png";
-import iconMemoryDepth from "@/assets/images/icon-memory-depth.png";
-import iconDirectivePrecision from "@/assets/images/icon-directive-precision.png";
-import iconTrackRecord from "@/assets/images/icon-track-record.png";
-import iconSafetyScore from "@/assets/images/icon-safety-score.png";
 
 interface FeaturedAgent {
   name: string;
@@ -354,10 +350,10 @@ alert_if: unique_days_active < 20 for any protocol
 ];
 
 const ENGINE_CRITERIA = [
-  { image: iconMemoryDepth, label: "Memory Depth", desc: "Richness of trading history, learned patterns, and accumulated experience", weight: "30%" },
-  { image: iconDirectivePrecision, label: "Directive Precision", desc: "Specificity and actionability of the soul's core operating rules", weight: "25%" },
-  { image: iconTrackRecord, label: "Track Record", desc: "Verified performance data — wins, losses, and risk-adjusted returns", weight: "25%" },
-  { image: iconSafetyScore, label: "Safety Score", desc: "Built-in risk controls, stop-losses, and capital preservation logic", weight: "20%" },
+  { icon: Brain, label: "Memory Depth", desc: "Richness of trading history, learned patterns, and accumulated experience", weight: "30%", color: "#FF2D55" },
+  { icon: Crosshair, label: "Directive Precision", desc: "Specificity and actionability of the soul's core operating rules", weight: "25%", color: "#00FFFF" },
+  { icon: BarChart3, label: "Track Record", desc: "Verified performance data — wins, losses, and risk-adjusted returns", weight: "25%", color: "#FFD700" },
+  { icon: ShieldCheck, label: "Safety Score", desc: "Built-in risk controls, stop-losses, and capital preservation logic", weight: "20%", color: "#8B5CF6" },
 ];
 
 function getTierLabel(score: number): { label: string; color: string } {
@@ -448,7 +444,13 @@ export default function Marketplace() {
           <div className="flex-1 min-w-0">
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
-                <Sparkles className="w-6 h-6 text-[#00FFFF]" />
+                <div className="relative w-8 h-8 flex items-center justify-center">
+                  <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" style={{ filter: "drop-shadow(0 0 6px #00FFFF) drop-shadow(0 0 12px #00FFFF50)" }}>
+                    <path d="M12 2L14.5 8.5L21 9.5L16.5 14L17.5 21L12 17.5L6.5 21L7.5 14L3 9.5L9.5 8.5L12 2Z" fill="#00FFFF" fillOpacity="0.15" stroke="#00FFFF" strokeWidth="1.5" strokeLinejoin="round" />
+                    <path d="M12 6L13.2 9.2L16.5 9.7L14 12L14.8 15.5L12 13.8L9.2 15.5L10 12L7.5 9.7L10.8 9.2L12 6Z" fill="#00FFFF" fillOpacity="0.6" />
+                  </svg>
+                  <div className="absolute inset-0 rounded-full" style={{ background: "radial-gradient(circle, #00FFFF20 0%, transparent 70%)" }} />
+                </div>
                 <h2 className="font-brand font-bold text-2xl uppercase text-[#FF2D55]" data-testid="text-featured-agents-title">
                   Featured Agents
                 </h2>
@@ -638,20 +640,34 @@ export default function Marketplace() {
                 </p>
 
                 <div className="space-y-4" data-testid="list-engine-criteria">
-                  {ENGINE_CRITERIA.map((c, ci) => (
-                    <div key={c.label} className="flex items-start gap-3" data-testid={`item-criteria-${ci}`}>
-                      <div className="w-8 h-8 rounded-lg bg-[#1a1a1a] flex items-center justify-center flex-shrink-0 mt-0.5 overflow-hidden">
-                        <img src={c.image} alt={c.label} className="w-6 h-6 object-contain" />
-                      </div>
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center justify-between mb-0.5">
-                          <span className="text-sm font-bold text-white" data-testid={`text-criteria-label-${ci}`}>{c.label}</span>
-                          <span className="text-xs font-mono text-[#FF2D55]" data-testid={`text-criteria-weight-${ci}`}>{c.weight}</span>
+                  {ENGINE_CRITERIA.map((c, ci) => {
+                    const IconComp = c.icon;
+                    return (
+                      <div key={c.label} className="flex items-start gap-3" data-testid={`item-criteria-${ci}`}>
+                        <div
+                          className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
+                          style={{
+                            background: `${c.color}15`,
+                            border: `1px solid ${c.color}30`,
+                            boxShadow: `0 0 12px ${c.color}20`,
+                          }}
+                        >
+                          <IconComp
+                            className="w-[18px] h-[18px]"
+                            style={{ color: c.color, filter: `drop-shadow(0 0 4px ${c.color}80)` }}
+                            strokeWidth={2.2}
+                          />
                         </div>
-                        <p className="text-xs text-white/35 leading-relaxed">{c.desc}</p>
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center justify-between mb-0.5">
+                            <span className="text-sm font-bold text-white" data-testid={`text-criteria-label-${ci}`}>{c.label}</span>
+                            <span className="text-xs font-mono text-[#FF2D55]" data-testid={`text-criteria-weight-${ci}`}>{c.weight}</span>
+                          </div>
+                          <p className="text-xs text-white/35 leading-relaxed">{c.desc}</p>
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
 
                 {showEngineInfo && (
