@@ -5,6 +5,8 @@ import { SiGithub, SiX } from "react-icons/si";
 import { useState } from "react";
 import crabLogo from "@assets/soulclaw-crab-v2.png";
 
+const PLACEHOLDER_TOKEN_ADDRESS = "YOUR_TOKEN_ADDRESS_HERE";
+
 const navItems = [
   { href: "/", label: "Home", icon: Flame },
   { href: "/forge", label: "Forge", icon: Hammer },
@@ -12,6 +14,16 @@ const navItems = [
   { href: "/live", label: "Live", icon: Radio },
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
 ];
+
+function DexScreenerIcon({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" className={className}>
+      <circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      <path d="M7 14l3-4 3 2 4-5" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="17" cy="7" r="1.5" fill="currentColor" />
+    </svg>
+  );
+}
 
 export function Header() {
   const [location] = useLocation();
@@ -69,6 +81,15 @@ export function Header() {
               >
                 <SiX className="w-3.5 h-3.5" />
               </a>
+              <a
+                href={`https://dexscreener.com/solana/${PLACEHOLDER_TOKEN_ADDRESS}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2 rounded-lg text-white/40 hover:text-[#00FFFF] hover:bg-white/5 transition-all duration-200"
+                data-testid="link-dexscreener"
+              >
+                <DexScreenerIcon className="w-4 h-4" />
+              </a>
             </div>
             <WalletButton />
             <button
@@ -124,6 +145,16 @@ export function Header() {
               >
                 <SiX className="w-3.5 h-3.5" />
                 <span className="text-sm">X</span>
+              </a>
+              <a
+                href={`https://dexscreener.com/solana/${PLACEHOLDER_TOKEN_ADDRESS}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-white/40 hover:text-[#00FFFF] transition-all duration-200"
+                data-testid="link-mobile-dexscreener"
+              >
+                <DexScreenerIcon className="w-4 h-4" />
+                <span className="text-sm">DexScreener</span>
               </a>
             </div>
           </nav>

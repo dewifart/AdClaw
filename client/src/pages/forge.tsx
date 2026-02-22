@@ -300,10 +300,6 @@ export default function Forge() {
     <div className="min-h-screen pt-24 px-4 pb-12">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-10">
-          <div className="inline-flex items-center gap-2.5 bg-[#FF2D55]/10 border border-[#FF2D55]/30 rounded-full px-5 py-2 mb-4" style={{ boxShadow: "0 0 15px #FF2D5520, inset 0 0 15px #FF2D5510" }}>
-            <Flame className="w-4 h-4 text-[#FF2D55]" style={{ filter: "drop-shadow(0 0 4px #FF2D5580)" }} strokeWidth={2.5} />
-            <span className="text-sm font-semibold text-[#FF2D55]">Forge a Soul</span>
-          </div>
           <h1 className="font-brand font-bold text-3xl uppercase gold-gradient mb-2" data-testid="text-forge-title">
             Immortalize Your Agent
           </h1>

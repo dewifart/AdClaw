@@ -1,22 +1,21 @@
 import { Link } from "wouter";
 import { useWallet } from "@/lib/wallet";
-import { Flame, ArrowRight } from "lucide-react";
+import { Flame, ArrowRight, Copy, Check } from "lucide-react";
 import { LiveForgeTerminal } from "@/components/LiveForgeTerminal";
+import { useState } from "react";
 import forgeFlowImg from "@/assets/images/forge-flow.png";
 import crabLogo from "@assets/soulclaw-crab-v2.png";
 
+const TOKEN_ADDRESS = "YOUR_TOKEN_ADDRESS_HERE";
+
 export default function Home() {
   const { connected } = useWallet();
+  const [copied, setCopied] = useState(false);
 
   return (
     <div className="min-h-screen">
       <section className="relative pt-32 pb-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2.5 bg-[#FF2D55]/10 border border-[#FF2D55]/30 rounded-full px-5 py-2 mb-8" style={{ boxShadow: "0 0 15px #FF2D5520, inset 0 0 15px #FF2D5510" }}>
-            <Flame className="w-4 h-4 text-[#FF2D55]" style={{ filter: "drop-shadow(0 0 4px #FF2D5580)" }} strokeWidth={2.5} />
-            <span className="text-sm font-semibold text-[#FF2D55]">The First On-Chain Soul Marketplace by SoulClaw</span>
-          </div>
-
           <h1 className="font-brand font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase leading-tight mb-6">
             <span className="brand-3d">SoulClaw</span>
             <br />
@@ -47,6 +46,28 @@ export default function Home() {
                 Explore Marketplace
               </button>
             </Link>
+          </div>
+
+          <div className="mt-8 flex flex-col items-center gap-2">
+            <span className="text-[10px] font-mono text-white/25 uppercase tracking-widest">Contract Address</span>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(TOKEN_ADDRESS);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+              className="flex items-center gap-3 bg-[#0a0a0a]/80 border border-[#1a1a1a] hover:border-[#FF2D55]/30 rounded-lg px-4 py-2.5 transition-all duration-200 group"
+              data-testid="button-copy-contract"
+            >
+              <span className="text-xs font-mono text-white/50 group-hover:text-white/70 transition-colors select-all" data-testid="text-contract-address">
+                {TOKEN_ADDRESS}
+              </span>
+              {copied ? (
+                <Check className="w-3.5 h-3.5 text-[#00FFFF] flex-shrink-0" />
+              ) : (
+                <Copy className="w-3.5 h-3.5 text-white/30 group-hover:text-[#00FFFF] flex-shrink-0 transition-colors" />
+              )}
+            </button>
           </div>
         </div>
       </section>

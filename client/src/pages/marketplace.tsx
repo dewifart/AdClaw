@@ -428,10 +428,6 @@ export default function Marketplace() {
     <div className="min-h-screen pt-24 px-4 pb-16">
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-14">
-          <div className="inline-flex items-center gap-2.5 bg-[#FF2D55]/10 border border-[#FF2D55]/30 rounded-full px-5 py-2 mb-5" style={{ boxShadow: "0 0 15px #FF2D5520, inset 0 0 15px #FF2D5510" }}>
-            <Store className="w-4 h-4 text-[#FF2D55]" style={{ filter: "drop-shadow(0 0 4px #FF2D5580)" }} strokeWidth={2.5} />
-            <span className="text-sm font-semibold text-[#FF2D55]">Soul Marketplace</span>
-          </div>
           <h1 className="font-brand font-bold text-4xl md:text-5xl uppercase gold-gradient mb-3" data-testid="text-marketplace-title">
             Browse Souls
           </h1>
@@ -517,36 +513,25 @@ export default function Marketplace() {
                       )}
 
                       <div className="flex items-center justify-between">
-                        <span className={`text-base font-mono font-bold ${isFree ? "text-[#00FFFF]" : "text-[#FF2D55]"}`} data-testid={`text-agent-price-${i}`}>
-                          {agent.price}
+                        <span className={`text-base font-mono font-bold ${isFree ? "text-[#00FFFF]" : "text-white/30"}`} data-testid={`text-agent-price-${i}`}>
+                          {isFree ? "FREE" : "Coming Soon"}
                         </span>
-                        <button
-                          onClick={() => handleAdopt(i)}
-                          disabled={adoptingIndex === i}
-                          className={`flex items-center gap-2 text-sm font-bold rounded-lg px-4 py-2 transition-all duration-200 disabled:opacity-50 ${
-                            isFree
-                              ? "bg-[#00FFFF]/10 hover:bg-[#00FFFF]/20 text-[#00FFFF] border border-[#00FFFF]/20"
-                              : "bg-[#FF2D55] hover:bg-[#FF2D55]/80 text-white"
-                          }`}
-                          data-testid={`button-adopt-${i}`}
-                        >
-                          {adoptingIndex === i ? (
-                            <>
-                              <Loader2 className="w-4 h-4 animate-spin" />
-                              Processing...
-                            </>
-                          ) : isFree ? (
-                            <>
-                              <Code className="w-4 h-4" />
-                              {isCodeVisible ? "Hide Code" : "Show Code"}
-                            </>
-                          ) : (
-                            <>
-                              <Lock className="w-4 h-4" />
-                              Adopt Soul
-                            </>
-                          )}
-                        </button>
+                        {isFree ? (
+                          <button
+                            onClick={() => handleAdopt(i)}
+                            disabled={adoptingIndex === i}
+                            className="flex items-center gap-2 text-sm font-bold rounded-lg px-4 py-2 transition-all duration-200 disabled:opacity-50 bg-[#00FFFF]/10 hover:bg-[#00FFFF]/20 text-[#00FFFF] border border-[#00FFFF]/20"
+                            data-testid={`button-adopt-${i}`}
+                          >
+                            <Code className="w-4 h-4" />
+                            {isCodeVisible ? "Hide Code" : "Show Code"}
+                          </button>
+                        ) : (
+                          <span className="flex items-center gap-2 text-sm font-bold rounded-lg px-4 py-2 bg-white/5 text-white/25 border border-white/10 cursor-not-allowed" data-testid={`button-adopt-${i}`}>
+                            <Lock className="w-4 h-4" />
+                            Coming Soon
+                          </span>
+                        )}
                       </div>
 
                       {isFree && isCodeVisible && (
@@ -606,7 +591,7 @@ export default function Marketplace() {
                           <h3 className="font-brand font-bold text-lg text-white mb-1">{soul.name}</h3>
                           <p className="text-sm text-white/40 line-clamp-2 mb-4 leading-relaxed">{soul.description}</p>
                           <div className="flex items-center justify-between">
-                            <span className="text-base font-mono font-bold text-[#FF2D55]">{soul.price} SOL</span>
+                            <span className="text-sm font-mono font-bold text-white/30">Coming Soon</span>
                             <span className="text-[10px] font-mono text-white/20">
                               {soul.ownerWallet.slice(0, 4)}...{soul.ownerWallet.slice(-4)}
                             </span>
