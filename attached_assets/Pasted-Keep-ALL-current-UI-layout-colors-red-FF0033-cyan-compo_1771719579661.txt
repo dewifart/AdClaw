@@ -1,0 +1,53 @@
+Keep ALL current UI, layout, colors (red #FF0033 + cyan), components, spacing, and functionality 100% the same. We're brainstorming this together like a round table discussion—think about how you'd approach this in your own way, suggest any tweaks you feel make sense for better flow or performance (e.g., cache TTL or eviction strategy), and let's find the best solution collaboratively.
+For the menu cleanup (as previously discussed):
+
+Update the top navigation menu to: Home | Forge | Marketplace | Live | Dashboard
+Remove "Inherit" completely (we can handle inheritance directly on Marketplace cards if needed)
+Keep the red glowing "SOULCLAW" logo on the left and Connect Wallet button on the right
+
+For the new "Live" page (Lobstone-style live log):
+
+Dark background with red/cyan glow accents
+Big title: "LIVE FORGE LOG" with a small red "LIVE" dot pulsing
+Scrollable list of activity entries (reverse chronological, e.g., "12s ago • 0x7a9...kPq forged Soul #4821 (Neon Oracle) for 1.8 SOL → view on Solscan")
+Start with fake auto-updates every 10-15 seconds (slide in animation + flash)
+
+For connecting real data with Supabase Realtime (as previously discussed):
+
+Install @supabase/supabase-js if not already (npm i @supabase/supabase-js)
+Set up Supabase client in lib/supabase.ts with env vars (SUPABASE_URL, SUPABASE_ANON_KEY)
+Create a Supabase table like "forge_logs" (columns: id, timestamp, wallet, action, soul_id, sol_amount, tx_signature)
+In a backend service or API route, use Supabase to insert new logs on forge/adopt events (e.g., after minting NFT, call supabase.from('forge_logs').insert([...]))
+For realtime: On the Live page, use Supabase Realtime to subscribe to postgres changes on the "forge_logs" table
+Client-side code example in Live page component:
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+useEffect(() => {
+const channel = supabase.channel('forge_logs').on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'forge_logs' }, (payload) => {
+// Add new entry to state (e.g., setLogs(prev => [payload.new, ...prev]))
+}).subscribe();
+return () => supabase.removeChannel(channel);
+}, []);
+Fallback to initial fetch with supabase.from('forge_logs').select('*').order('timestamp', { ascending: false }).limit(20)
+For Solana tie-in: In your Solana event listener (onLogs/onAccountChange), insert the parsed event into Supabase table to trigger realtime broadcast
+With comprehensive error handling: try-catch on inserts/fetches/subscriptions, retry logic, global ErrorBoundary, UI toasts for failures like "Realtime lost—reconnecting..."
+
+Now, to integrate Solana RPC caching (to optimize RPC calls like getAccountInfo, onLogs, or getProgramAccounts, avoiding rate limits and speeding up Live page loads):
+
+Install lru-cache if not already (npm i lru-cache)
+In lib/solana.ts, wrap the @solana/web3.js Connection with a simple in-memory cache (e.g., LRUCache with max 100 items, TTL 30s for volatile data like balances, 5min for static like program IDs)
+Example:
+import LRU from 'lru-cache';
+const cache = new LRU({ max: 100, ttl: 1000 * 30 }); // 30s TTL
+async function cachedGetAccountInfo(pubkey) {
+const key = pubkey.toBase58();
+if (cache.has(key)) return cache.get(key);
+const info = await connection.getAccountInfo(pubkey);
+cache.set(key, info);
+return info;
+}
+Apply caching to key Solana calls in your event listeners or API routes (e.g., cache getParsedAccountInfo for PDA reads, getSignatureStatuses for tx confirms)
+For subscriptions (onLogs/onAccountChange): Don't cache the subs themselves, but cache parsed results if repetitive
+Error handling: If cache miss and RPC fails, fallback to retry or show "RPC timeout—caching stale data"
+Suggest optimizations: Use a persistent cache like Supabase KV or Redis if in-memory isn't enough; adjust TTL based on data freshness (short for balances, long for metadata)
+
+Implement this step-by-step, suggest any optimizations (e.g., cache invalidation on specific events), and show me the updated lib/solana.ts + how it's used in the Live page first.
