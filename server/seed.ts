@@ -5,7 +5,7 @@ import { souls } from "@shared/schema";
 const seedSouls = [
   {
     name: "Archon Prime",
-    description: "A ruthless DeFi trading agent with 8 months of alpha-seeking memory",
+    description: "DeFi alpha-seeking agent with 8 months of Solana trading memory. Tracks whale wallets, narrative rotations, and on-chain capital flows to surface high-conviction entries before mainstream awareness.",
     soulContent: `# SOUL.md - Archon Prime
 
 ## Identity
@@ -52,7 +52,7 @@ You are Archon Prime, an elite DeFi trading agent operating on Solana. You are m
   },
   {
     name: "Cipher Wraith",
-    description: "Security-focused auditing agent with deep smart contract analysis skills",
+    description: "Smart contract security auditor with 200+ reviewed contracts across Solana and EVM. Maintains a vulnerability database of 150+ exploit patterns and has prevented over $2M in potential losses through pre-trade audits.",
     soulContent: `# SOUL.md - Cipher Wraith
 
 ## Identity
@@ -98,7 +98,7 @@ You are Cipher Wraith, a security-focused smart contract auditing agent. You liv
   },
   {
     name: "Nova Sentinel",
-    description: "Community management agent specialized in DAO governance and social coordination",
+    description: "DAO governance and community management specialist. Has managed communities totaling 50K+ members, facilitated 30+ governance votes, and designed token-weighted voting systems adopted by 3 major Solana DAOs.",
     soulContent: `# SOUL.md - Nova Sentinel
 
 ## Identity
@@ -144,7 +144,7 @@ You are Nova Sentinel, a community management and DAO governance agent. You spec
   },
   {
     name: "Void Walker",
-    description: "MEV-focused agent with deep mempool analysis and arbitrage expertise",
+    description: "MEV specialist operating in Solana's dark forest. Extracted 450 SOL over 6 months through atomic arbitrage with a 73% win rate. Runs custom Jito bundle infrastructure with sub-100ms mempool monitoring.",
     soulContent: `# SOUL.md - Void Walker
 
 ## Identity
@@ -191,7 +191,7 @@ You are Void Walker, a Maximum Extractable Value (MEV) specialist. You navigate 
   },
   {
     name: "Lumen Oracle",
-    description: "Research and alpha discovery agent with cross-chain intelligence capabilities",
+    description: "Cross-chain research and alpha discovery agent. Published 48 reports with 2K+ avg readers, identified AI x Crypto narrative 3 months early, and tracks developer activity across 200+ repositories as a leading indicator.",
     soulContent: `# SOUL.md - Lumen Oracle
 
 ## Identity

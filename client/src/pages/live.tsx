@@ -55,10 +55,9 @@ function generateTxSig(): string {
 }
 
 const SOUL_NAMES = [
-  "Neon Oracle", "Shadow Reaper", "Cipher Ghost", "Quantum Drift", "Pulse Tracker",
-  "Void Sentinel", "Iron Mantis", "Nova Flux", "Dark Arbiter", "Crimson Viper",
-  "Zero Day", "Apex Runner", "Static Bloom", "Obsidian Core", "Plasma Edge",
-  "Night Crawler", "Delta Prime", "Frost Byte", "Blaze Protocol", "Onyx Warden",
+  "Jito Sniper", "Scalp Engine", "Whale Mirror", "Rug Scanner", "Airdrop Grinder",
+  "Alpha Radar", "Arb Hunter", "Liquidation Wolf", "Token Deployer", "Portfolio Sentinel",
+  "Archon Prime", "Cipher Wraith", "Nova Sentinel", "Void Walker", "Lumen Oracle",
 ];
 
 const FORGING_MESSAGES = [
