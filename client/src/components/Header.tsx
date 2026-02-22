@@ -1,16 +1,16 @@
 import { WalletButton } from "./WalletButton";
 import { Link, useLocation } from "wouter";
-import { Flame, LayoutDashboard, Hammer, Store, Zap, Menu, X } from "lucide-react";
+import { Flame, LayoutDashboard, Hammer, Store, Radio, Menu, X } from "lucide-react";
 import { SiGithub, SiX } from "react-icons/si";
 import { useState } from "react";
 import crabLogo from "@assets/soulclaw-crab-v2.png";
 
 const navItems = [
   { href: "/", label: "Home", icon: Flame },
-  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
   { href: "/forge", label: "Forge", icon: Hammer },
   { href: "/marketplace", label: "Marketplace", icon: Store },
-  { href: "/inherit", label: "Inherit", icon: Zap },
+  { href: "/live", label: "Live", icon: Radio },
+  { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
 ];
 
 export function Header() {

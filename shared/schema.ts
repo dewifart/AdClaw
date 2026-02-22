@@ -27,6 +27,27 @@ export const insertSoulSchema = createInsertSchema(souls).omit({
 export type InsertSoul = z.infer<typeof insertSoulSchema>;
 export type Soul = typeof souls.$inferSelect;
 
+export const forgeLogs = pgTable("forge_logs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  wallet: text("wallet").notNull(),
+  action: text("action").notNull(),
+  category: text("category").notNull(),
+  soulId: text("soul_id"),
+  soulName: text("soul_name"),
+  solAmount: text("sol_amount"),
+  txSignature: text("tx_signature"),
+  message: text("message").notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});
+
+export const insertForgeLogSchema = createInsertSchema(forgeLogs).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertForgeLog = z.infer<typeof insertForgeLogSchema>;
+export type ForgeLog = typeof forgeLogs.$inferSelect;
+
 export const users = pgTable("users", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   username: text("username").notNull().unique(),

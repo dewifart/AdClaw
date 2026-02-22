@@ -10,7 +10,7 @@ import Home from "@/pages/home";
 import Dashboard from "@/pages/dashboard";
 import Forge from "@/pages/forge";
 import Marketplace from "@/pages/marketplace";
-import Inherit from "@/pages/inherit";
+import Live from "@/pages/live";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -20,7 +20,7 @@ function Router() {
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/forge" component={Forge} />
       <Route path="/marketplace" component={Marketplace} />
-      <Route path="/inherit" component={Inherit} />
+      <Route path="/live" component={Live} />
       <Route component={NotFound} />
     </Switch>
   );

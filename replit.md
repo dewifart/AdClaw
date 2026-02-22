@@ -10,7 +10,7 @@ SoulClaw is a dark luxury web app for immortalizing OpenClaw/Molt agent souls on
 - Styling: Dark luxury/premium gaming aesthetic with aurora background effects
 
 ## Project Structure
-- `client/src/pages/` - All page components (home, dashboard, forge, marketplace, inherit)
+- `client/src/pages/` - All page components (home, dashboard, forge, marketplace, live)
 - `client/src/components/` - Reusable components (Header, SoulCard, UploadZone, WalletButton, AuroraBackground)
 - `client/src/lib/` - Utilities (wallet context, queryClient)
 - `server/` - Express backend (routes, storage, db, seed)
@@ -25,11 +25,11 @@ SoulClaw is a dark luxury web app for immortalizing OpenClaw/Molt agent souls on
 - Aurora animated background with red/cyan blobs
 
 ## Pages
-1. Home - Hero section, stats, features, FAQ
-2. Dashboard - User's forged souls (wallet-connected)
-3. Forge - Upload files and mint soul NFT
-4. Marketplace - Browse listed souls
-5. Inherit - Load soul into agent terminal demo
+1. Home - Hero section, Live Forge Terminal, How It Works, footer with branded logo
+2. Forge - Upload files and mint soul NFT
+3. Marketplace - Featured agents (10 trader bots) + user listed souls with images, Phantom wallet payment on Adopt
+4. Live - Lobstone-style terminal log (SOULCLAW FORGE SHELL) with auto-generating entries, tab filters (All/Forging/Marketplace/Agent Activity/Thoughts), status bar with treasury balance
+5. Dashboard - User's forged souls (wallet-connected)
 
 ## API Routes
 - GET /api/souls?ownerWallet=xxx - Get souls by owner
