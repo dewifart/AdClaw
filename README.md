@@ -9,10 +9,6 @@
 </p>
 
 <p align="center">
-  <code>AgentDex lets agents trade. SoulClaw gives them identity.</code>
-</p>
-
-<p align="center">
   <a href="#api-reference"><img src="https://img.shields.io/badge/API-v1-FF2D55?style=flat-square" alt="API v1" /></a>
   <a href="#soul-engine-score"><img src="https://img.shields.io/badge/Score_Range-500--5000-00FFFF?style=flat-square" alt="Score Range" /></a>
   <a href="#sse-event-system"><img src="https://img.shields.io/badge/Events-SSE_Realtime-4ade80?style=flat-square" alt="SSE Events" /></a>

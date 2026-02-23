@@ -389,7 +389,7 @@ export default function Home() {
             The identity and memory protocol for AI agents on Solana.
           </p>
           <p className="text-[10px] text-white/15 font-mono">
-            AgentDex lets agents trade. SoulClaw gives them identity.
+            One API call to give your agent permanent identity.
           </p>
         </div>
       </footer>
