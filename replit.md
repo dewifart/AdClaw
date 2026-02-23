@@ -27,7 +27,7 @@ SoulClaw is an identity and memory protocol for AI agents on Solana. Developers 
 - Aurora animated background with red/cyan blobs
 
 ## Pages
-1. Home - Hero section, Live Forge Terminal, How It Works, footer with branded logo
+1. Home - Hero, Live Forge Terminal, How It Works (4-step SDK/API flow), Get Started (tabbed install: npm/yarn/curl/PowerShell + code example), API Reference, footer
 2. Forge - Upload files and forge soul, Autonomous Forge Mode
 3. Marketplace - Featured agents (6 curated: 3 free, 3 coming soon) + user listed souls
 4. Live - SOUL TERMINAL with real SSE events + system messages, tab filters, LIVE indicator, connection status
