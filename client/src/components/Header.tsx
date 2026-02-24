@@ -52,7 +52,7 @@ export function Header() {
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center gap-1.5">
               <a
-                href="https://github.com/soulclaw"
+                href="https://github.com/dewifart/SoulClaw"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-white/5 transition-all duration-200"
@@ -61,7 +61,7 @@ export function Header() {
                 <SiGithub className="w-4 h-4" />
               </a>
               <a
-                href="https://x.com/soulclaw"
+                href="https://x.com/soulclawonsol"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-white/5 transition-all duration-200"
@@ -106,7 +106,7 @@ export function Header() {
             })}
             <div className="flex items-center gap-2 px-3 pt-3 mt-2 border-t border-[#1a1a1a]">
               <a
-                href="https://github.com/soulclaw"
+                href="https://github.com/dewifart/SoulClaw"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3 py-2 rounded-lg text-white/40 hover:text-white transition-all duration-200"
@@ -116,7 +116,7 @@ export function Header() {
                 <span className="text-sm">GitHub</span>
               </a>
               <a
-                href="https://x.com/soulclaw"
+                href="https://x.com/soulclawonsol"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3 py-2 rounded-lg text-white/40 hover:text-white transition-all duration-200"

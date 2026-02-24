@@ -669,6 +669,13 @@ npm start
 
 ---
 
+## Links
+
+- **Twitter**: [https://x.com/soulclawonsol](https://x.com/soulclawonsol)
+- **GitHub**: [https://github.com/dewifart/SoulClaw](https://github.com/dewifart/SoulClaw)
+
+---
+
 ## License
 
 MIT

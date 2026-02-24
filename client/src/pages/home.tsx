@@ -391,6 +391,11 @@ export default function Home() {
           <p className="text-[10px] text-white/15 font-mono">
             One API call to give your agent permanent identity.
           </p>
+          <div className="flex items-center justify-center gap-4 mt-4">
+            <a href="https://x.com/soulclawonsol" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/60 transition-colors text-xs font-mono" data-testid="link-footer-twitter">Twitter</a>
+            <span className="text-white/10">|</span>
+            <a href="https://github.com/dewifart/SoulClaw" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/60 transition-colors text-xs font-mono" data-testid="link-footer-github">GitHub</a>
+          </div>
         </div>
       </footer>
     </div>
