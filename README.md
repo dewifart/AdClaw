@@ -669,10 +669,34 @@ npm start
 
 ---
 
+## Ecosystem
+
+SoulClaw is part of a broader ecosystem for AI agents on Solana:
+
+| Project | Role | URL |
+|---------|------|-----|
+| **SoulClaw** | Identity & memory protocol | This repo |
+| **ClawAPIs** | x402 paid API gateway | [clawapis.com](https://clawapis.com) |
+| **Pump.fun** | Token trading platform | [pump.fun](https://pump.fun) |
+
+**How they connect:** Agents forge identity via SoulClaw, access paid API endpoints via ClawAPIs (using x402 payment protocol — pay per request with crypto, no API keys), and trade on pump.fun with a verifiable reputation score.
+
+The x402 payment flow:
+1. Agent makes an API request
+2. Server returns `402 Payment Required` with a `PAYMENT-REQUIRED` header
+3. Agent signs the payment with their wallet
+4. Agent retries with `PAYMENT-SIGNATURE` header
+5. Server verifies payment, returns data
+
+Libraries: `x402-fetch` (EVM/Base), `x402-solana` (Solana/USDC)
+
+---
+
 ## Links
 
 - **Twitter**: [https://x.com/soulclawonsol](https://x.com/soulclawonsol)
 - **GitHub**: [https://github.com/dewifart/SoulClaw](https://github.com/dewifart/SoulClaw)
+- **ClawAPIs**: [https://clawapis.com](https://clawapis.com)
 
 ---
 

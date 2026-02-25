@@ -11,6 +11,7 @@ import Dashboard from "@/pages/dashboard";
 import Forge from "@/pages/forge";
 import Marketplace from "@/pages/marketplace";
 import Live from "@/pages/live";
+import Ecosystem from "@/pages/ecosystem";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -21,6 +22,7 @@ function Router() {
       <Route path="/forge" component={Forge} />
       <Route path="/marketplace" component={Marketplace} />
       <Route path="/live" component={Live} />
+      <Route path="/ecosystem" component={Ecosystem} />
       <Route component={NotFound} />
     </Switch>
   );

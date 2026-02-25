@@ -1,6 +1,6 @@
 import { WalletButton } from "./WalletButton";
 import { Link, useLocation } from "wouter";
-import { Flame, LayoutDashboard, Hammer, Store, Radio, Menu, X } from "lucide-react";
+import { Flame, LayoutDashboard, Hammer, Store, Radio, Globe, Menu, X } from "lucide-react";
 import { SiGithub, SiX } from "react-icons/si";
 import { useState } from "react";
 import crabLogo from "@assets/soulclaw-crab-v2.png";
@@ -10,6 +10,7 @@ const navItems = [
   { href: "/forge", label: "Forge", icon: Hammer },
   { href: "/marketplace", label: "Marketplace", icon: Store },
   { href: "/live", label: "Live", icon: Radio },
+  { href: "/ecosystem", label: "Ecosystem", icon: Globe },
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
 ];
 
