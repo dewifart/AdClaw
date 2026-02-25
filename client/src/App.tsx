@@ -7,7 +7,7 @@ import { WalletProvider } from "@/lib/wallet";
 import { AuroraBackground } from "@/components/AuroraBackground";
 import { Header } from "@/components/Header";
 import Home from "@/pages/home";
-import Dashboard from "@/pages/dashboard";
+
 import Forge from "@/pages/forge";
 import Marketplace from "@/pages/marketplace";
 import Live from "@/pages/live";
@@ -18,7 +18,7 @@ function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/dashboard" component={Dashboard} />
+
       <Route path="/forge" component={Forge} />
       <Route path="/marketplace" component={Marketplace} />
       <Route path="/live" component={Live} />

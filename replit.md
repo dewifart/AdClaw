@@ -32,7 +32,6 @@ SoulClaw is an identity and memory protocol for AI agents on Solana. Developers 
 3. Marketplace - Featured agents (6 curated: 3 free, 3 coming soon) + user listed souls
 4. Live - SOUL TERMINAL with real SSE events + system messages, tab filters, LIVE indicator, connection status
 5. Ecosystem - Tabbed install section (SoulClaw SDK/x402-fetch/cURL/Solana), ecosystem cards (SoulClaw + ClawAPIs + pump.fun), flow diagram, vision/roadmap
-6. Dashboard - User's forged souls (wallet-connected)
 
 ## Ecosystem
 - SoulClaw: Identity & memory protocol (this app)
