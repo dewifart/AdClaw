@@ -1,7 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertSoulSchema } from "@shared/schema";
+import { insertSoulSchema, insertForgeLogSchema } from "@shared/schema";
 import { eventBroadcaster } from "./events";
 import { z } from "zod";
 
@@ -244,6 +244,136 @@ export async function registerRoutes(
       });
     } catch (error) {
       res.status(500).json({ success: false, error: "Failed to fetch stats" });
+    }
+  });
+
+  app.get("/api/v1/forge-log", async (req, res) => {
+    try {
+      const rawLimit = parseInt(req.query.limit as string);
+      const rawOffset = parseInt(req.query.offset as string);
+
+      const filters = {
+        wallet: req.query.wallet as string | undefined,
+        action: req.query.action as string | undefined,
+        category: req.query.category as string | undefined,
+        limit: isNaN(rawLimit) || rawLimit < 1 ? 50 : Math.min(rawLimit, 100),
+        offset: isNaN(rawOffset) || rawOffset < 0 ? 0 : rawOffset,
+      };
+
+      const { logs, total } = await storage.getFilteredForgeLogs(filters);
+
+      res.json({
+        success: true,
+        total,
+        count: logs.length,
+        offset: filters.offset,
+        limit: filters.limit,
+        logs: logs.map(log => ({
+          id: log.id,
+          wallet: log.wallet,
+          action: log.action,
+          category: log.category,
+          soul_id: log.soulId,
+          soul_name: log.soulName,
+          sol_amount: log.solAmount,
+          tx_signature: log.txSignature,
+          message: log.message,
+          created_at: log.createdAt.toISOString(),
+        })),
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, error: "Failed to fetch forge logs" });
+    }
+  });
+
+  app.get("/api/v1/forge-log/:id", async (req, res) => {
+    try {
+      const log = await storage.getForgeLogById(req.params.id);
+      if (!log) {
+        return res.status(404).json({ success: false, error: "Forge log not found" });
+      }
+      res.json({
+        success: true,
+        log: {
+          id: log.id,
+          wallet: log.wallet,
+          action: log.action,
+          category: log.category,
+          soul_id: log.soulId,
+          soul_name: log.soulName,
+          sol_amount: log.solAmount,
+          tx_signature: log.txSignature,
+          message: log.message,
+          created_at: log.createdAt.toISOString(),
+        },
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, error: "Failed to fetch forge log" });
+    }
+  });
+
+  const forgeLogInputSchema = z.object({
+    wallet: z.string().min(32).max(44),
+    action: z.string().min(1).max(50),
+    category: z.string().min(1).max(50),
+    soul_id: z.string().optional(),
+    soul_name: z.string().optional(),
+    sol_amount: z.string().optional(),
+    tx_signature: z.string().optional(),
+    message: z.string().min(1).max(500),
+  });
+
+  app.post("/api/v1/forge-log", async (req, res) => {
+    try {
+      const parsed = forgeLogInputSchema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({
+          success: false,
+          error: "Invalid input",
+          details: parsed.error.issues.map(i => ({ field: i.path.join("."), message: i.message })),
+        });
+      }
+
+      const { wallet, action, category, soul_id, soul_name, sol_amount, tx_signature, message } = parsed.data;
+
+      const log = await storage.createForgeLog({
+        wallet,
+        action,
+        category,
+        soulId: soul_id || null,
+        soulName: soul_name || null,
+        solAmount: sol_amount || null,
+        txSignature: tx_signature || null,
+        message,
+      });
+
+      eventBroadcaster.broadcast({
+        type: action,
+        category,
+        tag: action,
+        message,
+        soulId: soul_id,
+        soulName: soul_name,
+        wallet,
+      });
+
+      res.status(201).json({
+        success: true,
+        log: {
+          id: log.id,
+          wallet: log.wallet,
+          action: log.action,
+          category: log.category,
+          soul_id: log.soulId,
+          soul_name: log.soulName,
+          sol_amount: log.solAmount,
+          tx_signature: log.txSignature,
+          message: log.message,
+          created_at: log.createdAt.toISOString(),
+        },
+      });
+    } catch (error) {
+      res.status(500).json({ success: false, error: "Failed to create forge log" });
     }
   });
 

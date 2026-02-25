@@ -1,26 +1,23 @@
-"use client"
-
 import * as React from "react"
 import { Drawer as DrawerPrimitive } from "vaul"
-
 import { cn } from "@/lib/utils"
 
-const Drawer = ({
-  shouldScaleBackground = true,
-  ...props
-}: React.ComponentProps<typeof DrawerPrimitive.Root>) => (
-  <DrawerPrimitive.Root
-    shouldScaleBackground={shouldScaleBackground}
-    {...props}
-  />
+interface SoulDrawerProps extends React.ComponentProps<typeof DrawerPrimitive.Root> {
+  shouldScaleBackground?: boolean;
+}
+
+const Drawer = ({ shouldScaleBackground = true, ...props }: SoulDrawerProps) => (
+  <DrawerPrimitive.Root shouldScaleBackground={shouldScaleBackground} {...props} />
 )
-Drawer.displayName = "Drawer"
+Drawer.displayName = "SoulDrawer"
 
 const DrawerTrigger = DrawerPrimitive.Trigger
+DrawerTrigger.displayName = "SoulDrawerTrigger"
 
 const DrawerPortal = DrawerPrimitive.Portal
 
 const DrawerClose = DrawerPrimitive.Close
+DrawerClose.displayName = "SoulDrawerClose"
 
 const DrawerOverlay = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Overlay>,
@@ -28,54 +25,98 @@ const DrawerOverlay = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Overlay
     ref={ref}
-    className={cn("fixed inset-0 z-50 bg-black/80", className)}
+    className={cn(
+      "fixed inset-0 z-50 bg-black/70 backdrop-blur-sm",
+      "data-[state=open]:animate-in data-[state=closed]:animate-out",
+      "data-[state=open]:fade-in-0 data-[state=closed]:fade-out-0",
+      className
+    )}
     {...props}
   />
 ))
-DrawerOverlay.displayName = DrawerPrimitive.Overlay.displayName
+DrawerOverlay.displayName = "SoulDrawerOverlay"
+
+interface SoulDrawerContentProps extends React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> {
+  showHandle?: boolean;
+  variant?: "default" | "forge" | "terminal";
+}
 
 const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Content>,
-  React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content>
->(({ className, children, ...props }, ref) => (
-  <DrawerPortal>
-    <DrawerOverlay />
-    <DrawerPrimitive.Content
-      ref={ref}
-      className={cn(
-        "fixed inset-x-0 bottom-0 z-50 mt-24 flex h-auto flex-col rounded-t-[10px] border bg-background",
-        className
-      )}
-      {...props}
-    >
-      <div className="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted" />
-      {children}
-    </DrawerPrimitive.Content>
-  </DrawerPortal>
-))
-DrawerContent.displayName = "DrawerContent"
+  SoulDrawerContentProps
+>(({ className, children, showHandle = true, variant = "default", ...props }, ref) => {
+  const variantStyles = {
+    default: "border-[#1a1a1a] bg-[#0a0a0a]/95",
+    forge: "border-[#FF2D55]/20 bg-[#0a0a0a]/95 shadow-[0_-4px_40px_rgba(255,45,85,0.1)]",
+    terminal: "border-[#00FFFF]/15 bg-[#050505]/98 shadow-[0_-4px_40px_rgba(0,255,255,0.06)]",
+  };
+
+  const handleColor = {
+    default: "bg-white/20",
+    forge: "bg-[#FF2D55]/40 shadow-[0_0_8px_rgba(255,45,85,0.3)]",
+    terminal: "bg-[#00FFFF]/30 shadow-[0_0_8px_rgba(0,255,255,0.2)]",
+  };
+
+  return (
+    <DrawerPortal>
+      <DrawerOverlay />
+      <DrawerPrimitive.Content
+        ref={ref}
+        className={cn(
+          "fixed inset-x-0 bottom-0 z-50 mt-24",
+          "flex h-auto flex-col",
+          "rounded-t-2xl border-t backdrop-blur-xl",
+          variantStyles[variant],
+          className
+        )}
+        {...props}
+      >
+        {showHandle && (
+          <div className="flex justify-center pt-4 pb-1">
+            <div
+              className={cn(
+                "h-1.5 w-12 rounded-full transition-all duration-300",
+                handleColor[variant]
+              )}
+            />
+          </div>
+        )}
+        {children}
+      </DrawerPrimitive.Content>
+    </DrawerPortal>
+  );
+})
+DrawerContent.displayName = "SoulDrawerContent"
 
 const DrawerHeader = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn("grid gap-1.5 p-4 text-center sm:text-left", className)}
+    className={cn(
+      "grid gap-2 px-6 pt-4 pb-2",
+      "text-center sm:text-left",
+      className
+    )}
     {...props}
   />
 )
-DrawerHeader.displayName = "DrawerHeader"
+DrawerHeader.displayName = "SoulDrawerHeader"
 
 const DrawerFooter = ({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    className={cn("mt-auto flex flex-col gap-2 p-4", className)}
+    className={cn(
+      "mt-auto flex flex-col gap-3 px-6 pb-6 pt-2",
+      "border-t border-[#1a1a1a]",
+      className
+    )}
     {...props}
   />
 )
-DrawerFooter.displayName = "DrawerFooter"
+DrawerFooter.displayName = "SoulDrawerFooter"
 
 const DrawerTitle = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Title>,
@@ -84,13 +125,13 @@ const DrawerTitle = React.forwardRef<
   <DrawerPrimitive.Title
     ref={ref}
     className={cn(
-      "text-lg font-semibold leading-none tracking-tight",
+      "text-lg font-brand font-bold text-white tracking-tight",
       className
     )}
     {...props}
   />
 ))
-DrawerTitle.displayName = DrawerPrimitive.Title.displayName
+DrawerTitle.displayName = "SoulDrawerTitle"
 
 const DrawerDescription = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Description>,
@@ -98,11 +139,14 @@ const DrawerDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <DrawerPrimitive.Description
     ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
+    className={cn(
+      "text-sm text-white/40 font-mono leading-relaxed",
+      className
+    )}
     {...props}
   />
 ))
-DrawerDescription.displayName = DrawerPrimitive.Description.displayName
+DrawerDescription.displayName = "SoulDrawerDescription"
 
 export {
   Drawer,

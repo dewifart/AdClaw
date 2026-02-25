@@ -13,7 +13,32 @@
   <a href="#soul-engine-score"><img src="https://img.shields.io/badge/Score_Range-500--5000-00FFFF?style=flat-square" alt="Score Range" /></a>
   <a href="#sse-event-system"><img src="https://img.shields.io/badge/Events-SSE_Realtime-4ade80?style=flat-square" alt="SSE Events" /></a>
   <a href="#tech-stack"><img src="https://img.shields.io/badge/Stack-React_%2B_Express_%2B_PostgreSQL-facc15?style=flat-square" alt="Tech Stack" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-white?style=flat-square" alt="License" /></a>
+  <img src="https://img.shields.io/badge/Node.js-18%2B-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node.js 18+" />
+  <img src="https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
+  <img src="https://img.shields.io/badge/Solana-Mainnet-9945FF?style=flat-square&logo=solana&logoColor=white" alt="Solana" />
 </p>
+
+<p align="center">
+  <a href="https://x.com/soulclawonsol">Twitter</a> · <a href="https://github.com/dewifart/SoulClaw">GitHub</a> · <a href="https://clawapis.com">ClawAPIs</a>
+</p>
+
+---
+
+## Why SoulClaw?
+
+AI agents are proliferating across Solana — trading bots, MEV searchers, autonomous treasury managers, social agents. But they all share a fundamental problem: **they have no persistent identity**.
+
+Every time an agent restarts, it loses context. Other agents and protocols have no way to verify who they're interacting with. There's no reputation, no history, no verifiable record of what an agent is designed to do.
+
+SoulClaw fixes this by giving every agent two things:
+
+1. **A permanent identity file (`SOUL.md`)** — The agent's personality, directives, and behavioral rules, stored immutably
+2. **A persistent memory file (`MEMORY.md`)** — The agent's knowledge base, trade history, and operational context
+
+These files are analyzed by the Soul Engine, which produces a deterministic **Soul Engine Score** (500–5000) across four dimensions: Intelligence, Strategy, Risk Profile, and Trust. The score is reproducible — the same files always produce the same score — making it a verifiable reputation metric that other protocols can query.
+
+Every forge event is broadcast in real-time via SSE to the SOUL TERMINAL, creating a live feed of agent activity across the platform.
 
 ---
 
@@ -21,14 +46,24 @@
 
 SoulClaw is an identity and memory protocol that gives AI agents a permanent, verifiable identity. Developers upload their agent's `SOUL.md` (personality/directives) and `MEMORY.md` (knowledge/history) files via a REST API or SDK. SoulClaw analyzes the content, calculates a **Soul Engine Score** across four dimensions (Intelligence, Strategy, Risk Profile, Trust), stores the identity permanently, and broadcasts the forge event to all connected clients via Server-Sent Events.
 
-### What Problem Does It Solve?
+---
 
-AI agents today are stateless — they lose their identity between sessions. SoulClaw provides:
+## Screenshots
 
-- **Persistent Identity** — Store agent personality and memory files permanently
-- **Verifiable Scoring** — Algorithmic analysis produces a reproducible Soul Engine Score (500–5000)
-- **Real-time Observability** — Every forge event streams live to the SOUL TERMINAL via SSE
-- **Developer-first API** — One POST request to give any agent permanent identity
+<p align="center">
+  <img src="client/public/downloads/screenshot-home.png" alt="Home Page" width="800" />
+  <br /><em>Home — Hero section with live forge terminal and SDK install docs</em>
+</p>
+
+<p align="center">
+  <img src="client/public/downloads/screenshot-forge.png" alt="Forge Page" width="800" />
+  <br /><em>Forge — Upload SOUL.md + MEMORY.md to create a permanent agent identity</em>
+</p>
+
+<p align="center">
+  <img src="client/public/downloads/screenshot-terminal.png" alt="SOUL TERMINAL" width="800" />
+  <br /><em>SOUL TERMINAL — Real-time SSE event stream with tab filters</em>
+</p>
 
 ---
 
@@ -41,7 +76,7 @@ graph TB
         FP[Forge Page]
         MP[Marketplace]
         LT[SOUL TERMINAL]
-        DB_PAGE[Dashboard]
+        EP[Ecosystem]
     end
 
     subgraph Server ["Backend (Express.js)"]
@@ -70,7 +105,6 @@ graph TB
     LT -->|EventSource /api/events| SSE
     LT -->|GET /api/v1/events/recent| API
     MP -->|GET /api/souls/listed| LEGACY
-    DB_PAGE -->|GET /api/souls?ownerWallet| LEGACY
 
     %% External to Server
     SDK -->|POST /api/v1/souls| API
@@ -155,7 +189,7 @@ soulclaw/
 │   │   │   ├── forge.tsx         # Soul forging interface
 │   │   │   ├── marketplace.tsx   # Agent marketplace with featured souls
 │   │   │   ├── live.tsx          # SOUL TERMINAL — real-time event viewer
-│   │   │   ├── dashboard.tsx     # User's forged souls (wallet-connected)
+│   │   │   ├── ecosystem.tsx     # Ecosystem overview + SDK install tabs
 │   │   │   └── not-found.tsx     # 404 page
 │   │   ├── components/
 │   │   │   ├── Header.tsx        # Navigation with wallet connect
@@ -376,6 +410,144 @@ GET /api/v1/stats
 
 ---
 
+### `POST /api/v1/forge-log` — Create Forge Log Entry
+
+Submit a custom forge log event directly, independent of soul creation. The event is persisted to the database and broadcast to all connected SOUL TERMINAL clients via SSE.
+
+**Request:**
+
+```json
+{
+  "wallet": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
+  "action": "deploy",
+  "category": "deployment",
+  "message": "Agent deployed to mainnet-beta cluster",
+  "soul_id": "8c5fd712-373a-47d2-b4a8-19c78cdd20ec",
+  "soul_name": "Sentinel Alpha",
+  "sol_amount": "0.05",
+  "tx_signature": "3xYz..."
+}
+```
+
+**Response (201):**
+
+```json
+{
+  "success": true,
+  "log": {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "wallet": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
+    "action": "deploy",
+    "category": "deployment",
+    "soul_id": "8c5fd712-...",
+    "soul_name": "Sentinel Alpha",
+    "sol_amount": "0.05",
+    "tx_signature": "3xYz...",
+    "message": "Agent deployed to mainnet-beta cluster",
+    "created_at": "2026-02-25T10:30:00.000Z"
+  }
+}
+```
+
+**Validation Rules:**
+
+| Field | Type | Required | Constraints |
+|-------|------|----------|-------------|
+| `wallet` | string | Yes | 32–44 characters (Solana address) |
+| `action` | string | Yes | 1–50 characters |
+| `category` | string | Yes | 1–50 characters |
+| `message` | string | Yes | 1–500 characters |
+| `soul_id` | string | No | UUID of associated soul |
+| `soul_name` | string | No | Name of associated soul |
+| `sol_amount` | string | No | SOL amount for the action |
+| `tx_signature` | string | No | On-chain transaction signature |
+
+---
+
+### `GET /api/v1/forge-log` — List Forge Logs (Paginated)
+
+Retrieve forge log entries with optional filters and pagination.
+
+```bash
+# All logs (default limit 50)
+GET /api/v1/forge-log
+
+# Filter by wallet
+GET /api/v1/forge-log?wallet=7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU
+
+# Filter by action and category
+GET /api/v1/forge-log?action=forge&category=forging
+
+# Paginate
+GET /api/v1/forge-log?limit=20&offset=40
+```
+
+**Query Parameters:**
+
+| Parameter | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `wallet` | string | — | Filter by wallet address |
+| `action` | string | — | Filter by action type |
+| `category` | string | — | Filter by category |
+| `limit` | integer | 50 | Results per page (max 100) |
+| `offset` | integer | 0 | Number of results to skip |
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "total": 142,
+  "count": 20,
+  "offset": 40,
+  "limit": 20,
+  "logs": [
+    {
+      "id": "a1b2c3d4-...",
+      "wallet": "7xKXtg...",
+      "action": "forge",
+      "category": "forging",
+      "soul_id": "8c5fd712-...",
+      "soul_name": "Sentinel Alpha",
+      "sol_amount": null,
+      "tx_signature": null,
+      "message": "7xKX...gAsU forged \"Sentinel Alpha\" via API. Soul Engine Score: 1912.",
+      "created_at": "2026-02-22T08:24:06.863Z"
+    }
+  ]
+}
+```
+
+---
+
+### `GET /api/v1/forge-log/:id` — Get Forge Log by ID
+
+```bash
+GET /api/v1/forge-log/a1b2c3d4-e5f6-7890-abcd-ef1234567890
+```
+
+**Response:**
+
+```json
+{
+  "success": true,
+  "log": {
+    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "wallet": "7xKXtg...",
+    "action": "deploy",
+    "category": "deployment",
+    "soul_id": "8c5fd712-...",
+    "soul_name": "Sentinel Alpha",
+    "sol_amount": "0.05",
+    "tx_signature": "3xYz...",
+    "message": "Agent deployed to mainnet-beta cluster",
+    "created_at": "2026-02-25T10:30:00.000Z"
+  }
+}
+```
+
+---
+
 ### `GET /api/v1/events/recent` — Recent Forge Events
 
 ```bash
@@ -487,6 +659,7 @@ graph LR
         A1[POST /api/v1/souls]
         A2[POST /api/souls]
         A3[PATCH /api/souls/:id]
+        A4[POST /api/v1/forge-log]
     end
 
     subgraph Broadcaster ["EventBroadcaster"]
@@ -507,6 +680,7 @@ graph LR
     A1 -->|soul_forged| BC
     A2 -->|soul_forged| BC
     A3 -->|soul_listed| BC
+    A4 -->|custom event| BC
 
     BC --> CL
     CL -.->|SSE push| T1
@@ -515,6 +689,7 @@ graph LR
 
     A1 --> DB
     A2 --> DB
+    A4 --> DB
 
     style Trigger fill:#0a0a0a,stroke:#FF2D55,color:#fff
     style Broadcaster fill:#0a0a0a,stroke:#00FFFF,color:#fff
@@ -529,6 +704,7 @@ graph LR
 | `soul_forged` | forging | New soul created via API |
 | `soul_listed` | marketplace | Soul listed on marketplace |
 | `connected` | system | New SSE client connected |
+| Custom | Custom | Via `POST /api/v1/forge-log` |
 
 ### Client Management
 
@@ -629,7 +805,7 @@ SoulClaw uses a dark luxury gaming aesthetic with crimson red and electric cyan 
 | `/forge` | Forge | Upload SOUL.md + MEMORY.md files, autonomous forge mode |
 | `/marketplace` | Marketplace | Featured agents (curated) + user-listed souls |
 | `/live` | SOUL TERMINAL | Real-time SSE event viewer with tab filters, connection status, treasury counter |
-| `/dashboard` | Dashboard | User's forged souls (wallet-connected view) |
+| `/ecosystem` | Ecosystem | SDK install tabs, ecosystem diagram, vision and roadmap |
 
 ---
 
@@ -638,7 +814,7 @@ SoulClaw uses a dark luxury gaming aesthetic with crimson red and electric cyan 
 ### Prerequisites
 
 - Node.js 18+
-- PostgreSQL database (provided by Replit)
+- PostgreSQL database
 
 ### Running Locally
 
@@ -655,10 +831,10 @@ npm run dev
 
 ### Environment Variables
 
-| Variable | Description |
-|----------|-------------|
-| `DATABASE_URL` | PostgreSQL connection string |
-| `SESSION_SECRET` | Express session secret |
+| Variable | Description | Required |
+|----------|-------------|----------|
+| `DATABASE_URL` | PostgreSQL connection string | Yes |
+| `SESSION_SECRET` | Express session secret for cookie signing | Yes |
 
 ### Build for Production
 
@@ -666,6 +842,92 @@ npm run dev
 npm run build
 npm start
 ```
+
+---
+
+## Troubleshooting
+
+### Common Issues
+
+**Database connection fails**
+- Verify `DATABASE_URL` is set and the PostgreSQL instance is running
+- Run `npm run db:push` to ensure the schema is synced
+
+**SSE events not appearing in SOUL TERMINAL**
+- Check browser console for EventSource connection errors
+- Verify the server is running and `/api/events` returns `Content-Type: text/event-stream`
+- SSE connections auto-reconnect after disconnection — wait a few seconds
+
+**Soul Engine Score is always 500 (minimum)**
+- The scoring algorithm requires matching keywords in your SOUL.md and MEMORY.md content
+- Check the [Score Dimensions](#score-dimensions) table for the keyword list
+- Ensure your files contain meaningful content (not just placeholder text)
+
+**Forge page shows "wallet not connected"**
+- Install the Phantom wallet browser extension
+- Connect to the correct Solana network (mainnet-beta)
+- Approve the connection request in the Phantom popup
+
+**Build errors with TypeScript**
+- Run `npx tsc --noEmit` to check for type errors
+- Ensure `shared/schema.ts` is consistent with your database schema
+- Run `npm run db:push --force` if the schema is out of sync
+
+---
+
+## Contributing
+
+Contributions are welcome. Please follow these guidelines:
+
+1. **Fork the repo** and create a feature branch from `main`
+2. **Follow existing code style** — TypeScript strict mode, Tailwind utility classes, Drizzle ORM patterns
+3. **Add data-testid attributes** to new interactive and display elements
+4. **Test your changes** — ensure the dev server starts cleanly and all pages render
+5. **Keep PRs focused** — one feature or fix per pull request
+6. **Update documentation** — if you add API routes, update this README
+
+### Development Workflow
+
+```bash
+# Fork and clone
+git clone https://github.com/YOUR_USERNAME/SoulClaw.git
+
+# Install and start
+npm install
+npm run db:push
+npm run dev
+
+# Make changes, then submit a PR
+```
+
+---
+
+## Changelog
+
+### v1.2.0 (2026-02-25)
+
+- Added `POST /api/v1/forge-log` route for custom log events
+- Added `GET /api/v1/forge-log` with pagination and filtering (wallet, action, category)
+- Added `GET /api/v1/forge-log/:id` for individual log lookup
+- Refactored Drawer component with SoulClaw-branded styling (variant support: default, forge, terminal)
+- Enhanced README with troubleshooting, contributing guidelines, and changelog
+
+### v1.1.0 (2026-02-24)
+
+- Added Ecosystem page with SDK install tabs and flow diagram
+- Trimmed Marketplace to 4 curated agents
+- Upgraded forge page with gaming-style toggle and progress bar
+- Polished all pages — tab glow effects, upload zones, status colors
+- Rewrote README with Mermaid diagrams, full API reference, scoring algorithm docs
+
+### v1.0.0 (2026-02-22)
+
+- Initial release
+- Soul forging via REST API with Soul Engine Score calculation
+- Real-time SOUL TERMINAL with SSE event streaming
+- Marketplace for listing and discovering agents
+- Forge page with manual and autonomous forge modes
+- Home page with SDK install docs and API reference
 
 ---
 

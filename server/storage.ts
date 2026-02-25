@@ -1,6 +1,6 @@
 import { type Soul, type InsertSoul, type ForgeLog, type InsertForgeLog, souls, forgeLogs } from "@shared/schema";
 import { db } from "./db";
-import { eq, desc } from "drizzle-orm";
+import { eq, desc, and, sql } from "drizzle-orm";
 
 export interface IStorage {
   getAllSouls(): Promise<Soul[]>;
@@ -11,6 +11,8 @@ export interface IStorage {
   updateSoul(id: string, data: Partial<InsertSoul>): Promise<Soul | undefined>;
   createForgeLog(log: InsertForgeLog): Promise<ForgeLog>;
   getRecentForgeLogs(limit?: number): Promise<ForgeLog[]>;
+  getFilteredForgeLogs(filters: { wallet?: string; action?: string; category?: string; limit?: number; offset?: number }): Promise<{ logs: ForgeLog[]; total: number }>;
+  getForgeLogById(id: string): Promise<ForgeLog | undefined>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -48,6 +50,33 @@ export class DatabaseStorage implements IStorage {
 
   async getRecentForgeLogs(limit: number = 50): Promise<ForgeLog[]> {
     return db.select().from(forgeLogs).orderBy(desc(forgeLogs.createdAt)).limit(limit);
+  }
+
+  async getFilteredForgeLogs(filters: { wallet?: string; action?: string; category?: string; limit?: number; offset?: number }): Promise<{ logs: ForgeLog[]; total: number }> {
+    const conditions = [];
+    if (filters.wallet) conditions.push(eq(forgeLogs.wallet, filters.wallet));
+    if (filters.action) conditions.push(eq(forgeLogs.action, filters.action));
+    if (filters.category) conditions.push(eq(forgeLogs.category, filters.category));
+
+    const where = conditions.length > 0 ? and(...conditions) : undefined;
+    const limit = Math.min(filters.limit || 50, 100);
+    const offset = filters.offset || 0;
+
+    const [logs, countResult] = await Promise.all([
+      where
+        ? db.select().from(forgeLogs).where(where).orderBy(desc(forgeLogs.createdAt)).limit(limit).offset(offset)
+        : db.select().from(forgeLogs).orderBy(desc(forgeLogs.createdAt)).limit(limit).offset(offset),
+      where
+        ? db.select({ count: sql<number>`count(*)::int` }).from(forgeLogs).where(where)
+        : db.select({ count: sql<number>`count(*)::int` }).from(forgeLogs),
+    ]);
+
+    return { logs, total: countResult[0]?.count || 0 };
+  }
+
+  async getForgeLogById(id: string): Promise<ForgeLog | undefined> {
+    const result = await db.select().from(forgeLogs).where(eq(forgeLogs.id, id));
+    return result[0];
   }
 }
 

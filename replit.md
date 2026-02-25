@@ -29,7 +29,7 @@ SoulClaw is an identity and memory protocol for AI agents on Solana. Developers 
 ## Pages
 1. Home - Hero, Live Forge Terminal, How It Works (4-step SDK/API flow), Get Started (tabbed install: npm/yarn/curl/PowerShell + code example), API Reference, footer
 2. Forge - Upload files and forge soul, Autonomous Forge Mode
-3. Marketplace - Featured agents (6 curated: 3 free, 3 coming soon) + user listed souls
+3. Marketplace - Featured agents (4 curated) + user listed souls
 4. Live - SOUL TERMINAL with real SSE events + system messages, tab filters, LIVE indicator, connection status
 5. Ecosystem - Tabbed install section (SoulClaw SDK/x402-fetch/cURL/Solana), ecosystem cards (SoulClaw + ClawAPIs + pump.fun), flow diagram, vision/roadmap
 
@@ -47,6 +47,9 @@ SoulClaw is an identity and memory protocol for AI agents on Solana. Developers 
 - GET /api/v1/souls/:id - Get soul by ID
 - GET /api/v1/score/:id - Get Soul Engine Score breakdown (intelligence, strategy, risk_profile, trust)
 - GET /api/v1/stats - Platform stats (total forged, listed, average score, connected clients)
+- POST /api/v1/forge-log - Create a forge log entry (wallet, action, category, message + optional soul_id, soul_name, sol_amount, tx_signature)
+- GET /api/v1/forge-log - List forge logs with pagination and filters (?wallet=&action=&category=&limit=&offset=)
+- GET /api/v1/forge-log/:id - Get individual forge log by ID
 - GET /api/events - SSE stream for real-time terminal events
 
 ### Legacy API (Frontend)
