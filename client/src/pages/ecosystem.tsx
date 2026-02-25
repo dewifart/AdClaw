@@ -203,47 +203,6 @@ export default function Ecosystem() {
 
       <section className="py-16 px-4">
         <div className="max-w-5xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {ecosystemCards.map((card) => (
-              <div
-                key={card.title}
-                className="glass-panel rounded-xl p-6 border border-[#1a1a1a] hover:border-white/10 transition-all duration-300 group"
-                data-testid={`card-ecosystem-${card.title.toLowerCase().replace(/[^a-z]/g, '')}`}
-              >
-                <div className="flex items-center gap-3 mb-4">
-                  <div
-                    className="w-10 h-10 rounded-lg flex items-center justify-center"
-                    style={{ backgroundColor: `${card.color}15`, border: `1px solid ${card.color}30` }}
-                  >
-                    <card.icon className="w-5 h-5" style={{ color: card.color }} />
-                  </div>
-                  <div>
-                    <h3 className="font-brand font-bold text-lg text-white" data-testid={`text-card-title-${card.title.toLowerCase().replace(/[^a-z]/g, '')}`}>{card.title}</h3>
-                    <p className="text-xs font-mono" style={{ color: card.color }}>{card.subtitle}</p>
-                  </div>
-                </div>
-                <p className="text-sm text-white/40 leading-relaxed mb-5">{card.description}</p>
-                {card.isInternal ? (
-                  <Link href={card.link}>
-                    <span className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors cursor-pointer" style={{ color: card.color }} data-testid={`link-card-${card.title.toLowerCase().replace(/[^a-z]/g, '')}`}>
-                      {card.linkLabel}
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </span>
-                  </Link>
-                ) : (
-                  <a href={card.link} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-sm font-medium transition-colors" style={{ color: card.color }} data-testid={`link-card-${card.title.toLowerCase().replace(/[^a-z]/g, '')}`}>
-                    {card.linkLabel}
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="py-16 px-4">
-        <div className="max-w-5xl mx-auto">
           <div className="text-center mb-6">
             <span className="text-xs font-mono text-white/30 tracking-wider uppercase">&gt;_ Instant Setup</span>
           </div>
