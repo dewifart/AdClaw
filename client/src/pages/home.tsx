@@ -77,7 +77,9 @@ function CopyButton({ text, size = "sm", testId = "button-copy" }: { text: strin
 
 export default function Home() {
   const { connected } = useWallet();
+  const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState<InstallTab>("npm");
+  const TOKEN_ADDRESS = "YOUR_TOKEN_ADDRESS_HERE";
 
   return (
     <div className="min-h-screen">
@@ -117,11 +119,26 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="mt-8 flex items-center justify-center gap-6">
-            <div className="flex items-center gap-2 text-white/25">
-              <div className="w-1.5 h-1.5 rounded-full bg-[#FF2D55] animate-pulse" />
-              <span className="text-[10px] font-mono uppercase tracking-widest">Identity Protocol on Solana</span>
-            </div>
+          <div className="mt-8 flex flex-col items-center gap-2">
+            <span className="text-[10px] font-mono text-white/25 uppercase tracking-widest">Contract Address</span>
+            <button
+              onClick={() => {
+                navigator.clipboard.writeText(TOKEN_ADDRESS);
+                setCopied(true);
+                setTimeout(() => setCopied(false), 2000);
+              }}
+              className="flex items-center gap-3 bg-[#0a0a0a]/80 border border-[#1a1a1a] hover:border-[#FF2D55]/30 rounded-lg px-4 py-2.5 transition-all duration-200 group"
+              data-testid="button-copy-contract"
+            >
+              <span className="text-xs font-mono text-white/50 group-hover:text-white/70 transition-colors select-all" data-testid="text-contract-address">
+                {TOKEN_ADDRESS}
+              </span>
+              {copied ? (
+                <Check className="w-3.5 h-3.5 text-[#00FFFF] flex-shrink-0" />
+              ) : (
+                <Copy className="w-3.5 h-3.5 text-white/30 group-hover:text-[#00FFFF] flex-shrink-0 transition-colors" />
+              )}
+            </button>
           </div>
         </div>
       </section>
