@@ -401,34 +401,6 @@ export default function Ecosystem() {
         </div>
       </section>
 
-      <section className="py-16 px-4">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="glass-panel rounded-xl border border-[#FF2D55]/20 p-10">
-            <h3 className="text-2xl font-brand font-black text-white mb-3" data-testid="text-cta-heading">Start Building</h3>
-            <p className="text-sm text-white/40 mb-8 max-w-md mx-auto">
-              Give your agent permanent identity in under 60 seconds. One API call is all it takes.
-            </p>
-            <div className="flex items-center justify-center gap-4 flex-wrap">
-              <Link href="/forge">
-                <span className="px-6 py-3 bg-[#FF2D55] hover:bg-[#FF2D55]/90 text-white font-bold rounded-lg transition-all duration-200 text-sm cursor-pointer inline-flex items-center gap-2" data-testid="button-cta-forge">
-                  Forge a Soul
-                  <ArrowRight className="w-4 h-4" />
-                </span>
-              </Link>
-              <a
-                href="https://clawapis.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-3 border border-[#00FFFF]/30 hover:border-[#00FFFF]/60 text-[#00FFFF] font-bold rounded-lg transition-all duration-200 text-sm inline-flex items-center gap-2"
-                data-testid="button-cta-clawapis"
-              >
-                Explore ClawAPIs
-                <ExternalLink className="w-4 h-4" />
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
     </div>
   );
 }

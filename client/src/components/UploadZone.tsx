@@ -65,10 +65,10 @@ export function UploadZone({ label, accept, file, onFile, testId }: UploadZonePr
 
   return (
     <label
-      className={`glass-panel rounded-xl p-6 flex flex-col items-center justify-center gap-3 cursor-pointer transition-all duration-200 ${
+      className={`glass-panel rounded-xl p-6 flex flex-col items-center justify-center gap-3 cursor-pointer transition-all duration-300 border ${
         isDragOver
-          ? "border-[#FF2D55]/40 bg-[#FF2D55]/5"
-          : "hover:border-[#1a1a1a] hover:bg-[#0d0d0d]"
+          ? "border-[#FF2D55]/40 bg-[#FF2D55]/5 shadow-[0_0_25px_rgba(255,45,85,0.15)]"
+          : "border-[#1a1a1a] hover:border-[#FF2D55]/20 hover:bg-[#0a0a0a] hover:shadow-[0_0_20px_rgba(255,45,85,0.08)]"
       }`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}

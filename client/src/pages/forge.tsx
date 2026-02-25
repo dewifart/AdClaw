@@ -284,15 +284,15 @@ export default function Forge() {
 
   const statusColors: Record<string, string> = {
     forging: "#FF2D55",
-    storing: "#FFA500",
+    storing: "#00FFFF",
     minting: "#00FFFF",
-    complete: "#00FF88",
+    complete: "#4ade80",
   };
 
   const statusLabels: Record<string, string> = {
     forging: "FORGING",
-    storing: "ARWEAVE",
-    minting: "MINTING",
+    storing: "STORING",
+    minting: "INDEXING",
     complete: "FORGED",
   };
 
@@ -304,7 +304,7 @@ export default function Forge() {
             Immortalize Your Agent
           </h1>
           <p className="text-sm text-white/50">
-            Upload your OpenClaw SOUL.md and MEMORY.md files to forge an immortal soul NFT.
+            Upload your SOUL.md and MEMORY.md files to forge a permanent agent identity.
           </p>
         </div>
 
@@ -339,27 +339,32 @@ export default function Forge() {
 
             <button
               onClick={() => setAutonomousMode(!autonomousMode)}
-              className={`relative w-16 h-8 rounded-full transition-all duration-300 flex items-center ${
+              className={`relative w-16 h-8 rounded transition-all duration-300 flex items-center ${
                 autonomousMode
-                  ? "bg-[#FF2D55] shadow-[0_0_20px_rgba(255,45,85,0.4)]"
-                  : "bg-[#1a1a1a] border border-[#333]"
+                  ? "bg-[#FF2D55]/20 border border-[#FF2D55]/50 shadow-[0_0_20px_rgba(255,45,85,0.3)]"
+                  : "bg-[#111] border border-[#333]"
               }`}
               data-testid="button-toggle-autonomous"
             >
-              <div className={`absolute w-6 h-6 rounded-full bg-white transition-all duration-300 flex items-center justify-center ${
-                autonomousMode ? "left-9" : "left-1"
+              <div className={`absolute w-6 h-6 rounded flex items-center justify-center transition-all duration-300 ${
+                autonomousMode
+                  ? "left-9 bg-[#FF2D55] shadow-[0_0_10px_rgba(255,45,85,0.5)]"
+                  : "left-1 bg-[#333]"
               }`}>
-                <Power className={`w-3 h-3 ${autonomousMode ? "text-[#FF2D55]" : "text-[#666]"}`} />
+                <Power className={`w-3 h-3 ${autonomousMode ? "text-white" : "text-white/40"}`} />
               </div>
             </button>
           </div>
 
           {autonomousMode && nextForgeIn > 0 && (
             <div className="mt-4 flex items-center gap-3 text-xs font-mono">
-              <div className="flex-1 h-1 bg-[#1a1a1a] rounded-full overflow-hidden">
+              <div className="flex-1 h-1.5 bg-[#1a1a1a] rounded overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-[#FF2D55] to-[#FF2D55]/50 rounded-full transition-all duration-1000"
-                  style={{ width: `${Math.max(0, (1 - nextForgeIn / 75) * 100)}%` }}
+                  className="h-full bg-gradient-to-r from-[#FF2D55] to-[#FF2D55]/70 rounded transition-all duration-1000"
+                  style={{
+                    width: `${Math.max(0, (1 - nextForgeIn / 75) * 100)}%`,
+                    boxShadow: '0 0 8px rgba(255,45,85,0.4)',
+                  }}
                 />
               </div>
               <span className="text-white/40" data-testid="text-next-forge-timer">

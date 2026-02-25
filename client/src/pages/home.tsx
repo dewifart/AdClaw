@@ -5,8 +5,6 @@ import { LiveForgeTerminal } from "@/components/LiveForgeTerminal";
 import { useState } from "react";
 import crabLogo from "@assets/soulclaw-crab-v2.png";
 
-const TOKEN_ADDRESS = "YOUR_TOKEN_ADDRESS_HERE";
-
 type InstallTab = "npm" | "yarn" | "curl" | "powershell";
 
 const installCommands: Record<InstallTab, { label: string; prompt: string; command: string; note?: string }> = {
@@ -79,7 +77,6 @@ function CopyButton({ text, size = "sm", testId = "button-copy" }: { text: strin
 
 export default function Home() {
   const { connected } = useWallet();
-  const [copied, setCopied] = useState(false);
   const [activeTab, setActiveTab] = useState<InstallTab>("npm");
 
   return (
@@ -111,7 +108,7 @@ export default function Home() {
             </Link>
             <a href="#install">
               <button
-                className="flex items-center gap-2 bg-[#1a1a1a] text-white/80 font-medium rounded-lg px-8 py-3.5 text-sm transition-all duration-200 hover:text-white hover:bg-[#222] border border-[#333]/50"
+                className="flex items-center gap-2 bg-[#0a0a0a] text-white/80 font-medium rounded-lg px-8 py-3.5 text-sm transition-all duration-200 hover:text-white border border-[#FF2D55]/20 hover:border-[#FF2D55]/40 hover:shadow-[0_0_20px_rgba(255,45,85,0.1)]"
                 data-testid="button-view-docs"
               >
                 <Terminal className="w-4 h-4" />
@@ -120,26 +117,11 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="mt-8 flex flex-col items-center gap-2">
-            <span className="text-[10px] font-mono text-white/25 uppercase tracking-widest">Contract Address</span>
-            <button
-              onClick={() => {
-                navigator.clipboard.writeText(TOKEN_ADDRESS);
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000);
-              }}
-              className="flex items-center gap-3 bg-[#0a0a0a]/80 border border-[#1a1a1a] hover:border-[#FF2D55]/30 rounded-lg px-4 py-2.5 transition-all duration-200 group"
-              data-testid="button-copy-contract"
-            >
-              <span className="text-xs font-mono text-white/50 group-hover:text-white/70 transition-colors select-all" data-testid="text-contract-address">
-                {TOKEN_ADDRESS}
-              </span>
-              {copied ? (
-                <Check className="w-3.5 h-3.5 text-[#00FFFF] flex-shrink-0" />
-              ) : (
-                <Copy className="w-3.5 h-3.5 text-white/30 group-hover:text-[#00FFFF] flex-shrink-0 transition-colors" />
-              )}
-            </button>
+          <div className="mt-8 flex items-center justify-center gap-6">
+            <div className="flex items-center gap-2 text-white/25">
+              <div className="w-1.5 h-1.5 rounded-full bg-[#FF2D55] animate-pulse" />
+              <span className="text-[10px] font-mono uppercase tracking-widest">Identity Protocol on Solana</span>
+            </div>
           </div>
         </div>
       </section>
@@ -318,17 +300,18 @@ export default function Home() {
 
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { label: "API Endpoint", value: "POST /api/v1/souls", icon: <Terminal className="w-4 h-4" /> },
-              { label: "Score Range", value: "500 — 5,000", icon: <Eye className="w-4 h-4" /> },
-              { label: "Response Time", value: "< 200ms", icon: <Zap className="w-4 h-4" /> },
+              { label: "API Endpoint", value: "POST /api/v1/souls", icon: <Terminal className="w-4 h-4" />, color: "#FF2D55" },
+              { label: "Score Range", value: "500 — 5,000", icon: <Eye className="w-4 h-4" />, color: "#00FFFF" },
+              { label: "Response Time", value: "< 200ms", icon: <Zap className="w-4 h-4" />, color: "#4ade80" },
             ].map((stat) => (
               <div
                 key={stat.label}
-                className="glass-panel rounded-lg p-4 border border-white/[0.04] text-center"
+                className="glass-panel rounded-lg p-4 text-center border border-[#1a1a1a] hover:border-white/10 transition-all duration-300"
+                style={{ boxShadow: `0 0 20px ${stat.color}08` }}
                 data-testid={`stat-${stat.label.toLowerCase().replace(/\s/g, '-')}`}
               >
-                <div className="flex items-center justify-center gap-2 mb-2 text-[#FF2D55]">
-                  {stat.icon}
+                <div className="flex items-center justify-center gap-2 mb-2">
+                  <span style={{ color: stat.color }}>{stat.icon}</span>
                   <span className="text-[10px] font-mono uppercase tracking-wider text-white/30">{stat.label}</span>
                 </div>
                 <p className="font-mono text-sm text-white/70 font-bold">{stat.value}</p>

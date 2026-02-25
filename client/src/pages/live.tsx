@@ -301,13 +301,6 @@ export default function Live() {
               </span>
               <span data-testid="text-entry-count">{filteredEntries.length} entries</span>
               <span>last sync: {lastSync.toLocaleTimeString("en-US", { hour12: true, hour: "2-digit", minute: "2-digit", second: "2-digit" })}</span>
-              <button
-                onClick={() => window.close()}
-                className="text-white/30 hover:text-white/60 transition-colors ml-2"
-                data-testid="button-close-live"
-              >
-                ×
-              </button>
             </div>
           </div>
 
@@ -319,17 +312,18 @@ export default function Live() {
                 <button
                   key={tab.key}
                   onClick={() => setActiveTab(tab.key)}
-                  className={`px-3 py-1 rounded text-[11px] font-mono font-medium whitespace-nowrap transition-all duration-200 border ${
+                  className={`px-3 py-1.5 rounded text-[11px] font-mono font-medium whitespace-nowrap transition-all duration-200 border ${
                     isActive
                       ? !isHighlighted
-                        ? "bg-white/10 text-white border-white/20"
+                        ? "bg-white/10 text-white border-white/20 shadow-[0_0_10px_rgba(255,255,255,0.05)]"
                         : "border-transparent"
-                      : "text-white/40 hover:text-white/60 border-transparent"
+                      : "text-white/40 hover:text-white/60 border-transparent hover:bg-white/[0.03]"
                   }`}
                   style={isActive && isHighlighted ? {
                     backgroundColor: `${CATEGORY_COLORS[tab.key as LogCategory]}15`,
                     color: CATEGORY_COLORS[tab.key as LogCategory],
-                    borderColor: `${CATEGORY_COLORS[tab.key as LogCategory]}30`,
+                    borderColor: `${CATEGORY_COLORS[tab.key as LogCategory]}40`,
+                    boxShadow: `0 0 12px ${CATEGORY_COLORS[tab.key as LogCategory]}15`,
                   } : undefined}
                   data-testid={`button-tab-${tab.key}`}
                 >
