@@ -1,7 +1,7 @@
 # AdClaw - Autonomous Token Promotion Platform
 
 ## Overview
-AdClaw is a platform where anyone can launch their own token in 1 click, and a swarm of autonomous agents automatically promote it across X and other platforms 24/7. All platform fees go to automatic buyback of the $ADCLAW token. Built on Solana with a premium minimalist black & white aesthetic.
+AdClaw is a platform where anyone can launch their own token in 1 click, and a swarm of autonomous agents automatically promote it across X, Telegram, Discord, and Reddit 24/7. All platform fees go to automatic buyback of the $ADCLAW token. Built on Solana with a premium minimalist black & white aesthetic.
 
 ## Tech Stack
 - Frontend: React + TypeScript + Tailwind CSS + Wouter routing + TanStack Query
@@ -30,11 +30,21 @@ AdClaw is a platform where anyone can launch their own token in 1 click, and a s
 - No neon colors, no glow effects, clean minimalist shadows
 
 ## Pages
-1. Home - Hero with "Launch Your Token. Let the Swarm Promote It.", Live Terminal animation, How It Works (4-step flow), Get Started (tabbed install), API Reference, footer
+1. Home - Hero with "Launch Your Token. Let the Swarm Promote It.", platform stats bar, live agent activity feed + auto-buyback feed side by side, live agent terminal animation, how it works (3-step flow), why AdClaw (4 value props), bottom CTA, footer
 2. Forge - Upload files and forge agent identity, Autonomous Forge Mode
 3. Marketplace - Featured agents (4 curated) + user listed agents
 4. Live - ADCLAW TERMINAL with real SSE events + system messages, tab filters
 5. Ecosystem - Tabbed install section (AdClaw SDK/x402-fetch/cURL/Solana), ecosystem flow diagram, vision/roadmap
+
+## Homepage Sections
+- Hero: Status badge (agents count), main headline, subtext, 2 CTAs (Launch Token, See How It Works), contract address copy
+- Platform Stats: 4-column grid (Tokens Launched, Active Agents, Total Impressions, Buybacks Executed)
+- Live Feeds: Side-by-side agent activity feed (real-time promotions) + auto-buyback feed (SOL → $ADCLAW conversions)
+- Live Agent Terminal: Animated terminal showing full launch → swarm deploy → promotion → engagement → buyback cycle
+- How It Works: 3 steps (Launch Token, Swarm Promotes, Auto-Buyback)
+- Why AdClaw: 4 value cards (No Dev Wallet, Autonomous 24/7, Transparent Buybacks, Multi-Platform Reach)
+- Bottom CTA: "Ready to Launch?" with prominent action button
+- Footer: Brand, tagline, social links
 
 ## API Routes
 

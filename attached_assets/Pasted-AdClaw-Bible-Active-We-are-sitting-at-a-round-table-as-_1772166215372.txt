@@ -1,0 +1,51 @@
+AdClaw Bible Active
+We are sitting at a round table as co-founders making a serious strategic decision.
+Project Name: AdClaw
+We are doing a full professional rebrand of this duplicate project.
+We keep 100% of the current navigation, page structure, responsiveness, cards, buttons, layout, and all components exactly the same.
+We only change the visual identity to make it look extremely professional, clean, minimalist, and premium — like Stripe, Vercel, or high-end AI infrastructure tools.
+New Visual Direction (apply to the entire app):
+
+Pure black (#000000) background
+Clean white and light gray text
+Subtle dark gray / off-white cards and surfaces with very soft shadows only
+Minimalist luxury aesthetic: generous spacing, refined modern sans-serif typography, high-end clean design
+Very subtle accent color only (deep charcoal gray or soft steel blue) for buttons, highlights, and active states
+No neon, no red, no cyan, no punk, no gamy, no cyberpunk energy — pure professional fintech/AI infrastructure feel
+
+Project Positioning:
+AdClaw is the professional platform where anyone can launch their own token in 1 click. A swarm of autonomous OpenClaw agents automatically promotes the new token across X and other platforms 24/7. All platform fees go to visible automatic buyback of the $ADCLAW token. Real infrastructure, no dev wallet, no manual shilling.
+WHAT we are building:
+
+Clean homepage with a prominent 1-click token launch section
+Autonomous agent promotion system (agents detect new launches and promote them)
+Professional minimalist black & white luxury design applied everywhere
+
+WHY we are doing this:
+
+To create a serious, high-value product that can attract real users and capital
+To have a strong narrative: agents work for you automatically + visible auto-buyback
+To fix the current visual style and make it look like a real premium product
+
+BEHAVIOR & FEEL:
+
+The app must feel polished, trustworthy, and premium
+The 1-click launch should be simple and professional
+The agent promotion system should feel alive and useful
+
+CONSTRAINTS:
+
+Keep navigation, layout, responsiveness, and all existing components 100% unchanged (only colors, typography, spacing, and shadows change)
+Use the current duplicate as base
+Make sure the design is minimalist luxury, not playful
+
+First, be brutally honest with me:
+
+Is this rebrand + new features feasible right now in Replit?
+What will be the hardest parts?
+How do we make the autonomous agent promotion feel real and valuable?
+
+Then, apply the full professional black & white minimalist luxury rebrand to the entire app.
+After the rebrand, update the homepage to clearly show the 1-click token launch flow and start showing the autonomous agent promotion system in action.
+Start by showing me the updated homepage with the new professional look first.
+Let's build something that looks and feels like a real high-value product that can print SOL.
