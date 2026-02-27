@@ -1,38 +1,38 @@
 import { useState, useEffect, useRef } from "react";
 
 const launchSteps = [
-  { text: "$ adclaw launch --token $MYTOKEN --network mainnet", color: "#8A9AAD", delay: 80 },
-  { text: "[OK] Connected to AdClaw Protocol v2.4.1", color: "#9BA8B5", delay: 60 },
-  { text: "[DEPLOY] Token mint: 7xK2p...mN4q created on Solana", color: "#9BA8B5", delay: 50 },
+  { text: "$ adclaw launch --token $MYTOKEN --network mainnet", color: "#b0bec5", delay: 80 },
+  { text: "[OK] Connected to AdClaw Protocol v2.4.1", color: "#a8b8c4", delay: 60 },
+  { text: "[DEPLOY] Token mint: 7xK2p...mN4q created on Solana", color: "#a8b8c4", delay: 50 },
   { text: "", color: "", delay: 300 },
-  { text: "$ deploying agent swarm...", color: "#6B7B8D", delay: 70 },
-  { text: "[SWARM] Agent #1 @claw_alpha     → assigned to X/Twitter    ✓", color: "#9BA8B5", delay: 40 },
-  { text: "[SWARM] Agent #2 @claw_bravo     → assigned to X/Twitter    ✓", color: "#9BA8B5", delay: 40 },
-  { text: "[SWARM] Agent #3 @claw_charlie   → assigned to Telegram     ✓", color: "#9BA8B5", delay: 40 },
-  { text: "[SWARM] Agent #4 @claw_delta     → assigned to Discord      ✓", color: "#9BA8B5", delay: 40 },
-  { text: "[SWARM] Agent #5 @claw_echo      → assigned to Reddit       ✓", color: "#9BA8B5", delay: 40 },
-  { text: "[SWARM] Agent #6 @claw_foxtrot   → assigned to X/Twitter    ✓", color: "#9BA8B5", delay: 40 },
-  { text: "[SWARM] 6 agents deployed — all systems active              ✓", color: "#A0A8B4", delay: 60 },
+  { text: "$ deploying agent swarm...", color: "#8a9aad", delay: 70 },
+  { text: "[SWARM] Agent #1 @claw_alpha     → assigned to X/Twitter    ✓", color: "#a8b8c4", delay: 40 },
+  { text: "[SWARM] Agent #2 @claw_bravo     → assigned to X/Twitter    ✓", color: "#a8b8c4", delay: 40 },
+  { text: "[SWARM] Agent #3 @claw_charlie   → assigned to Telegram     ✓", color: "#a8b8c4", delay: 40 },
+  { text: "[SWARM] Agent #4 @claw_delta     → assigned to Discord      ✓", color: "#a8b8c4", delay: 40 },
+  { text: "[SWARM] Agent #5 @claw_echo      → assigned to Reddit       ✓", color: "#a8b8c4", delay: 40 },
+  { text: "[SWARM] Agent #6 @claw_foxtrot   → assigned to X/Twitter    ✓", color: "#a8b8c4", delay: 40 },
+  { text: "[SWARM] 6 agents deployed — all systems active              ✓", color: "#c4a962", delay: 60 },
   { text: "", color: "", delay: 300 },
-  { text: "$ agents starting autonomous promotion cycle...", color: "#6B7B8D", delay: 70 },
-  { text: "[POST] @claw_alpha   tweeted: \"$MYTOKEN just launched...\"     ✓", color: "#8A9AAD", delay: 50 },
-  { text: "[POST] @claw_bravo   replied to @solana_whale thread         ✓", color: "#8A9AAD", delay: 50 },
-  { text: "[POST] @claw_charlie posted in /solana_gems channel          ✓", color: "#8A9AAD", delay: 50 },
-  { text: "[POST] @claw_foxtrot quote-tweeted @dex_screener listing     ✓", color: "#8A9AAD", delay: 50 },
+  { text: "$ agents starting autonomous promotion cycle...", color: "#8a9aad", delay: 70 },
+  { text: "[POST] @claw_alpha   tweeted: \"$MYTOKEN just launched...\"     ✓", color: "#a8b8c4", delay: 50 },
+  { text: "[POST] @claw_bravo   replied to @solana_whale thread         ✓", color: "#a8b8c4", delay: 50 },
+  { text: "[POST] @claw_charlie posted in /solana_gems channel          ✓", color: "#a8b8c4", delay: 50 },
+  { text: "[POST] @claw_foxtrot quote-tweeted @dex_screener listing     ✓", color: "#a8b8c4", delay: 50 },
   { text: "", color: "", delay: 300 },
-  { text: "$ tracking engagement metrics...", color: "#6B7B8D", delay: 70 },
-  { text: "[METRICS] Impressions ████████████████░░░░ 12,847", color: "#8A9AAD", delay: 50 },
-  { text: "[METRICS] Clicks      ██████████░░░░░░░░░░   1,204", color: "#8A9AAD", delay: 50 },
-  { text: "[METRICS] Engagement  ████████████████████   9.4%", color: "#8A9AAD", delay: 50 },
+  { text: "$ tracking engagement metrics...", color: "#8a9aad", delay: 70 },
+  { text: "[METRICS] Impressions ████████████████░░░░ 12,847", color: "#b0bec5", delay: 50 },
+  { text: "[METRICS] Clicks      ██████████░░░░░░░░░░   1,204", color: "#b0bec5", delay: 50 },
+  { text: "[METRICS] Engagement  ████████████████████   9.4%", color: "#b0bec5", delay: 50 },
   { text: "", color: "", delay: 300 },
-  { text: "$ processing platform fees...", color: "#6B7B8D", delay: 70 },
-  { text: "[BUYBACK] Fee collected: 0.25 SOL", color: "#A0A8B4", delay: 50 },
-  { text: "[BUYBACK] Executing $ADCLAW market buy → 0.25 SOL            ✓", color: "#9BA8B5", delay: 50 },
-  { text: "[BUYBACK] Tokens acquired: 1,247 $ADCLAW → burned           ✓", color: "#9BA8B5", delay: 50 },
+  { text: "$ processing platform fees...", color: "#8a9aad", delay: 70 },
+  { text: "[BUYBACK] Fee collected: 0.25 SOL", color: "#c4a962", delay: 50 },
+  { text: "[BUYBACK] Executing $ADCLAW market buy → 0.25 SOL            ✓", color: "#c4a962", delay: 50 },
+  { text: "[BUYBACK] Tokens acquired: 1,247 $ADCLAW → burned           ✓", color: "#c4a962", delay: 50 },
   { text: "", color: "", delay: 400 },
-  { text: "═══════════════════════════════════════════════════════", color: "#6B7B8D", delay: 20 },
-  { text: "  >>> TOKEN LAUNCHED — SWARM ACTIVE — BUYBACK COMPLETE <<<", color: "#8A9AAD", delay: 100 },
-  { text: "═══════════════════════════════════════════════════════", color: "#6B7B8D", delay: 20 },
+  { text: "═══════════════════════════════════════════════════════", color: "#8a9aad", delay: 20 },
+  { text: "  >>> TOKEN LAUNCHED — SWARM ACTIVE — BUYBACK COMPLETE <<<", color: "#c4a962", delay: 100 },
+  { text: "═══════════════════════════════════════════════════════", color: "#8a9aad", delay: 20 },
   { text: "", color: "", delay: 500 },
   { text: "[SYSTEM] Next promotion cycle in 3s...", color: "#ffffff50", delay: 80 },
 ];
@@ -101,22 +101,22 @@ export function LiveForgeTerminal() {
         <h2 className="font-brand font-bold text-2xl uppercase gold-gradient text-center mb-3">
           Live Agent Terminal
         </h2>
-        <p className="text-xs text-white/40 text-center mb-8 font-mono">
+        <p className="text-xs text-white/55 text-center mb-8 font-mono">
           Watch tokens launch and agents promote in real-time
         </p>
 
-        <div className="relative rounded-xl overflow-hidden border border-white/10 shadow-[0_0_30px_rgba(107,123,141,0.1)]">
+        <div className="relative rounded-xl overflow-hidden border border-white/[0.1] shadow-[0_0_30px_rgba(107,123,141,0.1)]">
           <div className="absolute inset-0 pointer-events-none z-10 opacity-[0.03]" style={{
             backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px)',
           }} />
 
-          <div className="flex items-center gap-2 px-4 py-2.5 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+          <div className="flex items-center gap-2 px-4 py-2.5 bg-[#0c0c0c] border-b border-white/[0.08]">
             <div className="flex gap-1.5">
+              <div className="w-3 h-3 rounded-full bg-white/25" />
               <div className="w-3 h-3 rounded-full bg-white/20" />
               <div className="w-3 h-3 rounded-full bg-white/15" />
-              <div className="w-3 h-3 rounded-full bg-white/10" />
             </div>
-            <span className="text-[10px] font-mono text-white/30 ml-2">adclaw@swarm ~ /launch</span>
+            <span className="text-[10px] font-mono text-white/45 ml-2">adclaw@swarm ~ /launch</span>
             <div className="ml-auto flex items-center gap-1.5">
               <div className="w-1.5 h-1.5 rounded-full bg-[#8A9AAD] animate-pulse" />
               <span className="text-[10px] font-mono text-[#8A9AAD]">LIVE</span>

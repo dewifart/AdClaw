@@ -1,0 +1,46 @@
+AdClaw Bible Active
+We are sitting at a round table as co-founders reviewing the current state and planning the next steps.
+Recap of the last session (what Replit did):
+
+Full rebrand to black & white minimalist luxury aesthetic
+Homepage transformed into a product page with "WHY ADCLAW" section, value props (No Dev Wallet, Autonomous 24/7, etc.)
+Live terminal updated to show AdClaw flow
+Subtle gold accents added
+
+Current issues we need to fix:
+
+The design is now too dark / low contrast → some text is hard to read
+The navigation menu still has old SoulClaw items (Forge, Marketplace, Live, Ecosystem) → it no longer matches the new AdClaw product
+
+Master Task List (update this together every session):
+Phase 1 – Visual Polish & Branding
+
+ Fix legibility with better contrast and subtle professional accent colors (deep charcoal, soft steel blue, muted warm gold — nothing gamey or neon)
+ Update the entire top navigation menu to fit AdClaw (suggested: Home, Launch, Agents, Live, Ecosystem)
+ Make sure the overall look stays minimalist luxury but is clearly readable
+
+Phase 2 – Homepage as Real Product Page
+
+ Make the 1-click token launch section even more prominent and clear
+ Improve the live agent promotion feed and auto-buyback feed to feel valuable and alive
+ Refine copy and visual hierarchy for maximum professionalism
+
+Phase 3 – Core Features (later)
+
+ Real 1-click token launch flow
+ Autonomous agent swarm that actually promotes new tokens
+ Visible on-chain auto-buyback system
+
+Instructions for you (Replit):
+
+First, tell me clearly what was done in the last session and what still needs work (especially legibility and menu).
+Then, go through the Master Task List above and give me the current status of each item.
+Now focus on this session:
+Add subtle professional accent colors (deep steel blue + muted warm gold) so the design is elegant, readable, and premium — no gamey/neon colors.
+Completely update the top navigation menu to match AdClaw (Home, Launch, Agents, Live, Ecosystem — or suggest better names).
+Improve contrast and legibility across the whole app while keeping the minimalist luxury black & white base.
+
+After that, show me the updated homepage with the new navigation and improved colors/legibility.
+
+Be honest: What do you think of the current direction? What would make the app feel even more premium and trustworthy? How can we make the 1-click launch and agent promotion sections really stand out?
+Let's continue building a clean, professional product that can actually attract real users and capital.

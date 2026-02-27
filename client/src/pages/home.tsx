@@ -18,20 +18,20 @@ function AgentActivityItem({ agent, action, platform, time, impressions }: {
   impressions: string;
 }) {
   return (
-    <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.04] last:border-0 hover:bg-white/[0.02] transition-colors" data-testid={`activity-${agent}`}>
-      <div className="w-8 h-8 rounded-full bg-white/[0.06] border border-white/[0.08] flex items-center justify-center flex-shrink-0">
-        <Bot className="w-3.5 h-3.5 text-white/50" />
+    <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.06] last:border-0 hover:bg-white/[0.03] transition-colors" data-testid={`activity-${agent}`}>
+      <div className="w-8 h-8 rounded-full bg-white/[0.06] border border-white/[0.1] flex items-center justify-center flex-shrink-0">
+        <Bot className="w-3.5 h-3.5 text-[#8A9AAD]" />
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
-          <span className="text-xs font-mono text-white/70 font-medium">{agent}</span>
-          <span className="text-[10px] font-mono text-white/25 px-1.5 py-0.5 rounded bg-white/[0.04]">{platform}</span>
+          <span className="text-xs font-mono text-white/80 font-medium">{agent}</span>
+          <span className="text-[10px] font-mono text-white/40 px-1.5 py-0.5 rounded bg-white/[0.06]">{platform}</span>
         </div>
-        <p className="text-[11px] text-white/40 truncate mt-0.5">{action}</p>
+        <p className="text-[11px] text-white/55 truncate mt-0.5">{action}</p>
       </div>
       <div className="text-right flex-shrink-0">
-        <div className="text-[11px] font-mono text-white/50">{impressions}</div>
-        <div className="text-[10px] text-white/20">{time}</div>
+        <div className="text-[11px] font-mono text-white/70">{impressions}</div>
+        <div className="text-[10px] text-white/35">{time}</div>
       </div>
     </div>
   );
@@ -64,18 +64,18 @@ export default function Home() {
     <div className="min-h-screen">
       <section className="relative pt-32 pb-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/[0.08] bg-white/[0.03] mb-8" data-testid="badge-status">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/[0.1] bg-white/[0.04] mb-8" data-testid="badge-status">
             <div className="w-1.5 h-1.5 rounded-full bg-[#8A9AAD] animate-pulse" />
-            <span className="text-[11px] font-mono text-white/50">17,082 agents promoting across 4 platforms</span>
+            <span className="text-[11px] font-mono text-white/60">17,082 agents promoting across 4 platforms</span>
           </div>
 
           <h1 className="font-brand font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl uppercase leading-tight mb-6">
             <span className="brand-3d">AdClaw</span>
             <br />
-            <span className="text-white text-2xl sm:text-3xl md:text-4xl lg:text-4xl tracking-wide">Launch Your Token. <span className="gold-gradient">Let the Swarm Promote It.</span></span>
+            <span className="text-white/90 text-2xl sm:text-3xl md:text-4xl lg:text-4xl tracking-wide">Launch Your Token. <span className="gold-gradient">Let the Swarm Promote It.</span></span>
           </h1>
 
-          <p className="text-sm sm:text-base text-white/50 max-w-2xl mx-auto mb-10 leading-relaxed">
+          <p className="text-sm sm:text-base text-white/65 max-w-2xl mx-auto mb-10 leading-relaxed">
             1-click token launch on Solana. A swarm of autonomous AI agents promotes your token 24/7 across X, Telegram, Discord, and Reddit. All platform fees go to automatic $ADCLAW buyback.
           </p>
 
@@ -92,7 +92,7 @@ export default function Home() {
             </Link>
             <a href="#how-it-works">
               <button
-                className="flex items-center gap-2 bg-[#0a0a0a] text-white/80 font-medium rounded-lg px-8 py-3.5 text-sm transition-all duration-200 hover:text-white border border-white/10 hover:border-white/20"
+                className="flex items-center gap-2 bg-white/[0.06] text-white/90 font-medium rounded-lg px-8 py-3.5 text-sm transition-all duration-200 hover:bg-white/[0.1] border border-white/[0.12] hover:border-white/[0.2]"
                 data-testid="button-how-it-works"
               >
                 <Eye className="w-4 h-4" />
@@ -102,23 +102,23 @@ export default function Home() {
           </div>
 
           <div className="mt-8 flex flex-col items-center gap-2">
-            <span className="text-[10px] font-mono text-white/25 uppercase tracking-widest">$ADCLAW Contract</span>
+            <span className="text-[10px] font-mono text-white/40 uppercase tracking-widest">$ADCLAW Contract</span>
             <button
               onClick={() => {
                 navigator.clipboard.writeText(TOKEN_ADDRESS);
                 setCopied(true);
                 setTimeout(() => setCopied(false), 2000);
               }}
-              className="flex items-center gap-3 bg-[#0a0a0a]/80 border border-[#1a1a1a] hover:border-white/15 rounded-lg px-4 py-2.5 transition-all duration-200 group"
+              className="flex items-center gap-3 bg-white/[0.04] border border-white/[0.1] hover:border-white/[0.2] rounded-lg px-4 py-2.5 transition-all duration-200 group"
               data-testid="button-copy-contract"
             >
-              <span className="text-xs font-mono text-white/50 group-hover:text-white/70 transition-colors select-all" data-testid="text-contract-address">
+              <span className="text-xs font-mono text-white/60 group-hover:text-white/80 transition-colors select-all" data-testid="text-contract-address">
                 {TOKEN_ADDRESS}
               </span>
               {copied ? (
-                <Check className="w-3.5 h-3.5 text-white/70 flex-shrink-0" />
+                <Check className="w-3.5 h-3.5 text-[#C4A962] flex-shrink-0" />
               ) : (
-                <Copy className="w-3.5 h-3.5 text-white/30 group-hover:text-white/70 flex-shrink-0 transition-colors" />
+                <Copy className="w-3.5 h-3.5 text-white/40 group-hover:text-white/70 flex-shrink-0 transition-colors" />
               )}
             </button>
           </div>
@@ -132,15 +132,15 @@ export default function Home() {
               <div
                 key={stat.label}
                 className={`glass-panel rounded-xl p-5 text-center border transition-all duration-300 ${
-                  stat.accent ? "border-[#C4A962]/10 hover:border-[#C4A962]/20" : "border-white/[0.06] hover:border-white/10"
+                  stat.accent ? "border-[#C4A962]/15 hover:border-[#C4A962]/25" : "border-white/[0.08] hover:border-white/[0.15]"
                 }`}
                 data-testid={`stat-${stat.label.toLowerCase().replace(/\s/g, '-')}`}
               >
                 <div className="flex items-center justify-center gap-2 mb-3">
-                  <span className={stat.accent ? "text-[#C4A962]/60" : "text-white/40"}>{stat.icon}</span>
+                  <span className={stat.accent ? "text-[#C4A962]/70" : "text-white/50"}>{stat.icon}</span>
                 </div>
                 <p className={`font-mono text-xl font-bold mb-1 ${stat.accent ? "text-[#C4A962]" : "text-white"}`}>{stat.value}</p>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-white/30">{stat.label}</span>
+                <span className="text-[10px] font-mono uppercase tracking-wider text-white/45">{stat.label}</span>
               </div>
             ))}
           </div>
@@ -157,17 +157,17 @@ export default function Home() {
                   Live Agent Activity
                 </h2>
               </div>
-              <p className="text-xs text-white/40 mb-6 font-mono">
+              <p className="text-xs text-white/55 mb-6 font-mono">
                 Real-time feed of autonomous agents promoting tokens across platforms
               </p>
 
-              <div className="rounded-xl border border-white/[0.08] overflow-hidden bg-[#050505]" data-testid="feed-agent-activity">
-                <div className="flex items-center justify-between px-4 py-2.5 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+              <div className="rounded-xl border border-white/[0.1] overflow-hidden bg-[#060606]" data-testid="feed-agent-activity">
+                <div className="flex items-center justify-between px-4 py-2.5 bg-[#0c0c0c] border-b border-white/[0.08]">
                   <div className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#8A9AAD] animate-pulse" />
-                    <span className="text-[10px] font-mono text-white/30">LIVE FEED</span>
+                    <span className="text-[10px] font-mono text-white/45">LIVE FEED</span>
                   </div>
-                  <span className="text-[10px] font-mono text-white/20">{AGENT_ACTIVITIES.length} agents active</span>
+                  <span className="text-[10px] font-mono text-white/35">{AGENT_ACTIVITIES.length} agents active</span>
                 </div>
                 <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
                   {AGENT_ACTIVITIES.slice(0, visibleActivities).map((activity, i) => (
@@ -184,17 +184,17 @@ export default function Home() {
                   Auto-Buyback Feed
                 </h2>
               </div>
-              <p className="text-xs text-white/40 mb-6 font-mono">
+              <p className="text-xs text-white/55 mb-6 font-mono">
                 Every platform fee triggers an automatic $ADCLAW market buy
               </p>
 
-              <div className="rounded-xl border border-[#C4A962]/[0.08] overflow-hidden bg-[#050505]" data-testid="feed-buyback">
-                <div className="flex items-center justify-between px-4 py-2.5 bg-[#0a0a0a] border-b border-[#1a1a1a]">
+              <div className="rounded-xl border border-[#C4A962]/[0.12] overflow-hidden bg-[#060606]" data-testid="feed-buyback">
+                <div className="flex items-center justify-between px-4 py-2.5 bg-[#0c0c0c] border-b border-white/[0.08]">
                   <div className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#C4A962] animate-pulse" />
-                    <span className="text-[10px] font-mono text-[#C4A962]/40">BUYBACK LOG</span>
+                    <span className="text-[10px] font-mono text-[#C4A962]/60">BUYBACK LOG</span>
                   </div>
-                  <span className="text-[10px] font-mono text-white/20">last 24h</span>
+                  <span className="text-[10px] font-mono text-white/35">last 24h</span>
                 </div>
                 <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
                   {[
@@ -206,19 +206,19 @@ export default function Home() {
                     { amount: "0.50 SOL", tokens: "2,489 $ADCLAW", trigger: "$MEMEX launch fee", time: "45m ago" },
                     { amount: "0.40 SOL", tokens: "1,992 $ADCLAW", trigger: "$AIRDAO promo renewal", time: "1h ago" },
                   ].map((buyback, i) => (
-                    <div key={i} className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.04] last:border-0 hover:bg-white/[0.02] transition-colors" data-testid={`buyback-${i}`}>
-                      <div className="w-8 h-8 rounded-full bg-[#C4A962]/[0.06] border border-[#C4A962]/[0.1] flex items-center justify-center flex-shrink-0">
-                        <TrendingUp className="w-3.5 h-3.5 text-[#C4A962]/60" />
+                    <div key={i} className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.06] last:border-0 hover:bg-white/[0.03] transition-colors" data-testid={`buyback-${i}`}>
+                      <div className="w-8 h-8 rounded-full bg-[#C4A962]/[0.08] border border-[#C4A962]/[0.15] flex items-center justify-center flex-shrink-0">
+                        <TrendingUp className="w-3.5 h-3.5 text-[#C4A962]/70" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <span className="text-xs font-mono text-white/70 font-medium">{buyback.amount}</span>
-                          <ArrowRight className="w-3 h-3 text-white/20" />
+                          <span className="text-xs font-mono text-white/80 font-medium">{buyback.amount}</span>
+                          <ArrowRight className="w-3 h-3 text-white/30" />
                           <span className="text-xs font-mono text-[#C4A962] font-medium">{buyback.tokens}</span>
                         </div>
-                        <p className="text-[11px] text-white/30 mt-0.5">{buyback.trigger}</p>
+                        <p className="text-[11px] text-white/45 mt-0.5">{buyback.trigger}</p>
                       </div>
-                      <span className="text-[10px] text-white/20 flex-shrink-0">{buyback.time}</span>
+                      <span className="text-[10px] text-white/35 flex-shrink-0">{buyback.time}</span>
                     </div>
                   ))}
                 </div>
@@ -235,7 +235,7 @@ export default function Home() {
           <h2 className="font-brand font-bold text-2xl sm:text-3xl uppercase gold-gradient text-center mb-4">
             How It Works
           </h2>
-          <p className="text-sm text-white/40 text-center mb-14 font-mono max-w-xl mx-auto">
+          <p className="text-sm text-white/55 text-center mb-14 font-mono max-w-xl mx-auto">
             From launch to autonomous promotion — three steps, zero effort
           </p>
 
@@ -265,20 +265,20 @@ export default function Home() {
             ].map((item) => (
               <div
                 key={item.step}
-                className="group relative glass-panel rounded-xl p-7 border border-white/[0.04] hover:border-white/10 transition-all duration-300"
+                className="group relative glass-panel rounded-xl p-7 border border-white/[0.06] hover:border-white/[0.15] transition-all duration-300"
                 data-testid={`card-step-${item.step}`}
               >
                 <div className="flex items-center gap-3 mb-5">
-                  <div className="w-11 h-11 rounded-lg flex items-center justify-center bg-white/[0.05] border border-white/[0.08] text-white/70">
+                  <div className="w-11 h-11 rounded-lg flex items-center justify-center bg-white/[0.06] border border-white/[0.1] text-white/80">
                     {item.icon}
                   </div>
-                  <span className="font-mono text-[11px] font-bold tracking-wider text-white/50">{item.step}</span>
+                  <span className="font-mono text-[11px] font-bold tracking-wider text-white/60">{item.step}</span>
                 </div>
 
                 <h3 className="font-brand text-lg font-bold text-white mb-2 uppercase tracking-wide">{item.title}</h3>
-                <p className="text-xs text-white/45 leading-relaxed mb-5">{item.desc}</p>
+                <p className="text-xs text-white/55 leading-relaxed mb-5">{item.desc}</p>
 
-                <div className="flex items-center gap-2 text-[11px] font-mono text-[#C4A962]/80">
+                <div className="flex items-center gap-2 text-[11px] font-mono text-[#C4A962]/90">
                   <ChevronRight className="w-3 h-3 flex-shrink-0" />
                   <span>{item.detail}</span>
                 </div>
@@ -293,7 +293,7 @@ export default function Home() {
           <h2 className="font-brand font-bold text-2xl sm:text-3xl uppercase gold-gradient text-center mb-4">
             Why AdClaw
           </h2>
-          <p className="text-sm text-white/40 text-center mb-14 font-mono max-w-lg mx-auto">
+          <p className="text-sm text-white/55 text-center mb-14 font-mono max-w-lg mx-auto">
             Real infrastructure, not another meme tool
           </p>
 
@@ -322,37 +322,37 @@ export default function Home() {
             ].map((item) => (
               <div
                 key={item.title}
-                className="glass-panel rounded-xl p-6 border border-white/[0.04] hover:border-white/10 transition-all duration-300"
+                className="glass-panel rounded-xl p-6 border border-white/[0.06] hover:border-white/[0.15] transition-all duration-300"
                 data-testid={`card-why-${item.title.toLowerCase().replace(/\s/g, '-')}`}
               >
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-white/[0.05] border border-white/[0.08] text-white/60 mb-4">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-white/[0.06] border border-white/[0.1] text-white/70 mb-4">
                   {item.icon}
                 </div>
                 <h3 className="font-brand text-base font-bold text-white mb-2 uppercase tracking-wide">{item.title}</h3>
-                <p className="text-xs text-white/40 leading-relaxed">{item.desc}</p>
+                <p className="text-xs text-white/55 leading-relaxed">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <footer className="py-12 px-4 border-t border-[#1a1a1a]">
+      <footer className="py-12 px-4 border-t border-white/[0.08]">
         <div className="max-w-5xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2.5 mb-4">
             <span className="font-brand font-extrabold text-[28px] tracking-tight uppercase text-white" data-testid="text-footer-brand">ADCLAW</span>
           </div>
-          <p className="text-xs text-white/30 mb-2">
+          <p className="text-xs text-white/45 mb-2">
             1-click token launch with autonomous AI agent promotion on Solana.
           </p>
-          <p className="text-[10px] text-white/15 font-mono">
+          <p className="text-[10px] text-white/30 font-mono">
             All fees → $ADCLAW buyback. No dev wallet. Fully transparent.
           </p>
           <div className="flex items-center justify-center gap-4 mt-4">
-            <a href="https://x.com/adclawonsol" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/60 transition-colors text-xs font-mono" data-testid="link-footer-twitter">Twitter</a>
-            <span className="text-white/10">|</span>
-            <a href="https://github.com/adclaw" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/60 transition-colors text-xs font-mono" data-testid="link-footer-github">GitHub</a>
-            <span className="text-white/10">|</span>
-            <a href="https://adclaw.io" target="_blank" rel="noopener noreferrer" className="text-white/30 hover:text-white/60 transition-colors text-xs font-mono" data-testid="link-footer-adclaw">AdClaw</a>
+            <a href="https://x.com/adclawonsol" target="_blank" rel="noopener noreferrer" className="text-white/45 hover:text-white/75 transition-colors text-xs font-mono" data-testid="link-footer-twitter">Twitter</a>
+            <span className="text-white/15">|</span>
+            <a href="https://github.com/adclaw" target="_blank" rel="noopener noreferrer" className="text-white/45 hover:text-white/75 transition-colors text-xs font-mono" data-testid="link-footer-github">GitHub</a>
+            <span className="text-white/15">|</span>
+            <a href="https://adclaw.io" target="_blank" rel="noopener noreferrer" className="text-white/45 hover:text-white/75 transition-colors text-xs font-mono" data-testid="link-footer-adclaw">AdClaw</a>
           </div>
         </div>
       </footer>
