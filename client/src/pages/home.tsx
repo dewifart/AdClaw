@@ -336,29 +336,6 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-16 px-4" data-testid="section-cta-bottom">
-        <div className="max-w-3xl mx-auto text-center">
-          <div className="glass-panel rounded-2xl p-10 sm:p-14 border border-white/[0.06]">
-            <h2 className="font-brand font-extrabold text-2xl sm:text-3xl uppercase text-white mb-4">
-              Ready to Launch?
-            </h2>
-            <p className="text-sm text-white/40 max-w-lg mx-auto mb-8 leading-relaxed">
-              Deploy your token and let the swarm handle the rest. No coding. No manual promotion. Just results.
-            </p>
-            <Link href="/forge">
-              <button
-                className="inline-flex items-center gap-2 bg-white text-black font-bold rounded-lg px-10 py-4 text-sm transition-all duration-200 hover:bg-white/90"
-                data-testid="button-launch-token-bottom"
-              >
-                <Rocket className="w-4 h-4" />
-                Launch Token Now
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </Link>
-          </div>
-        </div>
-      </section>
-
       <footer className="py-12 px-4 border-t border-[#1a1a1a]">
         <div className="max-w-5xl mx-auto text-center">
           <div className="flex items-center justify-center gap-2.5 mb-4">
