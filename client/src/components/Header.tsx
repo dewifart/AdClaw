@@ -17,7 +17,7 @@ export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/[0.08]">
+    <header className="fixed top-0 left-0 right-0 z-50 glass-panel border-b border-white/[0.10]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16">
           <Link href="/" data-testid="link-home">
@@ -53,7 +53,7 @@ export function Header() {
                 href="https://github.com/adclaw"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg text-white/50 hover:text-white hover:bg-white/[0.04] transition-all duration-200"
+                className="p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/[0.06] transition-all duration-200"
                 data-testid="link-github"
               >
                 <SiGithub className="w-4 h-4" />
@@ -62,7 +62,7 @@ export function Header() {
                 href="https://x.com/adclaw"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 rounded-lg text-white/50 hover:text-white hover:bg-white/[0.04] transition-all duration-200"
+                className="p-2 rounded-lg text-white/60 hover:text-white hover:bg-white/[0.06] transition-all duration-200"
                 data-testid="link-x"
               >
                 <SiX className="w-3.5 h-3.5" />
@@ -81,7 +81,7 @@ export function Header() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="md:hidden glass-panel border-t border-white/[0.08]">
+        <div className="md:hidden glass-panel border-t border-white/[0.10]">
           <nav className="flex flex-col p-4 gap-1">
             {navItems.map((item) => {
               const isActive = location === item.href;
@@ -102,12 +102,12 @@ export function Header() {
                 </Link>
               );
             })}
-            <div className="flex items-center gap-2 px-3 pt-3 mt-2 border-t border-white/[0.08]">
+            <div className="flex items-center gap-2 px-3 pt-3 mt-2 border-t border-white/[0.10]">
               <a
                 href="https://github.com/adclaw"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-white/50 hover:text-white transition-all duration-200"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-white/60 hover:text-white transition-all duration-200"
                 data-testid="link-mobile-github"
               >
                 <SiGithub className="w-4 h-4" />
@@ -117,7 +117,7 @@ export function Header() {
                 href="https://x.com/adclaw"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-white/50 hover:text-white transition-all duration-200"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-white/60 hover:text-white transition-all duration-200"
                 data-testid="link-mobile-x"
               >
                 <SiX className="w-3.5 h-3.5" />

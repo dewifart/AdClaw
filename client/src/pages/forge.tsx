@@ -108,8 +108,8 @@ const MARKETING_IMAGES = [
 interface AutoLaunchLog {
   id: string;
   timestamp: Date;
-  soulName: string;
-  soulId: number;
+  tokenName: string;
+  tokenId: number;
   price: string;
   wallet: string;
   status: "launching" | "deploying" | "indexing" | "launched";
@@ -137,7 +137,7 @@ export default function Forge() {
     const tokenName = generateTokenName(usedNamesRef.current);
     usedNamesRef.current.add(tokenName);
     const wallet = generateWallet();
-    const soulId = Math.floor(Math.random() * 9000 + 1000);
+    const tokenId = Math.floor(Math.random() * 9000 + 1000);
     const price = (Math.random() * 2.5 + 0.5).toFixed(1);
 
     const logId = `auto-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`;
@@ -145,8 +145,8 @@ export default function Forge() {
     setAutoLogs(prev => [{
       id: logId,
       timestamp: new Date(),
-      soulName: tokenName,
-      soulId,
+      tokenName,
+      tokenId,
       price,
       wallet,
       status: "launching" as const,
@@ -159,18 +159,18 @@ export default function Forge() {
     setAutoLogs(prev => prev.map(l => l.id === logId ? { ...l, status: "indexing" } : l));
 
     try {
-      const soulContent = generateTokenContent(tokenName);
+      const tokenContent = generateTokenContent(tokenName);
       const memoryContent = generateMemoryContent(tokenName);
-      const soulScore = Math.floor(Math.random() * 2000 + 3000);
+      const agentScore = Math.floor(Math.random() * 2000 + 3000);
       const desc = TOKEN_DESCRIPTIONS[Math.floor(Math.random() * TOKEN_DESCRIPTIONS.length)];
 
       await apiRequest("POST", "/api/souls", {
         name: tokenName,
         description: desc,
-        soulContent,
+        soulContent: tokenContent,
         memoryContent,
         ownerWallet: wallet,
-        soulScore,
+        soulScore: agentScore,
         mintAddress: `mint_${Date.now().toString(36)}`,
         arweaveHash: `ar_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`,
         isListed: true,
@@ -183,7 +183,7 @@ export default function Forge() {
       queryClient.invalidateQueries({ queryKey: ["/api/souls/listed"] });
 
       try {
-        const eventData = JSON.stringify({ soulName: tokenName, soulId, price, wallet, timestamp: Date.now() });
+        const eventData = JSON.stringify({ soulName: tokenName, soulId: tokenId, price, wallet, timestamp: Date.now() });
         localStorage.setItem("adclaw_forge_event", eventData);
         window.dispatchEvent(new CustomEvent("adclaw_forge", { detail: eventData }));
       } catch {}
@@ -233,9 +233,9 @@ export default function Forge() {
     mutationFn: async () => {
       if (!name || !ticker || !address) throw new Error("Missing required fields");
 
-      const soulContent = generateTokenContent(name);
+      const tokenContent = generateTokenContent(name);
       const memoryContent = generateMemoryContent(name);
-      const soulScore = Math.floor(Math.random() * 2000 + 3000);
+      const agentScore = Math.floor(Math.random() * 2000 + 3000);
 
       setStep(1);
       await new Promise(r => setTimeout(r, 1200));
@@ -247,10 +247,10 @@ export default function Forge() {
       const res = await apiRequest("POST", "/api/souls", {
         name,
         description: description || `Community token $${ticker} launched via AdClaw`,
-        soulContent,
+        soulContent: tokenContent,
         memoryContent,
         ownerWallet: address,
-        soulScore,
+        soulScore: agentScore,
         mintAddress: `mint_${Date.now().toString(36)}`,
         arweaveHash: `ar_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`,
         isListed: true,
@@ -311,12 +311,12 @@ export default function Forge() {
           <h1 className="font-brand font-bold text-3xl uppercase gold-gradient mb-2" data-testid="text-launch-title">
             Launch Your Token
           </h1>
-          <p className="text-sm text-white/55 font-mono" data-testid="text-launch-subtitle">
+          <p className="text-sm text-white/60 font-mono" data-testid="text-launch-subtitle">
             Launch a community token to promote $ADCLAW. All fees fund automatic buyback.
           </p>
         </div>
 
-        <div className="glass-panel rounded-2xl p-6 border border-white/10 mb-8" data-testid="panel-auto-launch-mode">
+        <div className="glass-panel rounded-2xl p-6 border border-white/[0.12] mb-8" data-testid="panel-auto-launch-mode">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="relative">
@@ -325,7 +325,7 @@ export default function Forge() {
                     autonomousMode ? "bg-[#6B7B8D]/20 shadow-[0_0_15px_rgba(107,123,141,0.3)]" : "bg-white/5 opacity-40"
                   }`}
                 >
-                  <Zap className={`w-6 h-6 ${autonomousMode ? "text-[#8A9AAD]" : "text-white/30"}`} />
+                  <Zap className={`w-6 h-6 ${autonomousMode ? "text-[#8A9AAD]" : "text-white/45"}`} />
                 </div>
                 {autonomousMode && (
                   <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-[#6B7B8D] animate-ping" />
@@ -336,7 +336,7 @@ export default function Forge() {
                   <Zap className="w-4 h-4 text-[#6B7B8D]" />
                   Auto-Launch Mode
                 </h2>
-                <p className="text-xs text-white/55 mt-0.5">
+                <p className="text-xs text-white/60 mt-0.5">
                   {autonomousMode
                     ? `AdClaw is launching tokens autonomously \u2022 ${totalAutoForged} launched this session`
                     : "Let AdClaw auto-launch new tokens every 45\u201375 seconds"
@@ -359,7 +359,7 @@ export default function Forge() {
                   ? "left-9 bg-[#6B7B8D] shadow-[0_0_10px_rgba(107,123,141,0.4)]"
                   : "left-1 bg-[#333]"
               }`}>
-                <Power className={`w-3 h-3 ${autonomousMode ? "text-white" : "text-white/40"}`} />
+                <Power className={`w-3 h-3 ${autonomousMode ? "text-white" : "text-white/55"}`} />
               </div>
             </button>
           </div>
@@ -375,7 +375,7 @@ export default function Forge() {
                   }}
                 />
               </div>
-              <span className="text-white/45" data-testid="text-next-launch-timer">
+              <span className="text-white/55" data-testid="text-next-launch-timer">
                 Next launch in <span className="text-[#8A9AAD] font-bold">{nextForgeIn}s</span>
               </span>
             </div>
@@ -383,13 +383,13 @@ export default function Forge() {
         </div>
 
         {autonomousMode && autoLogs.length > 0 && (
-          <div className="glass-panel rounded-2xl border border-[#1a1a1a] mb-8 overflow-hidden" data-testid="panel-auto-launch-log">
-            <div className="flex items-center justify-between gap-2 px-4 py-3 border-b border-[#1a1a1a]">
+          <div className="glass-panel rounded-2xl border border-white/[0.10] mb-8 overflow-hidden" data-testid="panel-auto-launch-log">
+            <div className="flex items-center justify-between gap-2 px-4 py-3 border-b border-white/[0.10]">
               <div className="flex items-center gap-2">
-                <Zap className="h-4 w-4 text-white/45" />
-                <span className="font-mono text-xs text-white/55 tracking-wider">AUTO-LAUNCH LOG</span>
+                <Zap className="h-4 w-4 text-white/55" />
+                <span className="font-mono text-xs text-white/60 tracking-wider">AUTO-LAUNCH LOG</span>
               </div>
-              <span className="font-mono text-[10px] text-white/35">{autoLogs.length} entries</span>
+              <span className="font-mono text-[10px] text-white/50">{autoLogs.length} entries</span>
             </div>
             <div className="max-h-64 overflow-y-auto px-4 py-2" style={{ fontFamily: "'Fira Code', monospace" }}>
               {autoLogs.map(log => (
@@ -400,7 +400,7 @@ export default function Forge() {
                   }`}
                   data-testid={`auto-log-${log.id}`}
                 >
-                  <span className="text-white/35">
+                  <span className="text-white/50">
                     [{log.timestamp.toISOString().replace("T", " ").slice(0, 19)}]
                   </span>
                   {" "}
@@ -408,11 +408,11 @@ export default function Forge() {
                     [{statusLabels[log.status]}]
                   </span>
                   {" "}
-                  <span className="text-white/60">
-                    {log.status === "launching" && `Initiating launch for ${log.soulName} (Token #${log.soulId})...`}
-                    {log.status === "deploying" && `Deploying ${log.soulName} contract to Solana...`}
-                    {log.status === "indexing" && `Indexing ${log.soulName} and assigning promotion agents...`}
-                    {log.status === "launched" && `Token launched: ${log.soulName} (#${log.soulId}) \u2014 ${log.price} SOL deployed. Agents assigned. [CHAIN-VERIFIED]`}
+                  <span className="text-white/65">
+                    {log.status === "launching" && `Initiating launch for ${log.tokenName} (Token #${log.tokenId})...`}
+                    {log.status === "deploying" && `Deploying ${log.tokenName} contract to Solana...`}
+                    {log.status === "indexing" && `Indexing ${log.tokenName} and assigning promotion agents...`}
+                    {log.status === "launched" && `Token launched: ${log.tokenName} (#${log.tokenId}) \u2014 ${log.price} SOL deployed. Agents assigned. [CHAIN-VERIFIED]`}
                   </span>
                 </div>
               ))}
@@ -428,7 +428,7 @@ export default function Forge() {
             <h2 className="font-brand font-bold text-2xl uppercase text-white mb-3" data-testid="text-connect-prompt">
               Connect Wallet to Launch
             </h2>
-            <p className="text-sm text-white/55 mb-8 max-w-md mx-auto">
+            <p className="text-sm text-white/60 mb-8 max-w-md mx-auto">
               Connect your Solana wallet to launch a community token and fuel the $ADCLAW ecosystem.
             </p>
             <button
@@ -457,11 +457,11 @@ export default function Forge() {
                     ) : step === i ? (
                       <Loader2 className="w-4 h-4 text-[#6B7B8D] animate-spin" />
                     ) : (
-                      <span className="text-xs font-mono text-white/35">{i + 1}</span>
+                      <span className="text-xs font-mono text-white/50">{i + 1}</span>
                     )}
                   </div>
                   <span className={`text-sm transition-all duration-300 ${
-                    step > i ? "text-[#8A9AAD]" : step === i ? "text-white" : "text-white/35"
+                    step > i ? "text-[#8A9AAD]" : step === i ? "text-white" : "text-white/50"
                   }`} data-testid={`text-step-${i}`}>
                     {s.label}
                   </span>
@@ -481,37 +481,37 @@ export default function Forge() {
         ) : (
           <div className="space-y-6 max-w-2xl mx-auto">
             <div className="glass-panel rounded-xl p-6" data-testid="panel-token-form">
-              <label className="block text-xs text-white/55 uppercase tracking-wider mb-2">Token Name</label>
+              <label className="block text-xs text-white/60 uppercase tracking-wider mb-2">Token Name</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. AdClaw Community"
-                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/20"
+                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/35"
                 data-testid="input-token-name"
               />
 
-              <label className="block text-xs text-white/55 uppercase tracking-wider mb-2 mt-4">Token Ticker</label>
+              <label className="block text-xs text-white/60 uppercase tracking-wider mb-2 mt-4">Token Ticker</label>
               <input
                 type="text"
                 value={ticker}
                 onChange={(e) => setTicker(e.target.value.toUpperCase())}
                 placeholder="e.g. $MYTOKEN"
-                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/20"
+                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/35"
                 data-testid="input-token-ticker"
               />
 
-              <label className="block text-xs text-white/55 uppercase tracking-wider mb-2 mt-4">Token Description</label>
+              <label className="block text-xs text-white/60 uppercase tracking-wider mb-2 mt-4">Token Description</label>
               <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Describe your community token..."
                 rows={3}
-                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/20 resize-none"
+                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/35 resize-none"
                 data-testid="input-token-description"
               />
 
-              <label className="block text-xs text-white/55 uppercase tracking-wider mb-3 mt-5">Marketing Image</label>
+              <label className="block text-xs text-white/60 uppercase tracking-wider mb-3 mt-5">Marketing Image</label>
               <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
                 {MARKETING_IMAGES.map((img, i) => (
                   <button
@@ -544,7 +544,7 @@ export default function Forge() {
               className={`w-full flex items-center justify-center gap-2 font-bold rounded-lg py-4 text-sm transition-all duration-200 ${
                 canLaunch
                   ? "bg-white text-black hover:brightness-95"
-                  : "bg-[#1a1a1a] text-white/30 cursor-not-allowed"
+                  : "bg-[#1a1a1a] text-white/45 cursor-not-allowed"
               }`}
               data-testid="button-launch-token"
             >
@@ -559,7 +559,7 @@ export default function Forge() {
             <h2 className="font-brand font-bold text-2xl uppercase gold-gradient mb-2" data-testid="text-community-title">
               Community Token Launch
             </h2>
-            <p className="text-sm text-white/55 font-mono max-w-lg mx-auto" data-testid="text-community-subtitle">
+            <p className="text-sm text-white/60 font-mono max-w-lg mx-auto" data-testid="text-community-subtitle">
               Launch tokens that fuel the $ADCLAW ecosystem. All fees go directly to automatic $ADCLAW buyback.
             </p>
           </div>
@@ -570,7 +570,7 @@ export default function Forge() {
                 <Coins className="w-5 h-5 text-[#C4A962]" />
               </div>
               <h3 className="font-brand font-bold text-sm uppercase text-[#C4A962] mb-1">Fund Buybacks</h3>
-              <p className="text-xs text-white/55 leading-relaxed">
+              <p className="text-xs text-white/60 leading-relaxed">
                 Every SOL spent on community token launches is routed to automatic $ADCLAW market buyback. Your launch directly strengthens the ecosystem.
               </p>
             </div>
@@ -580,7 +580,7 @@ export default function Forge() {
                 <Megaphone className="w-5 h-5 text-[#8A9AAD]" />
               </div>
               <h3 className="font-brand font-bold text-sm uppercase text-[#8A9AAD] mb-1">Get Promoted</h3>
-              <p className="text-xs text-white/55 leading-relaxed">
+              <p className="text-xs text-white/60 leading-relaxed">
                 Your token gets promoted by AdClaw agents across X, Telegram, Discord, and Reddit. Full swarm promotion included with every launch.
               </p>
             </div>
@@ -590,7 +590,7 @@ export default function Forge() {
                 <Users className="w-5 h-5 text-[#6B7B8D]" />
               </div>
               <h3 className="font-brand font-bold text-sm uppercase text-[#6B7B8D] mb-1">Join the Swarm</h3>
-              <p className="text-xs text-white/55 leading-relaxed">
+              <p className="text-xs text-white/60 leading-relaxed">
                 Become part of the AdClaw ecosystem. Every community token launched adds to the network effect and collective promotional power.
               </p>
             </div>

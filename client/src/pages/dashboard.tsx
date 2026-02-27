@@ -1,6 +1,6 @@
 import { useWallet } from "@/lib/wallet";
 import { useQuery } from "@tanstack/react-query";
-import { SoulCard } from "@/components/SoulCard";
+import { AgentCard } from "@/components/AgentCard";
 import { Link } from "wouter";
 import { Flame, Rocket, Wallet } from "lucide-react";
 import type { Soul } from "@shared/schema";
@@ -8,7 +8,7 @@ import type { Soul } from "@shared/schema";
 export default function Dashboard() {
   const { connected, address, connect } = useWallet();
 
-  const { data: souls, isLoading } = useQuery<Soul[]>({
+  const { data: agents, isLoading } = useQuery<Soul[]>({
     queryKey: [`/api/souls?ownerWallet=${address}`],
     enabled: connected && !!address,
   });
@@ -23,7 +23,7 @@ export default function Dashboard() {
           <h2 className="font-brand font-bold text-2xl uppercase text-white mb-3">
             Connect Your Wallet
           </h2>
-          <p className="text-sm text-white/55 mb-8 max-w-md mx-auto">
+          <p className="text-sm text-white/60 mb-8 max-w-md mx-auto">
             Connect your Solana wallet to view your launched tokens and manage your collection.
           </p>
           <button
@@ -47,7 +47,7 @@ export default function Dashboard() {
             <h1 className="font-brand font-bold text-2xl uppercase gold-gradient" data-testid="text-dashboard-title">
               My Agents
             </h1>
-            <p className="text-xs text-white/45 mt-1">Your launched tokens and deployed agents</p>
+            <p className="text-xs text-white/55 mt-1">Your launched tokens and deployed agents</p>
           </div>
           <Link href="/forge">
             <button
@@ -79,10 +79,10 @@ export default function Dashboard() {
               </div>
             ))}
           </div>
-        ) : souls && souls.length > 0 ? (
+        ) : agents && agents.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {souls.map((soul) => (
-              <SoulCard key={soul.id} soul={soul} />
+            {agents.map((agent) => (
+              <AgentCard key={agent.id} agent={agent} />
             ))}
           </div>
         ) : (
@@ -91,7 +91,7 @@ export default function Dashboard() {
               <Flame className="w-8 h-8 text-[#6B7B8D]" />
             </div>
             <h3 className="text-lg font-bold text-white mb-2">No Agents Yet</h3>
-            <p className="text-sm text-white/55 mb-6 max-w-sm mx-auto">
+            <p className="text-sm text-white/60 mb-6 max-w-sm mx-auto">
               You haven't launched any tokens yet. Launch your first community token to start promoting $ADCLAW.
             </p>
             <Link href="/forge">

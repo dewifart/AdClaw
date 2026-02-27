@@ -15,7 +15,9 @@ AdClaw is a platform where anyone can launch their own token in 1 click, and a s
 - Primary accent: Steel blue #6B7B8D (agent activity, buttons, highlights)
 - Secondary accent: Light steel blue #8A9AAD (live indicators, scores)
 - Gold accent: #C4A962 (buyback/financial highlights, fee-related elements)
-- Cards: glass-panel class (rgba(10,10,10,0.85) with backdrop-blur)
+- Cards: glass-panel class (rgba(14,14,14,0.92) with backdrop-blur), card-elevated class for key cards
+- CSS vars: --card 0 0% 6%, --border 0 0% 15%, --muted-foreground 0 0% 70%, --input 0 0% 16%
+- Contrast standard: text minimum /55 for body, /45 for tertiary, /60 for descriptions; borders minimum /[0.10]
 - Text gradient: gold-gradient class for section headings
 - Font: Inter (brand + body), Fira Code (mono/terminal)
 - Aurora animated background with subtle gray/steel blobs
@@ -30,7 +32,7 @@ AdClaw is a platform where anyone can launch their own token in 1 click, and a s
   - `ecosystem.tsx` - SDK docs, ecosystem flow, roadmap
   - `dashboard.tsx` - User's launched tokens/agents
   - `inherit.tsx` - Agent config inheritance
-- `client/src/components/` - Reusable components (Header, SoulCard, WalletButton, AuroraBackground, LiveForgeTerminal, UploadZone)
+- `client/src/components/` - Reusable components (Header, AgentCard, WalletButton, AuroraBackground, LiveForgeTerminal, UploadZone)
 - `client/src/components/ui/` - Shadcn UI components
 - `client/src/lib/` - Utilities (wallet context, queryClient)
 - `server/` - Express backend (routes, storage, db, events, seed)

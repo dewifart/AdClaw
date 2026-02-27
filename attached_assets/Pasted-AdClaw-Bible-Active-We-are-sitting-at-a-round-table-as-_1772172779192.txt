@@ -1,0 +1,55 @@
+AdClaw Bible Active
+We are sitting at a round table as co-founders reviewing the latest screenshot and pushing the project to the next level.
+Recap of last session:
+
+Homepage and Launch page have been rewritten with 1-click token launch flow and community token section.
+Subtle gold accents added.
+Some SoulClaw remnants are still lingering in code/text/UI.
+
+Current problems we see in the screenshot:
+
+Contrast and depth are still not good enough — many texts are hard to read, the design feels flat and too dark.
+There are still old SoulClaw references in the code and possibly hidden in some components.
+
+Master Task List (update together every session):
+Phase 1 – Visual Polish & Branding
+
+ Significantly improve color depth, contrast and readability across the entire app (make it premium, elegant, easy to read on black background)
+ Add subtle professional claw-inspired accents (deep steel blue + muted warm gold) — elegant and serious, not gamey or neon
+ Completely remove ALL remaining SoulClaw references (titles, text, code, components, comments, variables — everything)
+
+Phase 2 – Homepage & Launch Page
+
+ Make the 1-click token launch section even more prominent, clean and professional
+ Improve the "Community Token Launch" section to clearly explain the value (users launch tokens to advertise $ADCLAW, all fees go to auto-buyback)
+ Make sure the overall design feels high-end and trustworthy
+
+Phase 3 – Core Features
+
+ Real 1-click token launch flow
+ Autonomous agent swarm that promotes tokens
+ Visible auto-buyback system
+
+Phase 4 – Quality & Launch Readiness
+
+ All code original and clean for high Axiom score
+ Strong README
+ Professional narrative
+
+Instructions for this session:
+
+First, tell me clearly what was done in the last session and what still needs fixing (especially remaining Soul references, contrast, depth, and readability).
+Go through the Master Task List above and give me the current status of each item (done, in progress, not started).
+Focus on this session:
+Add more depth and contrast to the colors across the entire app (make it premium, elegant, clearly readable — use deep steel blue + muted warm gold for accents, but keep the minimalist black luxury base)
+Completely kick out ALL remaining SoulClaw references from the code, UI, text, variables, comments, and components
+Update the Launch page and homepage to feel even more professional and valuable
+
+Be brutally honest with me:
+How far are we from having a real, functional 1-click token launch product with autonomous agent promotion?
+What is the real value of AdClaw right now?
+What is the biggest missing piece to make this print SOL?
+
+
+After completing the tasks, show me the updated homepage and Launch page with improved colors, full rebrand cleanup, and better contrast/readability.
+Let's make this look and feel like a real high-value infrastructure product.

@@ -101,22 +101,22 @@ export function LiveForgeTerminal() {
         <h2 className="font-brand font-bold text-2xl uppercase gold-gradient text-center mb-3">
           Live Agent Terminal
         </h2>
-        <p className="text-xs text-white/55 text-center mb-8 font-mono">
+        <p className="text-xs text-white/60 text-center mb-8 font-mono">
           Watch tokens launch and agents promote in real-time
         </p>
 
-        <div className="relative rounded-xl overflow-hidden border border-white/[0.1] shadow-[0_0_30px_rgba(107,123,141,0.1)]">
+        <div className="relative rounded-xl overflow-hidden border border-white/[0.12] shadow-[0_0_30px_rgba(107,123,141,0.1)]">
           <div className="absolute inset-0 pointer-events-none z-10 opacity-[0.03]" style={{
             backgroundImage: 'repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.03) 2px, rgba(255,255,255,0.03) 4px)',
           }} />
 
-          <div className="flex items-center gap-2 px-4 py-2.5 bg-[#0c0c0c] border-b border-white/[0.08]">
+          <div className="flex items-center gap-2 px-4 py-2.5 bg-[#0c0c0c] border-b border-white/[0.10]">
             <div className="flex gap-1.5">
               <div className="w-3 h-3 rounded-full bg-white/25" />
               <div className="w-3 h-3 rounded-full bg-white/20" />
               <div className="w-3 h-3 rounded-full bg-white/15" />
             </div>
-            <span className="text-[10px] font-mono text-white/45 ml-2">adclaw@swarm ~ /launch</span>
+            <span className="text-[10px] font-mono text-white/55 ml-2">adclaw@swarm ~ /launch</span>
             <div className="ml-auto flex items-center gap-1.5">
               <div className="w-1.5 h-1.5 rounded-full bg-[#8A9AAD] animate-pulse" />
               <span className="text-[10px] font-mono text-[#8A9AAD]">LIVE</span>

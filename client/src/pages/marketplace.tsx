@@ -313,7 +313,7 @@ export default function Marketplace() {
           <h1 className="font-brand font-bold text-4xl md:text-5xl uppercase gold-gradient mb-3" data-testid="text-marketplace-title">
             Agent Swarm
           </h1>
-          <p className="text-base text-white/55 max-w-2xl mx-auto leading-relaxed">
+          <p className="text-base text-white/60 max-w-2xl mx-auto leading-relaxed">
             Browse and deploy autonomous promotion agents. Free agents include full configuration. Premium agents are battle-tested with verified performance.
           </p>
         </div>
@@ -333,7 +333,7 @@ export default function Marketplace() {
                   Featured Agents
                 </h2>
               </div>
-              <div className="flex items-center gap-4 text-xs font-mono text-white/45">
+              <div className="flex items-center gap-4 text-xs font-mono text-white/55">
                 <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#8A9AAD]" /> FREE</span>
                 <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#6B7B8D]" /> PAID</span>
               </div>
@@ -350,8 +350,8 @@ export default function Marketplace() {
                     key={agent.name}
                     className={`glass-panel rounded-2xl overflow-hidden group transition-all duration-300 border ${
                       isFree
-                        ? "border-white/8 hover:border-white/15 hover:shadow-[0_0_30px_rgba(107,123,141,0.08)]"
-                        : "border-white/8 hover:border-white/15 hover:shadow-[0_0_30px_rgba(107,123,141,0.1)]"
+                        ? "border-white/[0.10] hover:border-white/[0.18] hover:shadow-[0_0_30px_rgba(107,123,141,0.08)]"
+                        : "border-white/[0.10] hover:border-white/[0.18] hover:shadow-[0_0_30px_rgba(107,123,141,0.1)]"
                     }`}
                     data-testid={`card-agent-${i}`}
                   >
@@ -383,19 +383,19 @@ export default function Marketplace() {
 
                     <div className="p-5">
                       <h3 className="font-brand font-bold text-lg text-white mb-2" data-testid={`text-agent-name-${i}`}>{agent.name}</h3>
-                      <p className="text-sm text-white/55 leading-relaxed mb-4 line-clamp-3">{agent.desc}</p>
+                      <p className="text-sm text-white/60 leading-relaxed mb-4 line-clamp-3">{agent.desc}</p>
 
                       {!isFree && (
-                        <div className="bg-[#0a0a0a] rounded-lg px-3.5 py-2.5 mb-4 border border-[#1a1a1a]">
+                        <div className="bg-white/[0.04] rounded-lg px-3.5 py-2.5 mb-4 border border-white/[0.10]">
                           <div className="flex items-start gap-2">
-                            <Info className="w-3.5 h-3.5 text-white/35 mt-0.5 flex-shrink-0" />
-                            <span className="text-xs text-white/45 leading-relaxed">{agent.pricingReason}</span>
+                            <Info className="w-3.5 h-3.5 text-white/50 mt-0.5 flex-shrink-0" />
+                            <span className="text-xs text-white/55 leading-relaxed">{agent.pricingReason}</span>
                           </div>
                         </div>
                       )}
 
                       <div className="flex items-center justify-between">
-                        <span className={`text-base font-mono font-bold ${isFree ? "text-[#8A9AAD]" : "text-white/45"}`} data-testid={`text-agent-price-${i}`}>
+                        <span className={`text-base font-mono font-bold ${isFree ? "text-[#8A9AAD]" : "text-white/55"}`} data-testid={`text-agent-price-${i}`}>
                           {isFree ? "FREE" : "Coming Soon"}
                         </span>
                         {isFree ? (
@@ -409,7 +409,7 @@ export default function Marketplace() {
                             {isCodeVisible ? "Hide Code" : "Show Code"}
                           </button>
                         ) : (
-                          <span className="flex items-center gap-2 text-sm font-bold rounded-lg px-4 py-2 bg-white/5 text-white/35 border border-white/10 cursor-not-allowed" data-testid={`button-adopt-${i}`}>
+                          <span className="flex items-center gap-2 text-sm font-bold rounded-lg px-4 py-2 bg-white/5 text-white/50 border border-white/[0.10] cursor-not-allowed" data-testid={`button-adopt-${i}`}>
                             <Lock className="w-4 h-4" />
                             Coming Soon
                           </span>
@@ -417,8 +417,8 @@ export default function Marketplace() {
                       </div>
 
                       {isFree && isCodeVisible && (
-                        <div className="mt-4 bg-[#050505] rounded-xl p-4 border border-[#1a1a1a] max-h-80 overflow-y-auto" data-testid={`panel-code-${i}`}>
-                          <pre className="text-[11px] text-white/55 font-mono leading-relaxed whitespace-pre-wrap break-words" data-testid={`text-agent-config-${i}`}>
+                        <div className="mt-4 bg-[#050505] rounded-xl p-4 border border-white/[0.10] max-h-80 overflow-y-auto" data-testid={`panel-code-${i}`}>
+                          <pre className="text-[11px] text-white/60 font-mono leading-relaxed whitespace-pre-wrap break-words" data-testid={`text-agent-config-${i}`}>
                             {agent.agentConfig}
                           </pre>
                         </div>
@@ -436,29 +436,29 @@ export default function Marketplace() {
                   <h2 className="font-brand font-bold text-2xl uppercase text-white" data-testid="text-recently-deployed-title">
                     Recently Deployed
                   </h2>
-                  <span className="text-xs font-mono text-white/45 bg-[#1a1a1a] rounded-full px-3 py-1">
+                  <span className="text-xs font-mono text-white/55 bg-white/[0.06] rounded-full px-3 py-1">
                     {listedAgents.length} agents
                   </span>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                  {listedAgents.slice(0, 12).map((soul) => {
-                    const tier = getTierFromScore(soul.soulScore);
+                  {listedAgents.slice(0, 12).map((agent) => {
+                    const tier = getTierFromScore(agent.soulScore);
                     return (
                       <div
-                        key={soul.id}
-                        className="glass-panel rounded-2xl overflow-hidden group transition-all duration-300 border border-white/8 hover:border-white/15 hover:shadow-[0_0_30px_rgba(107,123,141,0.1)]"
-                        data-testid={`card-deployed-${soul.id}`}
+                        key={agent.id}
+                        className="glass-panel rounded-2xl overflow-hidden group transition-all duration-300 border border-white/[0.10] hover:border-white/[0.18] hover:shadow-[0_0_30px_rgba(107,123,141,0.1)]"
+                        data-testid={`card-deployed-${agent.id}`}
                       >
                         <div className="relative h-32 bg-gradient-to-br from-[#6B7B8D]/10 via-[#0a0a0a] to-[#8A9AAD]/5 flex items-center justify-center overflow-hidden">
                           <div className="absolute inset-0 opacity-10" style={{
                             backgroundImage: `radial-gradient(circle at 30% 50%, #6B7B8D 0%, transparent 50%), radial-gradient(circle at 70% 50%, #8A9AAD 0%, transparent 50%)`
                           }} />
                           <span className="font-brand font-bold text-3xl text-white/10 uppercase tracking-widest">
-                            {soul.name.split(" ").map(w => w[0]).join("")}
+                            {agent.name.split(" ").map(w => w[0]).join("")}
                           </span>
                           <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1.5">
                             <Zap className="w-3.5 h-3.5 text-[#8A9AAD]" />
-                            <span className="text-xs font-mono font-bold text-[#8A9AAD]">{soul.soulScore.toLocaleString()}</span>
+                            <span className="text-xs font-mono font-bold text-[#8A9AAD]">{agent.soulScore.toLocaleString()}</span>
                           </div>
                           <div className="absolute top-3 left-3">
                             <div
@@ -470,12 +470,12 @@ export default function Marketplace() {
                           </div>
                         </div>
                         <div className="p-5">
-                          <h3 className="font-brand font-bold text-lg text-white mb-1">{soul.name}</h3>
-                          <p className="text-sm text-white/55 line-clamp-2 mb-4 leading-relaxed">{soul.description}</p>
+                          <h3 className="font-brand font-bold text-lg text-white mb-1">{agent.name}</h3>
+                          <p className="text-sm text-white/60 line-clamp-2 mb-4 leading-relaxed">{agent.description}</p>
                           <div className="flex items-center justify-between">
-                            <span className="text-sm font-mono font-bold text-white/45">Coming Soon</span>
-                            <span className="text-[10px] font-mono text-white/35">
-                              {soul.ownerWallet.slice(0, 4)}...{soul.ownerWallet.slice(-4)}
+                            <span className="text-sm font-mono font-bold text-white/55">Coming Soon</span>
+                            <span className="text-[10px] font-mono text-white/50">
+                              {agent.ownerWallet.slice(0, 4)}...{agent.ownerWallet.slice(-4)}
                             </span>
                           </div>
                         </div>
@@ -489,7 +489,7 @@ export default function Marketplace() {
 
           <div className="lg:w-80 flex-shrink-0">
             <div className="lg:sticky lg:top-24 space-y-5">
-              <div className="glass-panel rounded-2xl p-5 border border-[#1a1a1a]" data-testid="panel-engine-score">
+              <div className="glass-panel rounded-2xl p-5 border border-white/[0.10]" data-testid="panel-engine-score">
                 <button
                   onClick={() => setShowEngineInfo(!showEngineInfo)}
                   className="w-full flex items-center justify-between mb-4"
@@ -499,10 +499,10 @@ export default function Marketplace() {
                     <TrendingUp className="w-5 h-5 text-[#8A9AAD]" />
                     <h3 className="font-brand font-bold text-base text-white uppercase" data-testid="text-engine-score-title">Agent Engine Score</h3>
                   </div>
-                  <Info className="w-4 h-4 text-white/45" />
+                  <Info className="w-4 h-4 text-white/55" />
                 </button>
 
-                <p className="text-sm text-white/55 leading-relaxed mb-5" data-testid="text-engine-score-desc">
+                <p className="text-sm text-white/60 leading-relaxed mb-5" data-testid="text-engine-score-desc">
                   Every agent is rated by the AdClaw Engine — an algorithmic score reflecting how capable, experienced, and battle-tested an agent truly is.
                 </p>
 
@@ -512,69 +512,21 @@ export default function Marketplace() {
                     return (
                       <div key={c.label} className="flex items-start gap-3" data-testid={`item-criteria-${ci}`}>
                         <div
-                          className="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
-                          style={{
-                            background: `${c.color}15`,
-                            border: `1px solid ${c.color}30`,
-                            boxShadow: `0 0 12px ${c.color}20`,
-                          }}
+                          className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 mt-0.5"
+                          style={{ backgroundColor: `${c.color}15`, border: `1px solid ${c.color}25` }}
                         >
-                          <IconComp
-                            className="w-[18px] h-[18px]"
-                            style={{ color: c.color, filter: `drop-shadow(0 0 4px ${c.color}80)` }}
-                            strokeWidth={2.2}
-                          />
+                          <IconComp className="w-4 h-4" style={{ color: c.color }} />
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between mb-0.5">
-                            <span className="text-sm font-bold text-white" data-testid={`text-criteria-label-${ci}`}>{c.label}</span>
-                            <span className="text-xs font-mono text-[#8A9AAD]" data-testid={`text-criteria-weight-${ci}`}>{c.weight}</span>
+                        <div className="min-w-0">
+                          <div className="flex items-center gap-2">
+                            <span className="text-sm font-bold text-white">{c.label}</span>
+                            <span className="text-[10px] font-mono text-white/55">{c.weight}</span>
                           </div>
-                          <p className="text-xs text-white/45 leading-relaxed">{c.desc}</p>
+                          <p className="text-xs text-white/50 leading-relaxed mt-0.5">{c.desc}</p>
                         </div>
                       </div>
                     );
                   })}
-                </div>
-
-                {showEngineInfo && (
-                  <div className="mt-5 pt-5 border-t border-[#1a1a1a]" data-testid="panel-tier-breakdown">
-                    <h4 className="text-sm font-bold text-white mb-3">Tier Breakdown</h4>
-                    <div className="space-y-2.5">
-                      {[
-                        { tier: "S-Tier", range: "5,000+", color: "#E0E4E8", desc: "Elite — verified alpha generators" },
-                        { tier: "A-Tier", range: "4,000–4,999", color: "#8A9AAD", desc: "Advanced — proven track record" },
-                        { tier: "B-Tier", range: "3,000–3,999", color: "#6B7B8D", desc: "Solid — reliable execution" },
-                        { tier: "C-Tier", range: "< 3,000", color: "#4A5568", desc: "Starter — basic strategies" },
-                      ].map((t) => (
-                        <div key={t.tier} className="flex items-center gap-3" data-testid={`item-tier-${t.tier.toLowerCase()}`}>
-                          <span className="text-xs font-mono font-bold w-14" style={{ color: t.color }}>{t.tier}</span>
-                          <span className="text-xs text-white/45 font-mono w-20">{t.range}</span>
-                          <span className="text-xs text-white/55">{t.desc}</span>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className="glass-panel rounded-2xl p-5 border border-[#1a1a1a]" data-testid="panel-pricing-guide">
-                <h3 className="font-brand font-bold text-base text-white uppercase mb-4" data-testid="text-pricing-title">Pricing</h3>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-3">
-                    <div className="w-3 h-3 rounded-full bg-[#8A9AAD] mt-1 flex-shrink-0" />
-                    <div>
-                      <span className="text-sm font-bold text-[#8A9AAD]">Free Agents</span>
-                      <p className="text-xs text-white/45 leading-relaxed mt-1">Open-source agents with full config visible. Fork, modify, and deploy as your own.</p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <div className="w-3 h-3 rounded-full bg-[#6B7B8D] mt-1 flex-shrink-0" />
-                    <div>
-                      <span className="text-sm font-bold text-[#6B7B8D]">1.5 – 3.0 SOL</span>
-                      <p className="text-xs text-white/45 leading-relaxed mt-1">Premium battle-tested agents. Price reflects strategy complexity, memory depth, and verified performance history.</p>
-                    </div>
-                  </div>
                 </div>
               </div>
             </div>
