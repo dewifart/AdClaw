@@ -43,8 +43,8 @@ export function UploadZone({ label, accept, file, onFile, testId }: UploadZonePr
       <div className="glass-panel rounded-xl p-4" data-testid={testId}>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-lg bg-[#00FFFF]/10 border border-[#00FFFF]/20 flex items-center justify-center">
-              <FileText className="w-5 h-5 text-[#00FFFF]" />
+            <div className="w-10 h-10 rounded-lg bg-[#6B7B8D]/10 border border-[#6B7B8D]/20 flex items-center justify-center">
+              <FileText className="w-5 h-5 text-[#8A9AAD]" />
             </div>
             <div>
               <p className="text-sm font-medium text-white">{file.name}</p>
@@ -67,8 +67,8 @@ export function UploadZone({ label, accept, file, onFile, testId }: UploadZonePr
     <label
       className={`glass-panel rounded-xl p-6 flex flex-col items-center justify-center gap-3 cursor-pointer transition-all duration-300 border ${
         isDragOver
-          ? "border-[#FF2D55]/40 bg-[#FF2D55]/5 shadow-[0_0_25px_rgba(255,45,85,0.15)]"
-          : "border-[#1a1a1a] hover:border-[#FF2D55]/20 hover:bg-[#0a0a0a] hover:shadow-[0_0_20px_rgba(255,45,85,0.08)]"
+          ? "border-[#6B7B8D]/40 bg-[#6B7B8D]/5 shadow-[0_0_25px_rgba(107,123,141,0.15)]"
+          : "border-[#1a1a1a] hover:border-[#6B7B8D]/20 hover:bg-[#0a0a0a] hover:shadow-[0_0_20px_rgba(107,123,141,0.08)]"
       }`}
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
@@ -82,8 +82,8 @@ export function UploadZone({ label, accept, file, onFile, testId }: UploadZonePr
         onChange={handleFileInput}
         data-testid={`input-file-${testId}`}
       />
-      <div className="w-12 h-12 rounded-full bg-[#FF2D55]/10 border border-[#FF2D55]/20 flex items-center justify-center">
-        <Upload className="w-5 h-5 text-[#FF2D55]" />
+      <div className="w-12 h-12 rounded-full bg-[#6B7B8D]/10 border border-[#6B7B8D]/20 flex items-center justify-center">
+        <Upload className="w-5 h-5 text-[#6B7B8D]" />
       </div>
       <div className="text-center">
         <p className="text-sm font-medium text-white">{label}</p>

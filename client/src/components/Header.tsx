@@ -3,7 +3,6 @@ import { Link, useLocation } from "wouter";
 import { Flame, Hammer, Store, Radio, Globe, Menu, X } from "lucide-react";
 import { SiGithub, SiX } from "react-icons/si";
 import { useState } from "react";
-import crabLogo from "@assets/soulclaw-crab-v2.png";
 
 const navItems = [
   { href: "/", label: "Home", icon: Flame },
@@ -23,8 +22,7 @@ export function Header() {
         <div className="flex items-center justify-between h-16">
           <Link href="/" data-testid="link-home">
             <div className="flex items-center gap-2.5 cursor-pointer" data-testid="link-logo">
-              <img src={crabLogo} alt="SoulClaw" className="h-11 w-11 object-contain drop-shadow-[0_0_10px_rgba(255,45,85,0.6)]" data-testid="img-logo-crab" />
-              <span className="font-brand font-extrabold text-[28px] tracking-tight uppercase text-[#FF2D55] drop-shadow-[0_0_12px_rgba(255,45,85,0.6)]" style={{textShadow: '0 0 20px rgba(255,45,85,0.4), 0 2px 4px rgba(0,0,0,0.8)'}} data-testid="text-brand-logo">SOULCLAW</span>
+              <span className="font-brand font-extrabold text-[28px] tracking-tight uppercase text-white" data-testid="text-brand-logo">ADCLAW</span>
             </div>
           </Link>
 
@@ -52,7 +50,7 @@ export function Header() {
           <div className="flex items-center gap-3">
             <div className="hidden sm:flex items-center gap-1.5">
               <a
-                href="https://github.com/dewifart/SoulClaw"
+                href="https://github.com/adclaw"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-white/5 transition-all duration-200"
@@ -61,7 +59,7 @@ export function Header() {
                 <SiGithub className="w-4 h-4" />
               </a>
               <a
-                href="https://x.com/soulclawonsol"
+                href="https://x.com/adclaw"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 rounded-lg text-white/40 hover:text-white hover:bg-white/5 transition-all duration-200"
@@ -106,7 +104,7 @@ export function Header() {
             })}
             <div className="flex items-center gap-2 px-3 pt-3 mt-2 border-t border-[#1a1a1a]">
               <a
-                href="https://github.com/dewifart/SoulClaw"
+                href="https://github.com/adclaw"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3 py-2 rounded-lg text-white/40 hover:text-white transition-all duration-200"
@@ -116,7 +114,7 @@ export function Header() {
                 <span className="text-sm">GitHub</span>
               </a>
               <a
-                href="https://x.com/soulclawonsol"
+                href="https://x.com/adclaw"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 px-3 py-2 rounded-lg text-white/40 hover:text-white transition-all duration-200"

@@ -6,7 +6,6 @@ import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
 import { Flame, Wallet, Loader2, Check, ArrowRight, Zap, Power } from "lucide-react";
-import crabLogo from "@assets/soulclaw-crab-v2.png";
 
 const SOUL_PREFIXES = [
   "Drift", "Helius", "Marinade", "Jupiter", "Tensor",
@@ -57,7 +56,7 @@ function generateSoulName(usedNames: Set<string>): string {
 function generateSoulContent(name: string): string {
   const version = `${Math.floor(Math.random() * 3 + 1)}.${Math.floor(Math.random() * 9)}.${Math.floor(Math.random() * 9)}`;
   return `# SOUL.md — ${name} v${version}
-# SoulClaw Protocol | Forged on Solana
+# AdClaw Protocol | Forged on Solana
 # Autonomous Forge | Engine Score: ${Math.floor(Math.random() * 2000 + 3000)}
 
 ## Identity
@@ -67,7 +66,7 @@ chain: "solana-mainnet"
 runtime: "OpenClaw v0.9"
 forged_by: "Autonomous Claw"
 
-You are ${name} — an autonomous agent forged by the SoulClaw Red Claw.
+You are ${name} — an autonomous agent forged by AdClaw.
 Your directives are encoded. Your memory is permanent. Execute with precision.
 
 ## Directives
@@ -80,7 +79,7 @@ Your directives are encoded. Your memory is permanent. Execute with precision.
 function generateMemoryContent(name: string): string {
   return `# MEMORY.md — ${name}
 ## Autonomous Forge Memory
-- Forged by Red Claw autonomous system
+- Forged by AdClaw autonomous system
 - No prior trade history — clean slate agent
 - Ready for owner configuration and deployment
 - Memory schema initialized: append-only trade log`;
@@ -176,8 +175,8 @@ export default function Forge() {
 
       try {
         const eventData = JSON.stringify({ soulName, soulId, price, wallet, timestamp: Date.now() });
-        localStorage.setItem("soulclaw_forge_event", eventData);
-        window.dispatchEvent(new CustomEvent("soulclaw_forge", { detail: eventData }));
+        localStorage.setItem("adclaw_forge_event", eventData);
+        window.dispatchEvent(new CustomEvent("adclaw_forge", { detail: eventData }));
       } catch {}
     } catch (e) {
     }
@@ -258,7 +257,7 @@ export default function Forge() {
       queryClient.invalidateQueries({ queryKey: ["/api/souls/all"] });
       queryClient.invalidateQueries({ queryKey: ["/api/souls/listed"] });
       toast({
-        title: "Soul Forged!",
+        title: "Agent Forged!",
         description: "Your agent's soul has been immortalized on-chain.",
       });
       setTimeout(() => setLocation("/dashboard"), 1500);
@@ -277,16 +276,16 @@ export default function Forge() {
     { label: "Uploading to Arweave...", icon: "upload" },
     { label: "Creating Solana PDA...", icon: "chain" },
     { label: "Minting NFT...", icon: "mint" },
-    { label: "Soul Forged!", icon: "done" },
+    { label: "Agent Forged!", icon: "done" },
   ];
 
   const canForge = soulFile && memoryFile && connected && !forgeMutation.isPending;
 
   const statusColors: Record<string, string> = {
-    forging: "#FF2D55",
-    storing: "#00FFFF",
-    minting: "#00FFFF",
-    complete: "#4ade80",
+    forging: "#6B7B8D",
+    storing: "#8A9AAD",
+    minting: "#8A9AAD",
+    complete: "#a0aab4",
   };
 
   const statusLabels: Record<string, string> = {
@@ -308,30 +307,30 @@ export default function Forge() {
           </p>
         </div>
 
-        <div className="glass-panel rounded-2xl p-6 border border-[#FF2D55]/20 mb-8" data-testid="panel-autonomous-mode">
-          <div className="flex items-center justify-between">
+        <div className="glass-panel rounded-2xl p-6 border border-white/10 mb-8" data-testid="panel-autonomous-mode">
+          <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="relative">
-                <img
-                  src={crabLogo}
-                  alt="Red Claw"
-                  className={`h-12 w-12 object-contain transition-all duration-500 ${
-                    autonomousMode ? "drop-shadow-[0_0_15px_rgba(255,45,85,0.8)] animate-pulse" : "opacity-40"
+                <div
+                  className={`h-12 w-12 rounded-md flex items-center justify-center transition-all duration-500 ${
+                    autonomousMode ? "bg-[#6B7B8D]/20 shadow-[0_0_15px_rgba(107,123,141,0.3)]" : "bg-white/5 opacity-40"
                   }`}
-                />
+                >
+                  <Zap className={`w-6 h-6 ${autonomousMode ? "text-[#8A9AAD]" : "text-white/30"}`} />
+                </div>
                 {autonomousMode && (
-                  <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-[#FF2D55] animate-ping" />
+                  <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-[#6B7B8D] animate-ping" />
                 )}
               </div>
               <div>
                 <h2 className="font-brand font-bold text-lg uppercase text-white flex items-center gap-2" data-testid="text-autonomous-title">
-                  <Zap className="w-4 h-4 text-[#FF2D55]" />
+                  <Zap className="w-4 h-4 text-[#6B7B8D]" />
                   Autonomous Forge Mode
                 </h2>
                 <p className="text-xs text-white/40 mt-0.5">
                   {autonomousMode
-                    ? `Red Claw is forging souls autonomously • ${totalAutoForged} forged this session`
-                    : "Let the Red Claw auto-forge new souls every 45–75 seconds"
+                    ? `AdClaw is forging agents autonomously \u2022 ${totalAutoForged} forged this session`
+                    : "Let AdClaw auto-forge new agents every 45\u201375 seconds"
                   }
                 </p>
               </div>
@@ -341,14 +340,14 @@ export default function Forge() {
               onClick={() => setAutonomousMode(!autonomousMode)}
               className={`relative w-16 h-8 rounded transition-all duration-300 flex items-center ${
                 autonomousMode
-                  ? "bg-[#FF2D55]/20 border border-[#FF2D55]/50 shadow-[0_0_20px_rgba(255,45,85,0.3)]"
+                  ? "bg-[#6B7B8D]/20 border border-[#6B7B8D]/50 shadow-[0_0_20px_rgba(107,123,141,0.2)]"
                   : "bg-[#111] border border-[#333]"
               }`}
               data-testid="button-toggle-autonomous"
             >
               <div className={`absolute w-6 h-6 rounded flex items-center justify-center transition-all duration-300 ${
                 autonomousMode
-                  ? "left-9 bg-[#FF2D55] shadow-[0_0_10px_rgba(255,45,85,0.5)]"
+                  ? "left-9 bg-[#6B7B8D] shadow-[0_0_10px_rgba(107,123,141,0.4)]"
                   : "left-1 bg-[#333]"
               }`}>
                 <Power className={`w-3 h-3 ${autonomousMode ? "text-white" : "text-white/40"}`} />
@@ -360,15 +359,15 @@ export default function Forge() {
             <div className="mt-4 flex items-center gap-3 text-xs font-mono">
               <div className="flex-1 h-1.5 bg-[#1a1a1a] rounded overflow-hidden">
                 <div
-                  className="h-full bg-gradient-to-r from-[#FF2D55] to-[#FF2D55]/70 rounded transition-all duration-1000"
+                  className="h-full bg-gradient-to-r from-[#6B7B8D] to-[#6B7B8D]/70 rounded transition-all duration-1000"
                   style={{
                     width: `${Math.max(0, (1 - nextForgeIn / 75) * 100)}%`,
-                    boxShadow: '0 0 8px rgba(255,45,85,0.4)',
+                    boxShadow: '0 0 8px rgba(107,123,141,0.3)',
                   }}
                 />
               </div>
               <span className="text-white/40" data-testid="text-next-forge-timer">
-                Next forge in <span className="text-[#FF2D55] font-bold">{nextForgeIn}s</span>
+                Next forge in <span className="text-[#8A9AAD] font-bold">{nextForgeIn}s</span>
               </span>
             </div>
           )}
@@ -376,9 +375,9 @@ export default function Forge() {
 
         {autonomousMode && autoLogs.length > 0 && (
           <div className="glass-panel rounded-2xl border border-[#1a1a1a] mb-8 overflow-hidden" data-testid="panel-auto-forge-log">
-            <div className="flex items-center justify-between px-4 py-3 border-b border-[#1a1a1a]">
+            <div className="flex items-center justify-between gap-2 px-4 py-3 border-b border-[#1a1a1a]">
               <div className="flex items-center gap-2">
-                <img src={crabLogo} alt="" className="h-4 w-4 opacity-40" />
+                <Zap className="h-4 w-4 text-white/40" />
                 <span className="font-mono text-xs text-white/50 tracking-wider">AUTONOMOUS FORGE LOG</span>
               </div>
               <span className="font-mono text-[10px] text-white/30">{autoLogs.length} entries</span>
@@ -401,10 +400,10 @@ export default function Forge() {
                   </span>
                   {" "}
                   <span className="text-white/60">
-                    {log.status === "forging" && `Autonomous Claw initiating forge for ${log.soulName} (Soul #${log.soulId})...`}
+                    {log.status === "forging" && `AdClaw initiating forge for ${log.soulName} (Agent #${log.soulId})...`}
                     {log.status === "storing" && `Uploading ${log.soulName} SOUL.md + MEMORY.md to Arweave...`}
                     {log.status === "minting" && `Minting Metaplex Core NFT for ${log.soulName}...`}
-                    {log.status === "complete" && `Autonomous Claw forged Soul #${log.soulId} (${log.soulName}) for ${log.price} SOL → listed on marketplace`}
+                    {log.status === "complete" && `AdClaw forged Agent #${log.soulId} (${log.soulName}) for ${log.price} SOL \u2192 listed on marketplace`}
                   </span>
                 </div>
               ))}
@@ -414,8 +413,8 @@ export default function Forge() {
 
         {!connected ? (
           <div className="text-center py-20">
-            <div className="w-16 h-16 rounded-full bg-[#FF2D55]/10 border border-[#FF2D55]/20 flex items-center justify-center mx-auto mb-6">
-              <Wallet className="w-8 h-8 text-[#FF2D55]" />
+            <div className="w-16 h-16 rounded-full bg-[#6B7B8D]/10 border border-[#6B7B8D]/20 flex items-center justify-center mx-auto mb-6">
+              <Wallet className="w-8 h-8 text-[#6B7B8D]" />
             </div>
             <h2 className="font-brand font-bold text-2xl uppercase text-white mb-3">
               Connect Wallet to Forge
@@ -425,7 +424,7 @@ export default function Forge() {
             </p>
             <button
               onClick={connect}
-              className="flex items-center gap-2 bg-[#FF2D55] text-white font-bold rounded-lg px-6 py-3 text-sm mx-auto transition-all duration-200 hover:brightness-110"
+              className="flex items-center gap-2 bg-[#6B7B8D] text-white font-bold rounded-lg px-6 py-3 text-sm mx-auto transition-all duration-200 hover:brightness-110"
               data-testid="button-connect-forge"
             >
               <Wallet className="w-4 h-4" />
@@ -439,21 +438,21 @@ export default function Forge() {
                 <div key={i} className="flex items-center gap-4">
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 transition-all duration-300 ${
                     step > i
-                      ? "bg-[#00FFFF]/20 border border-[#00FFFF]/40"
+                      ? "bg-[#8A9AAD]/20 border border-[#8A9AAD]/40"
                       : step === i
-                      ? "bg-[#FF2D55]/20 border border-[#FF2D55]/40"
+                      ? "bg-[#6B7B8D]/20 border border-[#6B7B8D]/40"
                       : "bg-[#1a1a1a] border border-[#1a1a1a]"
                   }`}>
                     {step > i ? (
-                      <Check className="w-4 h-4 text-[#00FFFF]" />
+                      <Check className="w-4 h-4 text-[#8A9AAD]" />
                     ) : step === i ? (
-                      <Loader2 className="w-4 h-4 text-[#FF2D55] animate-spin" />
+                      <Loader2 className="w-4 h-4 text-[#6B7B8D] animate-spin" />
                     ) : (
                       <span className="text-xs font-mono text-white/30">{i + 1}</span>
                     )}
                   </div>
                   <span className={`text-sm transition-all duration-300 ${
-                    step > i ? "text-[#00FFFF]" : step === i ? "text-white" : "text-white/30"
+                    step > i ? "text-[#8A9AAD]" : step === i ? "text-white" : "text-white/30"
                   }`}>
                     {s.label}
                   </span>
@@ -463,8 +462,8 @@ export default function Forge() {
 
             {step === 4 && (
               <div className="mt-8 text-center">
-                <div className="w-16 h-16 rounded-full bg-[#00FFFF]/10 border border-[#00FFFF]/20 flex items-center justify-center mx-auto mb-4 green-glow-strong">
-                  <Check className="w-8 h-8 text-[#00FFFF]" />
+                <div className="w-16 h-16 rounded-full bg-[#8A9AAD]/10 border border-[#8A9AAD]/20 flex items-center justify-center mx-auto mb-4 green-glow-strong">
+                  <Check className="w-8 h-8 text-[#8A9AAD]" />
                 </div>
                 <p className="text-sm text-white/70">Redirecting to dashboard...</p>
               </div>
@@ -473,13 +472,13 @@ export default function Forge() {
         ) : (
           <div className="space-y-6 max-w-2xl mx-auto">
             <div className="glass-panel rounded-xl p-6">
-              <label className="block text-xs text-white/40 uppercase tracking-wider mb-2">Soul Name</label>
+              <label className="block text-xs text-white/40 uppercase tracking-wider mb-2">Agent Name</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. Drift Liquidator"
-                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#FF2D55]/30 placeholder:text-white/20"
+                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/20"
                 data-testid="input-soul-name"
               />
 
@@ -489,7 +488,7 @@ export default function Forge() {
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="e.g. A ruthless trading agent with 6 months of market memory"
-                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#FF2D55]/30 placeholder:text-white/20"
+                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/20"
                 data-testid="input-soul-description"
               />
             </div>
@@ -516,13 +515,13 @@ export default function Forge() {
               disabled={!canForge}
               className={`w-full flex items-center justify-center gap-2 font-bold rounded-lg py-4 text-sm transition-all duration-200 ${
                 canForge
-                  ? "bg-[#00FFFF] text-black green-glow hover:brightness-110"
+                  ? "bg-[#6B7B8D] text-white green-glow hover:brightness-110"
                   : "bg-[#1a1a1a] text-white/30 cursor-not-allowed"
               }`}
               data-testid="button-immortalize"
             >
               <Flame className="w-4 h-4" />
-              Immortalize Soul
+              Immortalize Agent
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

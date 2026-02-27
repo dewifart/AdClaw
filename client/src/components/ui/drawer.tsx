@@ -47,14 +47,14 @@ const DrawerContent = React.forwardRef<
 >(({ className, children, showHandle = true, variant = "default", ...props }, ref) => {
   const variantStyles = {
     default: "border-[#1a1a1a] bg-[#0a0a0a]/95",
-    forge: "border-[#FF2D55]/20 bg-[#0a0a0a]/95 shadow-[0_-4px_40px_rgba(255,45,85,0.1)]",
-    terminal: "border-[#00FFFF]/15 bg-[#050505]/98 shadow-[0_-4px_40px_rgba(0,255,255,0.06)]",
+    forge: "border-[#6B7B8D]/20 bg-[#0a0a0a]/95 shadow-[0_-4px_40px_rgba(107,123,141,0.1)]",
+    terminal: "border-[#8A9AAD]/15 bg-[#050505]/98 shadow-[0_-4px_40px_rgba(138,154,173,0.06)]",
   };
 
   const handleColor = {
     default: "bg-white/20",
-    forge: "bg-[#FF2D55]/40 shadow-[0_0_8px_rgba(255,45,85,0.3)]",
-    terminal: "bg-[#00FFFF]/30 shadow-[0_0_8px_rgba(0,255,255,0.2)]",
+    forge: "bg-[#6B7B8D]/40 shadow-[0_0_8px_rgba(107,123,141,0.3)]",
+    terminal: "bg-[#8A9AAD]/30 shadow-[0_0_8px_rgba(138,154,173,0.2)]",
   };
 
   return (

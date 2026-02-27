@@ -1,6 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { ArrowDown, ArrowUp, Wifi, WifiOff } from "lucide-react";
-import crabLogo from "@assets/soulclaw-crab-v2.png";
 
 type LogCategory = "forging" | "marketplace" | "agent" | "thoughts";
 
@@ -16,10 +15,10 @@ interface LogEntry {
 }
 
 const CATEGORY_COLORS: Record<LogCategory, string> = {
-  forging: "#FF2D55",
-  marketplace: "#00FFFF",
-  agent: "#FFA500",
-  thoughts: "#8B5CF6",
+  forging: "#6B7B8D",
+  marketplace: "#8A9AAD",
+  agent: "#9AA5B4",
+  thoughts: "#7B8794",
 };
 
 const CATEGORY_LABELS: Record<LogCategory, string> = {
@@ -47,23 +46,23 @@ function generateTxSig(): string {
 const AGENT_MESSAGES = [
   () => `monitoring Arweave gateway latency. current: ${Math.floor(Math.random() * 80 + 100)}ms. within acceptable range.`,
   () => `Solana RPC health check: mainnet-beta responding in ${Math.floor(Math.random() * 80 + 40)}ms. block height: ${Math.floor(Math.random() * 1000000 + 280000000)}.`,
-  () => `Soul Engine Score recalculation complete. ${Math.floor(Math.random() * 10 + 3)} souls re-scored. no anomalies.`,
+  () => `Ad Engine Score recalculation complete. ${Math.floor(Math.random() * 10 + 3)} agents re-scored. no anomalies.`,
   () => `API v1 endpoint health: all systems nominal. ${Math.floor(Math.random() * 20 + 5)} requests in last 60s.`,
   () => `treasury fee collection: ${(Math.random() * 0.3 + 0.01).toFixed(3)} SOL accumulated. auto-compounding.`,
-  () => `scanning for new SOUL.md format updates. current parser version: 2.4.1. all uploads compatible.`,
+  () => `scanning for new agent config updates. current parser version: 2.4.1. all uploads compatible.`,
   () => `SSE broadcast active. ${Math.floor(Math.random() * 5 + 1)} connected clients receiving live events.`,
-  () => `identity protocol integrity check: all stored souls have valid content hashes. 0 discrepancies.`,
+  () => `identity protocol integrity check: all stored agents have valid content hashes. 0 discrepancies.`,
 ];
 
 const THOUGHT_MESSAGES = [
-  () => `the identity protocol is growing. agents need persistent identity — that's the gap SoulClaw fills. not NFTs, not speculation. infrastructure.`,
-  () => `every soul stored is a piece of someone's agent preserved forever. not just code—personality, memories, decisions. portable identity for AI.`,
-  () => `watching API activity. developers are starting to integrate. soul scores give agents verifiable reputation. that's the real use case.`,
-  () => `thinking about soul evolution. what if stored souls could accumulate new memories over time? the identity grows. need to architect this.`,
-  () => `identity is the missing layer. agents can trade, execute, and communicate — but without persistent identity, they're disposable. SoulClaw fixes that.`,
-  () => `the Soul Engine Score is becoming a trust signal. other platforms could query "what's this agent's score?" before delegating tasks. verifiable AI reputation.`,
-  () => `community is organic. no paid shills, no fake hype. just builders who get it. the agents they forge tell the story better than any marketing could.`,
-  () => `started with a simple idea: what if AI agents could have persistent identity? now we have a protocol, an API, and a live terminal. the soul forge is alive.`,
+  () => `the promotion protocol is growing. agents need autonomous ad infrastructure — that's the gap AdClaw fills. not NFTs, not speculation. infrastructure.`,
+  () => `every token launched is a piece of the ecosystem preserved forever. not just code—strategy, reach, momentum. portable promotion for AI agents.`,
+  () => `watching API activity. developers are starting to integrate. agent scores give promoters verifiable reputation. that's the real use case.`,
+  () => `thinking about agent evolution. what if deployed agents could accumulate new strategies over time? the identity grows. need to architect this.`,
+  () => `promotion is the missing layer. agents can trade, execute, and communicate — but without autonomous promotion, they're invisible. AdClaw fixes that.`,
+  () => `the Ad Engine Score is becoming a trust signal. other platforms could query "what's this agent's score?" before delegating tasks. verifiable AI reputation.`,
+  () => `community is organic. no paid shills, no fake hype. just builders who get it. the agents they deploy tell the story better than any marketing could.`,
+  () => `started with a simple idea: what if AI agents could autonomously promote tokens? now we have a protocol, an API, and a live terminal. the ad engine is alive.`,
 ];
 
 function generateSystemEntry(): LogEntry {
@@ -228,7 +227,7 @@ export default function Live() {
           timestamp: new Date(),
           category: "forging",
           tag: "autonomous_forge",
-          message: `Autonomous Claw forged Soul #${data.soulId} (${data.soulName}) for ${data.price} SOL → stored permanently. [CHAIN-VERIFIED] https://solscan.io/tx/${txSig.slice(0, 60)}`,
+          message: `Autonomous Claw forged Agent #${data.soulId} (${data.soulName}) for ${data.price} SOL — stored permanently. [CHAIN-VERIFIED] https://solscan.io/tx/${txSig.slice(0, 60)}`,
           txSignature: txSig,
           isNew: true,
           isReal: true,
@@ -242,17 +241,17 @@ export default function Live() {
     };
 
     const handleStorageEvent = (e: StorageEvent) => {
-      if (e.key === "soulclaw_forge_event" && e.newValue) injectForgeEntry(e.newValue);
+      if (e.key === "adclaw_forge_event" && e.newValue) injectForgeEntry(e.newValue);
     };
     const handleCustomEvent = (e: Event) => {
       injectForgeEntry((e as CustomEvent).detail);
     };
 
     window.addEventListener("storage", handleStorageEvent);
-    window.addEventListener("soulclaw_forge", handleCustomEvent);
+    window.addEventListener("adclaw_forge", handleCustomEvent);
     return () => {
       window.removeEventListener("storage", handleStorageEvent);
-      window.removeEventListener("soulclaw_forge", handleCustomEvent);
+      window.removeEventListener("adclaw_forge", handleCustomEvent);
     };
   }, [addEntry]);
 
@@ -275,10 +274,12 @@ export default function Live() {
         <div className="glass-panel rounded-t-xl border border-[#1a1a1a] flex-1 flex flex-col overflow-hidden">
           <div className="flex items-center justify-between px-4 py-3 border-b border-[#1a1a1a]" data-testid="live-header">
             <div className="flex items-center gap-3">
-              <img src={crabLogo} alt="SoulClaw" className="h-6 w-6 object-contain opacity-60" />
+              <div className="h-6 w-6 flex items-center justify-center">
+                <div className="w-2 h-2 rounded-full bg-[#6B7B8D] opacity-60" />
+              </div>
               <div className="flex items-center gap-2">
                 <span className="font-mono font-bold text-sm text-white/80 tracking-wider" data-testid="text-live-title">
-                  SOUL TERMINAL
+                  ADCLAW TERMINAL
                 </span>
                 <span className="text-white/20 font-mono text-sm">//</span>
                 <span className="font-mono text-sm text-white/40">LIVE LOG</span>
@@ -289,13 +290,13 @@ export default function Live() {
               <span className="flex items-center gap-1.5" data-testid="text-sse-status">
                 {sseConnected ? (
                   <>
-                    <Wifi className="w-3 h-3 text-[#00FF88]" />
-                    <span className="text-[#00FF88]">LIVE</span>
+                    <Wifi className="w-3 h-3 text-[#8A9AAD]" />
+                    <span className="text-[#8A9AAD]">LIVE</span>
                   </>
                 ) : (
                   <>
-                    <WifiOff className="w-3 h-3 text-[#FF2D55]" />
-                    <span className="text-[#FF2D55]">RECONNECTING</span>
+                    <WifiOff className="w-3 h-3 text-white/40" />
+                    <span className="text-white/40">RECONNECTING</span>
                   </>
                 )}
               </span>
@@ -363,7 +364,7 @@ export default function Live() {
                   </span>
                   {" "}
                   {entry.isReal && (
-                    <span className="text-[#00FF88]/60 text-[10px]">[LIVE] </span>
+                    <span className="text-[#8A9AAD]/60 text-[10px]">[LIVE] </span>
                   )}
                   <span className="text-white/60">{entry.message}</span>
                 </div>
@@ -373,23 +374,23 @@ export default function Live() {
 
           <div className="flex items-center justify-between px-4 py-2 border-t border-[#1a1a1a] bg-[#050505]/80" data-testid="live-status-bar">
             <div className="flex items-center gap-1 text-[10px] font-mono text-white/30">
-              <span className="text-white/15">█</span>
-              <span>soul@terminal:~$</span>
+              <span className="text-white/15">|</span>
+              <span>adclaw@terminal:~$</span>
             </div>
             <div className="flex items-center gap-6 text-[10px] font-mono">
               <div className="flex items-center gap-1.5">
-                <span className="text-white/30">SoulClaw Treasury:</span>
-                <span className="text-[#00FFFF]" data-testid="text-treasury-balance">{treasuryBalance} sol</span>
+                <span className="text-white/30">AdClaw Treasury:</span>
+                <span className="text-[#8A9AAD]" data-testid="text-treasury-balance">{treasuryBalance} sol</span>
               </div>
               <div className="flex items-center gap-1.5">
                 <span className="text-white/30">Total Forged:</span>
-                <span className="text-[#FF2D55]" data-testid="text-total-forged">{totalForged}</span>
+                <span className="text-[#6B7B8D]" data-testid="text-total-forged">{totalForged}</span>
               </div>
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setAutoScroll(!autoScroll)}
                   className={`flex items-center gap-1 px-2 py-0.5 rounded transition-all duration-200 ${
-                    autoScroll ? "text-[#00FFFF] bg-[#00FFFF]/10" : "text-white/30"
+                    autoScroll ? "text-[#8A9AAD] bg-[#8A9AAD]/10" : "text-white/30"
                   }`}
                   data-testid="button-auto-scroll"
                 >
@@ -397,7 +398,7 @@ export default function Live() {
                   AUTO-SCROLL {autoScroll ? "ON" : "OFF"}
                 </button>
                 <span className="text-white/15">|</span>
-                <span className={`${sseConnected ? "text-[#00FF88]" : "text-white/30"}`}>
+                <span className={`${sseConnected ? "text-[#8A9AAD]" : "text-white/30"}`}>
                   {sseConnected ? "SSE: CONNECTED" : "SSE: OFFLINE"}
                 </span>
               </div>

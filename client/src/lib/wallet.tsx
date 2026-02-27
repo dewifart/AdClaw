@@ -18,7 +18,7 @@ const WalletContext = createContext<WalletContextType>({
   sendSol: async () => ({ success: false }),
 });
 
-const SOULCLAW_TREASURY = "SCLAWxKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJo";
+const ADCLAW_TREASURY = "SCLAWxKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJo";
 
 function generateWalletAddress(): string {
   const chars = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz123456789";
@@ -79,7 +79,7 @@ export function WalletProvider({ children }: { children: ReactNode }) {
       const connection = new Connection("https://api.mainnet-beta.solana.com", "confirmed");
 
       const fromPubkey = phantom.publicKey;
-      const toPubkey = new PublicKey(SOULCLAW_TREASURY);
+      const toPubkey = new PublicKey(ADCLAW_TREASURY);
 
       const transaction = new Transaction().add(
         SystemProgram.transfer({

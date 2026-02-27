@@ -31,7 +31,7 @@ const featuredAgents: FeaturedAgent[] = [
     tier: "free",
     pricingReason: "",
     soulCode: `# SOUL.md — Jito Sniper v2.4.1
-# SoulClaw Protocol | Forged on Solana
+# AdClaw Protocol | Forged on Solana
 # Agent Class: Execution / Token Launch
 # Engine Score: 4,821 | Tier: A
 
@@ -88,7 +88,7 @@ tip_calculation: |
 bundle_contents:
   - ix[0]: create_associated_token_account (if needed)
   - ix[1]: swap via Raydium AMM (buy)
-  - ix[2]: memo "soulclaw:snipe:{token_mint}"
+  - ix[2]: memo "adclaw:snipe:{token_mint}"
 max_position: 0.5 SOL per trade
 slippage: 15% (adjusted per volatility)
 
@@ -123,7 +123,7 @@ min_win_rate_threshold: 0.55
     tier: "free",
     pricingReason: "",
     soulCode: `# SOUL.md — Whale Mirror v3.1.0
-# SoulClaw Protocol | Forged on Solana
+# AdClaw Protocol | Forged on Solana
 # Agent Class: Copy-Trade / Wallet Tracking
 # Engine Score: 5,102 | Tier: S
 
@@ -232,24 +232,24 @@ metrics:
 ];
 
 const ENGINE_CRITERIA = [
-  { icon: Brain, label: "Memory Depth", desc: "Richness of trading history, learned patterns, and accumulated experience", weight: "30%", color: "#FF2D55" },
-  { icon: Crosshair, label: "Directive Precision", desc: "Specificity and actionability of the soul's core operating rules", weight: "25%", color: "#00FFFF" },
-  { icon: BarChart3, label: "Track Record", desc: "Verified performance data — wins, losses, and risk-adjusted returns", weight: "25%", color: "#FFD700" },
-  { icon: ShieldCheck, label: "Safety Score", desc: "Built-in risk controls, stop-losses, and capital preservation logic", weight: "20%", color: "#8B5CF6" },
+  { icon: Brain, label: "Memory Depth", desc: "Richness of trading history, learned patterns, and accumulated experience", weight: "30%", color: "#8A9AAD" },
+  { icon: Crosshair, label: "Directive Precision", desc: "Specificity and actionability of the soul's core operating rules", weight: "25%", color: "#6B7B8D" },
+  { icon: BarChart3, label: "Track Record", desc: "Verified performance data — wins, losses, and risk-adjusted returns", weight: "25%", color: "#A0A8B4" },
+  { icon: ShieldCheck, label: "Safety Score", desc: "Built-in risk controls, stop-losses, and capital preservation logic", weight: "20%", color: "#7A8A9A" },
 ];
 
 function getTierLabel(score: number): { label: string; color: string } {
-  if (score >= 5000) return { label: "S-Tier", color: "#FFD700" };
-  if (score >= 4000) return { label: "A-Tier", color: "#FF2D55" };
-  if (score >= 3000) return { label: "B-Tier", color: "#00FFFF" };
-  return { label: "C-Tier", color: "#8B5CF6" };
+  if (score >= 5000) return { label: "S-Tier", color: "#E0E4E8" };
+  if (score >= 4000) return { label: "A-Tier", color: "#8A9AAD" };
+  if (score >= 3000) return { label: "B-Tier", color: "#6B7B8D" };
+  return { label: "C-Tier", color: "#4A5568" };
 }
 
 function getTierFromScore(score: number): { label: string; color: string } {
-  if (score >= 5000) return { label: "S-Tier", color: "#FFD700" };
-  if (score >= 4000) return { label: "A-Tier", color: "#FF2D55" };
-  if (score >= 3000) return { label: "B-Tier", color: "#00FFFF" };
-  return { label: "C-Tier", color: "#8B5CF6" };
+  if (score >= 5000) return { label: "S-Tier", color: "#E0E4E8" };
+  if (score >= 4000) return { label: "A-Tier", color: "#8A9AAD" };
+  if (score >= 3000) return { label: "B-Tier", color: "#6B7B8D" };
+  return { label: "C-Tier", color: "#4A5568" };
 }
 
 export default function Marketplace() {
@@ -323,19 +323,19 @@ export default function Marketplace() {
             <div className="flex items-center justify-between mb-8">
               <div className="flex items-center gap-3">
                 <div className="relative w-8 h-8 flex items-center justify-center">
-                  <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" style={{ filter: "drop-shadow(0 0 6px #00FFFF) drop-shadow(0 0 12px #00FFFF50)" }}>
-                    <path d="M12 2L14.5 8.5L21 9.5L16.5 14L17.5 21L12 17.5L6.5 21L7.5 14L3 9.5L9.5 8.5L12 2Z" fill="#00FFFF" fillOpacity="0.15" stroke="#00FFFF" strokeWidth="1.5" strokeLinejoin="round" />
-                    <path d="M12 6L13.2 9.2L16.5 9.7L14 12L14.8 15.5L12 13.8L9.2 15.5L10 12L7.5 9.7L10.8 9.2L12 6Z" fill="#00FFFF" fillOpacity="0.6" />
+                  <svg viewBox="0 0 24 24" className="w-7 h-7" fill="none" style={{ filter: "drop-shadow(0 0 6px #6B7B8D) drop-shadow(0 0 12px rgba(107,123,141,0.3))" }}>
+                    <path d="M12 2L14.5 8.5L21 9.5L16.5 14L17.5 21L12 17.5L6.5 21L7.5 14L3 9.5L9.5 8.5L12 2Z" fill="#6B7B8D" fillOpacity="0.15" stroke="#8A9AAD" strokeWidth="1.5" strokeLinejoin="round" />
+                    <path d="M12 6L13.2 9.2L16.5 9.7L14 12L14.8 15.5L12 13.8L9.2 15.5L10 12L7.5 9.7L10.8 9.2L12 6Z" fill="#8A9AAD" fillOpacity="0.6" />
                   </svg>
-                  <div className="absolute inset-0 rounded-full" style={{ background: "radial-gradient(circle, #00FFFF20 0%, transparent 70%)" }} />
+                  <div className="absolute inset-0 rounded-full" style={{ background: "radial-gradient(circle, rgba(107,123,141,0.12) 0%, transparent 70%)" }} />
                 </div>
-                <h2 className="font-brand font-bold text-2xl uppercase text-[#FF2D55]" data-testid="text-featured-agents-title">
+                <h2 className="font-brand font-bold text-2xl uppercase text-white" data-testid="text-featured-agents-title">
                   Featured Agents
                 </h2>
               </div>
               <div className="flex items-center gap-4 text-xs font-mono text-white/40">
-                <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#00FFFF]" /> FREE</span>
-                <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#FF2D55]" /> PAID</span>
+                <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#8A9AAD]" /> FREE</span>
+                <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#6B7B8D]" /> PAID</span>
               </div>
             </div>
 
@@ -350,8 +350,8 @@ export default function Marketplace() {
                     key={agent.name}
                     className={`glass-panel rounded-2xl overflow-hidden group transition-all duration-300 border ${
                       isFree
-                        ? "border-[#00FFFF]/10 hover:border-[#00FFFF]/30 hover:shadow-[0_0_30px_rgba(0,255,255,0.08)]"
-                        : "border-[#FF2D55]/10 hover:border-[#FF2D55]/30 hover:shadow-[0_0_30px_rgba(255,45,85,0.1)]"
+                        ? "border-white/8 hover:border-white/15 hover:shadow-[0_0_30px_rgba(107,123,141,0.08)]"
+                        : "border-white/8 hover:border-white/15 hover:shadow-[0_0_30px_rgba(107,123,141,0.1)]"
                     }`}
                     data-testid={`card-agent-${i}`}
                   >
@@ -363,8 +363,8 @@ export default function Marketplace() {
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-transparent to-transparent" />
                       <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1.5">
-                        <Zap className="w-3.5 h-3.5 text-[#00FFFF]" />
-                        <span className="text-xs font-mono font-bold text-[#00FFFF]">{agent.score.toLocaleString()}</span>
+                        <Zap className="w-3.5 h-3.5 text-[#8A9AAD]" />
+                        <span className="text-xs font-mono font-bold text-[#8A9AAD]">{agent.score.toLocaleString()}</span>
                       </div>
                       <div className="absolute top-3 left-3 flex items-center gap-2">
                         <div
@@ -374,8 +374,8 @@ export default function Marketplace() {
                           <span className="text-[11px] font-mono font-bold" style={{ color: tier.color }}>{tier.label}</span>
                         </div>
                         {isFree && (
-                          <div className="bg-[#00FFFF]/10 backdrop-blur-sm rounded-full px-2.5 py-1 border border-[#00FFFF]/20">
-                            <span className="text-[11px] font-mono font-bold text-[#00FFFF]">FREE</span>
+                          <div className="bg-white/10 backdrop-blur-sm rounded-full px-2.5 py-1 border border-white/20">
+                            <span className="text-[11px] font-mono font-bold text-white/80">FREE</span>
                           </div>
                         )}
                       </div>
@@ -395,14 +395,14 @@ export default function Marketplace() {
                       )}
 
                       <div className="flex items-center justify-between">
-                        <span className={`text-base font-mono font-bold ${isFree ? "text-[#00FFFF]" : "text-white/30"}`} data-testid={`text-agent-price-${i}`}>
+                        <span className={`text-base font-mono font-bold ${isFree ? "text-[#8A9AAD]" : "text-white/30"}`} data-testid={`text-agent-price-${i}`}>
                           {isFree ? "FREE" : "Coming Soon"}
                         </span>
                         {isFree ? (
                           <button
                             onClick={() => handleAdopt(i)}
                             disabled={adoptingIndex === i}
-                            className="flex items-center gap-2 text-sm font-bold rounded-lg px-4 py-2 transition-all duration-200 disabled:opacity-50 bg-[#00FFFF]/10 hover:bg-[#00FFFF]/20 text-[#00FFFF] border border-[#00FFFF]/20"
+                            className="flex items-center gap-2 text-sm font-bold rounded-lg px-4 py-2 transition-all duration-200 disabled:opacity-50 bg-[#6B7B8D]/10 hover:bg-[#6B7B8D]/20 text-[#8A9AAD] border border-[#6B7B8D]/20"
                             data-testid={`button-adopt-${i}`}
                           >
                             <Code className="w-4 h-4" />
@@ -432,8 +432,8 @@ export default function Marketplace() {
             {listedSouls.length > 0 && (
               <div className="mt-14" data-testid="section-recently-forged">
                 <div className="flex items-center gap-3 mb-8">
-                  <Flame className="w-6 h-6 text-[#FF2D55]" />
-                  <h2 className="font-brand font-bold text-2xl uppercase text-[#FF2D55]" data-testid="text-recently-forged-title">
+                  <Flame className="w-6 h-6 text-[#8A9AAD]" />
+                  <h2 className="font-brand font-bold text-2xl uppercase text-white" data-testid="text-recently-forged-title">
                     Autonomous Forged
                   </h2>
                   <span className="text-xs font-mono text-white/30 bg-[#1a1a1a] rounded-full px-3 py-1">
@@ -446,19 +446,19 @@ export default function Marketplace() {
                     return (
                       <div
                         key={soul.id}
-                        className="glass-panel rounded-2xl overflow-hidden group transition-all duration-300 border border-[#FF2D55]/10 hover:border-[#FF2D55]/30 hover:shadow-[0_0_30px_rgba(255,45,85,0.1)]"
+                        className="glass-panel rounded-2xl overflow-hidden group transition-all duration-300 border border-white/8 hover:border-white/15 hover:shadow-[0_0_30px_rgba(107,123,141,0.1)]"
                         data-testid={`card-forged-${soul.id}`}
                       >
-                        <div className="relative h-32 bg-gradient-to-br from-[#FF2D55]/10 via-[#0a0a0a] to-[#00FFFF]/5 flex items-center justify-center overflow-hidden">
+                        <div className="relative h-32 bg-gradient-to-br from-[#6B7B8D]/10 via-[#0a0a0a] to-[#8A9AAD]/5 flex items-center justify-center overflow-hidden">
                           <div className="absolute inset-0 opacity-10" style={{
-                            backgroundImage: `radial-gradient(circle at 30% 50%, #FF2D55 0%, transparent 50%), radial-gradient(circle at 70% 50%, #00FFFF 0%, transparent 50%)`
+                            backgroundImage: `radial-gradient(circle at 30% 50%, #6B7B8D 0%, transparent 50%), radial-gradient(circle at 70% 50%, #8A9AAD 0%, transparent 50%)`
                           }} />
                           <span className="font-brand font-bold text-3xl text-white/10 uppercase tracking-widest">
                             {soul.name.split(" ").map(w => w[0]).join("")}
                           </span>
                           <div className="absolute top-3 right-3 bg-black/70 backdrop-blur-sm rounded-full px-3 py-1 flex items-center gap-1.5">
-                            <Zap className="w-3.5 h-3.5 text-[#00FFFF]" />
-                            <span className="text-xs font-mono font-bold text-[#00FFFF]">{soul.soulScore.toLocaleString()}</span>
+                            <Zap className="w-3.5 h-3.5 text-[#8A9AAD]" />
+                            <span className="text-xs font-mono font-bold text-[#8A9AAD]">{soul.soulScore.toLocaleString()}</span>
                           </div>
                           <div className="absolute top-3 left-3">
                             <div
@@ -496,14 +496,14 @@ export default function Marketplace() {
                   data-testid="button-toggle-engine-info"
                 >
                   <div className="flex items-center gap-2.5">
-                    <TrendingUp className="w-5 h-5 text-[#00FFFF]" />
-                    <h3 className="font-brand font-bold text-base text-white uppercase" data-testid="text-engine-score-title">Soul Engine Score</h3>
+                    <TrendingUp className="w-5 h-5 text-[#8A9AAD]" />
+                    <h3 className="font-brand font-bold text-base text-white uppercase" data-testid="text-engine-score-title">Agent Engine Score</h3>
                   </div>
                   <Info className="w-4 h-4 text-white/30" />
                 </button>
 
                 <p className="text-sm text-white/40 leading-relaxed mb-5" data-testid="text-engine-score-desc">
-                  Every soul is rated by the SoulClaw Engine — an algorithmic score reflecting how capable, experienced, and battle-tested an agent truly is.
+                  Every agent is rated by the AdClaw Engine — an algorithmic score reflecting how capable, experienced, and battle-tested an agent truly is.
                 </p>
 
                 <div className="space-y-4" data-testid="list-engine-criteria">
@@ -528,7 +528,7 @@ export default function Marketplace() {
                         <div className="flex-1 min-w-0">
                           <div className="flex items-center justify-between mb-0.5">
                             <span className="text-sm font-bold text-white" data-testid={`text-criteria-label-${ci}`}>{c.label}</span>
-                            <span className="text-xs font-mono text-[#FF2D55]" data-testid={`text-criteria-weight-${ci}`}>{c.weight}</span>
+                            <span className="text-xs font-mono text-[#8A9AAD]" data-testid={`text-criteria-weight-${ci}`}>{c.weight}</span>
                           </div>
                           <p className="text-xs text-white/35 leading-relaxed">{c.desc}</p>
                         </div>
@@ -542,10 +542,10 @@ export default function Marketplace() {
                     <h4 className="text-sm font-bold text-white mb-3">Tier Breakdown</h4>
                     <div className="space-y-2.5">
                       {[
-                        { tier: "S-Tier", range: "5,000+", color: "#FFD700", desc: "Elite — verified alpha generators" },
-                        { tier: "A-Tier", range: "4,000–4,999", color: "#FF2D55", desc: "Advanced — proven track record" },
-                        { tier: "B-Tier", range: "3,000–3,999", color: "#00FFFF", desc: "Solid — reliable execution" },
-                        { tier: "C-Tier", range: "< 3,000", color: "#8B5CF6", desc: "Starter — basic strategies" },
+                        { tier: "S-Tier", range: "5,000+", color: "#E0E4E8", desc: "Elite — verified alpha generators" },
+                        { tier: "A-Tier", range: "4,000–4,999", color: "#8A9AAD", desc: "Advanced — proven track record" },
+                        { tier: "B-Tier", range: "3,000–3,999", color: "#6B7B8D", desc: "Solid — reliable execution" },
+                        { tier: "C-Tier", range: "< 3,000", color: "#4A5568", desc: "Starter — basic strategies" },
                       ].map((t) => (
                         <div key={t.tier} className="flex items-center gap-3" data-testid={`item-tier-${t.tier.toLowerCase()}`}>
                           <span className="text-xs font-mono font-bold w-14" style={{ color: t.color }}>{t.tier}</span>
@@ -562,16 +562,16 @@ export default function Marketplace() {
                 <h3 className="font-brand font-bold text-base text-white uppercase mb-4" data-testid="text-pricing-title">Pricing</h3>
                 <div className="space-y-4">
                   <div className="flex items-start gap-3">
-                    <div className="w-3 h-3 rounded-full bg-[#00FFFF] mt-1 flex-shrink-0" />
+                    <div className="w-3 h-3 rounded-full bg-[#8A9AAD] mt-1 flex-shrink-0" />
                     <div>
-                      <span className="text-sm font-bold text-[#00FFFF]">Free Souls</span>
+                      <span className="text-sm font-bold text-[#8A9AAD]">Free Agents</span>
                       <p className="text-xs text-white/35 leading-relaxed mt-1">Open-source agents with full SOUL.md code visible. Fork, modify, and deploy as your own.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <div className="w-3 h-3 rounded-full bg-[#FF2D55] mt-1 flex-shrink-0" />
+                    <div className="w-3 h-3 rounded-full bg-[#6B7B8D] mt-1 flex-shrink-0" />
                     <div>
-                      <span className="text-sm font-bold text-[#FF2D55]">1.5 – 3.0 SOL</span>
+                      <span className="text-sm font-bold text-[#6B7B8D]">1.5 – 3.0 SOL</span>
                       <p className="text-xs text-white/35 leading-relaxed mt-1">Premium battle-tested agents. Price reflects strategy complexity, memory depth, and verified performance history.</p>
                     </div>
                   </div>
