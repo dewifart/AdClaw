@@ -1,0 +1,34 @@
+We are sitting at a round table as co-founders making a serious decision.
+
+Project name: **AdClaw**
+
+We are using this duplicate of SoulClaw as the base because I like the current navigation, page structure, responsiveness, cards, buttons, and overall layout.
+
+However, we are completely changing the visual identity to make it look extremely professional, polished, clean, minimalist, and premium — like a serious Solana infrastructure / fintech product (think Stripe, Vercel, or high-end AI tools).
+
+New visual direction:
+- Pure black (#000000) background
+- Clean white and light gray text
+- Very subtle dark gray / off-white cards and surfaces with soft shadows
+- Minimalist luxury aesthetic: generous spacing, refined modern sans-serif typography, high-end clean design
+- Only very subtle accent color (deep charcoal or soft steel blue) for buttons and highlights — no neon, no red, no cyan, no punk/gamy energy
+
+Keep 100% of the current navigation, page layout, responsiveness, components, and functionality exactly the same. Only change colors, typography, spacing, shadows, and overall polish.
+
+Positioning of AdClaw:
+The platform where anyone can launch their own token in 1 click, and a swarm of autonomous OpenClaw agents automatically promote it across X and other platforms 24/7. All platform fees go to automatic buyback of the $ADCLAW token. Real infrastructure, no dev wallet, no manual shilling.
+
+Be brutally honest with me:
+- Is this feasible right now?
+- What will be the hardest parts?
+- How do we make the agents feel truly autonomous and useful?
+
+First, give me your full technical plan and honest assessment.
+
+Then, transform the entire app into this new professional minimalist luxury black & white aesthetic.
+
+After that, update the homepage, logo area, and main navigation with the new "AdClaw" branding.
+
+Start by showing me the updated homepage with the new professional look first.
+
+We are building something that must look and feel like a real high-value product that can attract serious users and capital.
