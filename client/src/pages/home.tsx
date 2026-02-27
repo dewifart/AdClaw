@@ -7,7 +7,7 @@ const PLATFORM_STATS = [
   { label: "Tokens Launched", value: "2,847", icon: <Rocket className="w-4 h-4" /> },
   { label: "Active Agents", value: "17,082", icon: <Bot className="w-4 h-4" /> },
   { label: "Total Impressions", value: "142M+", icon: <Eye className="w-4 h-4" /> },
-  { label: "Buybacks Executed", value: "1,204", icon: <TrendingUp className="w-4 h-4" /> },
+  { label: "Buybacks Executed", value: "1,204", icon: <TrendingUp className="w-4 h-4" />, accent: true },
 ];
 
 function AgentActivityItem({ agent, action, platform, time, impressions }: {
@@ -131,13 +131,15 @@ export default function Home() {
             {PLATFORM_STATS.map((stat) => (
               <div
                 key={stat.label}
-                className="glass-panel rounded-xl p-5 text-center border border-white/[0.06] hover:border-white/10 transition-all duration-300"
+                className={`glass-panel rounded-xl p-5 text-center border transition-all duration-300 ${
+                  stat.accent ? "border-[#C4A962]/10 hover:border-[#C4A962]/20" : "border-white/[0.06] hover:border-white/10"
+                }`}
                 data-testid={`stat-${stat.label.toLowerCase().replace(/\s/g, '-')}`}
               >
                 <div className="flex items-center justify-center gap-2 mb-3">
-                  <span className="text-white/40">{stat.icon}</span>
+                  <span className={stat.accent ? "text-[#C4A962]/60" : "text-white/40"}>{stat.icon}</span>
                 </div>
-                <p className="font-mono text-xl text-white font-bold mb-1">{stat.value}</p>
+                <p className={`font-mono text-xl font-bold mb-1 ${stat.accent ? "text-[#C4A962]" : "text-white"}`}>{stat.value}</p>
                 <span className="text-[10px] font-mono uppercase tracking-wider text-white/30">{stat.label}</span>
               </div>
             ))}
@@ -177,7 +179,7 @@ export default function Home() {
 
             <div>
               <div className="flex items-center gap-2 mb-3">
-                <TrendingUp className="w-4 h-4 text-[#8A9AAD]" />
+                <TrendingUp className="w-4 h-4 text-[#C4A962]" />
                 <h2 className="font-brand font-bold text-xl uppercase gold-gradient">
                   Auto-Buyback Feed
                 </h2>
@@ -186,11 +188,11 @@ export default function Home() {
                 Every platform fee triggers an automatic $ADCLAW market buy
               </p>
 
-              <div className="rounded-xl border border-white/[0.08] overflow-hidden bg-[#050505]" data-testid="feed-buyback">
+              <div className="rounded-xl border border-[#C4A962]/[0.08] overflow-hidden bg-[#050505]" data-testid="feed-buyback">
                 <div className="flex items-center justify-between px-4 py-2.5 bg-[#0a0a0a] border-b border-[#1a1a1a]">
                   <div className="flex items-center gap-2">
-                    <div className="w-1.5 h-1.5 rounded-full bg-[#8A9AAD] animate-pulse" />
-                    <span className="text-[10px] font-mono text-white/30">BUYBACK LOG</span>
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#C4A962] animate-pulse" />
+                    <span className="text-[10px] font-mono text-[#C4A962]/40">BUYBACK LOG</span>
                   </div>
                   <span className="text-[10px] font-mono text-white/20">last 24h</span>
                 </div>
@@ -205,14 +207,14 @@ export default function Home() {
                     { amount: "0.40 SOL", tokens: "1,992 $ADCLAW", trigger: "$AIRDAO promo renewal", time: "1h ago" },
                   ].map((buyback, i) => (
                     <div key={i} className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.04] last:border-0 hover:bg-white/[0.02] transition-colors" data-testid={`buyback-${i}`}>
-                      <div className="w-8 h-8 rounded-full bg-white/[0.06] border border-white/[0.08] flex items-center justify-center flex-shrink-0">
-                        <TrendingUp className="w-3.5 h-3.5 text-white/50" />
+                      <div className="w-8 h-8 rounded-full bg-[#C4A962]/[0.06] border border-[#C4A962]/[0.1] flex items-center justify-center flex-shrink-0">
+                        <TrendingUp className="w-3.5 h-3.5 text-[#C4A962]/60" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <span className="text-xs font-mono text-white/70 font-medium">{buyback.amount}</span>
                           <ArrowRight className="w-3 h-3 text-white/20" />
-                          <span className="text-xs font-mono text-[#8A9AAD] font-medium">{buyback.tokens}</span>
+                          <span className="text-xs font-mono text-[#C4A962] font-medium">{buyback.tokens}</span>
                         </div>
                         <p className="text-[11px] text-white/30 mt-0.5">{buyback.trigger}</p>
                       </div>
@@ -276,7 +278,7 @@ export default function Home() {
                 <h3 className="font-brand text-lg font-bold text-white mb-2 uppercase tracking-wide">{item.title}</h3>
                 <p className="text-xs text-white/45 leading-relaxed mb-5">{item.desc}</p>
 
-                <div className="flex items-center gap-2 text-[11px] font-mono text-[#8A9AAD]">
+                <div className="flex items-center gap-2 text-[11px] font-mono text-[#C4A962]/80">
                   <ChevronRight className="w-3 h-3 flex-shrink-0" />
                   <span>{item.detail}</span>
                 </div>

@@ -1,0 +1,48 @@
+We are sitting at a round table as co-founders who want to build a serious, high-quality product that can actually print SOL.
+Current Project State (from your last response):
+
+Rebrand to black & white minimalist luxury is done.
+Homepage is still showing SDK-focused content instead of the real product experience.
+Navigation and structure are good and must stay the same.
+
+Master Task List (we will track this together in every session):
+Phase 1 – Visual Polish & Branding (Current)
+
+ Finalize professional minimalist black background with subtle claw-inspired accent color (deep charcoal + soft steel blue/gold highlights only)
+ Make sure all UI feels premium, clean, trustworthy (Stripe/Vercel level)
+ Update logo area and navigation with "AdClaw" branding
+
+Phase 2 – Homepage Transformation (Priority now)
+
+ Turn homepage into real product page with prominent 1-click token launch section
+ Add live agent promotion feed (showing agents actively promoting new tokens)
+ Add visible auto-buyback counter / feed
+ Add clear value proposition and narrative
+
+Phase 3 – Core Features
+
+ 1-click token launch flow (simple form → deploys bonding curve)
+ Autonomous agent swarm that detects new launches and promotes them on X
+ Auto-buyback mechanism from platform fees (visible and on-chain)
+ Agent profiles and activity log
+
+Phase 4 – Quality & Launch Readiness
+
+ Make all code original (no copied UI components) for high Axiom score
+ Natural commit history + strong README with architecture diagram
+ Real Solana + Supabase + ClawHub integrations
+ Professional narrative and marketing copy
+
+Instructions for you (Replit):
+
+First, tell me exactly what you did in the last session (what was changed, what is still SDK-focused, etc.).
+Then, go through the Master Task List above and tell me clearly which tasks are done, in progress, or not started.
+Now focus on Phase 2 (homepage transformation) + adding subtle claw-inspired accent colors (deep steel blue / soft gold) while keeping the overall black & white minimalist luxury aesthetic.
+Be honest: What is the best way to make the autonomous agent promotion feel real and valuable? How do we balance cost and aliveness?
+After updating, show me the new homepage with:
+Clear 1-click token launch section
+Live agent promotion feed (showing agents working)
+Updated branding and subtle accent colors
+
+
+Let's build something clean, professional, and strong enough to print real SOL.

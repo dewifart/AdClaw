@@ -235,14 +235,14 @@
 .aurora-blob-4 {
   width: 550px;
   height: 550px;
-  background: rgba(150, 160, 175, 0.02);
+  background: rgba(196, 169, 98, 0.02);
   top: 30%;
   left: 60%;
   animation: aurora-4 80s ease-in-out infinite;
 }
 
 .gold-gradient {
-  background: linear-gradient(135deg, #ffffff, #a0a8b4);
+  background: linear-gradient(135deg, #ffffff, #C4A962);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -273,7 +273,7 @@
 }
 
 .gold-gradient-bg {
-  background: linear-gradient(135deg, #6B7B8D, #8A9AAD);
+  background: linear-gradient(135deg, #6B7B8D, #C4A962);
 }
 
 .green-glow {
@@ -285,7 +285,7 @@
 }
 
 .gold-glow {
-  box-shadow: 0 0 20px rgba(107, 123, 141, 0.1);
+  box-shadow: 0 0 20px rgba(196, 169, 98, 0.08);
 }
 
 .soul-card-glow:hover {
