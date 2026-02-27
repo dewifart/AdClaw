@@ -9,7 +9,6 @@ import { Header } from "@/components/Header";
 import Home from "@/pages/home";
 
 import Forge from "@/pages/forge";
-import Marketplace from "@/pages/marketplace";
 import Live from "@/pages/live";
 import Ecosystem from "@/pages/ecosystem";
 import NotFound from "@/pages/not-found";
@@ -20,7 +19,6 @@ function Router() {
       <Route path="/" component={Home} />
 
       <Route path="/forge" component={Forge} />
-      <Route path="/marketplace" component={Marketplace} />
       <Route path="/live" component={Live} />
       <Route path="/ecosystem" component={Ecosystem} />
       <Route component={NotFound} />

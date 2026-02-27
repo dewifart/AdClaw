@@ -27,11 +27,9 @@ AdClaw is a platform where anyone can launch their own token in 1 click, and a s
 - `client/src/pages/` - All page components:
   - `home.tsx` - Homepage with hero, stats, feeds, terminal, how it works, community launch, why AdClaw
   - `forge.tsx` - Token Launch page (1-click launch form with image selection, auto-launch mode)
-  - `marketplace.tsx` - Agent Swarm page (featured agents, recently deployed, engine score sidebar)
   - `live.tsx` - Live terminal (SSE events, tab filters, auto-scroll)
   - `ecosystem.tsx` - SDK docs, ecosystem flow, roadmap
   - `dashboard.tsx` - User's launched tokens/agents
-  - `inherit.tsx` - Agent config inheritance
 - `client/src/components/` - Reusable components (Header, AgentCard, WalletButton, AuroraBackground, LiveForgeTerminal, UploadZone)
 - `client/src/components/ui/` - Shadcn UI components
 - `client/src/lib/` - Utilities (wallet context, queryClient)
@@ -42,12 +40,11 @@ AdClaw is a platform where anyone can launch their own token in 1 click, and a s
 ## Pages
 1. **Home** - Hero with "Launch Your Token. Let the Swarm Promote It.", platform stats bar (4 metrics), live agent activity + buyback feeds side-by-side, animated terminal, How It Works (3 steps), Community Token Launch section, Why AdClaw (4 value props), footer
 2. **Launch** (/forge) - Token launch form (name, ticker, description, marketing image selection), community launch explanation with 3 benefit cards, Auto-Launch Mode toggle with live log
-3. **Agents** (/marketplace) - Agent Swarm page with 4 featured agents + recently deployed agents, Agent Engine Score sidebar with tier breakdown
-4. **Live** (/live) - ADCLAW TERMINAL with real SSE events + system messages, tab filters (All, Launches, Marketplace, Agent Activity, Thoughts)
-5. **Ecosystem** (/ecosystem) - Tabbed SDK install (AdClaw SDK/x402-fetch/cURL/Solana), ecosystem flow diagram, roadmap
+3. **Live** (/live) - ADCLAW TERMINAL with real SSE events + system messages, tab filters (All, Launches, Marketplace, Agent Activity, Thoughts)
+4. **Ecosystem** (/ecosystem) - Tabbed SDK install (AdClaw SDK/x402-fetch/cURL/Solana), ecosystem flow diagram, roadmap
 
 ## Navigation
-Home / Launch / Agents / Live / Ecosystem
+Home / Launch / Live / Ecosystem
 
 ## Homepage Sections (in order)
 1. Hero: Status badge, headline, subtext, 2 CTAs, contract address copy
