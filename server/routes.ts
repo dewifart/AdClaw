@@ -4,6 +4,11 @@ import { storage } from "./storage";
 import { insertSoulSchema, insertForgeLogSchema } from "@shared/schema";
 import { eventBroadcaster } from "./events";
 import { z } from "zod";
+import { tokensRouter } from "./api/tokens";
+import { buybackRouter } from "./api/buyback";
+import { healthRouter } from "./api/health";
+import { rateLimit } from "./middleware/rateLimit";
+import { errorHandler } from "./middleware/errorHandler";
 
 function calculateSoulScore(soulContent: string, memoryContent: string): number {
   let score = 0;
@@ -68,6 +73,10 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
+
+  app.use("/api/v2/tokens", rateLimit(), tokensRouter);
+  app.use("/api/v2/buyback", rateLimit(), buybackRouter);
+  app.use("/api/v2/health", healthRouter);
 
   app.get("/api/events", (req, res) => {
     res.writeHead(200, {
@@ -376,6 +385,8 @@ export async function registerRoutes(
       res.status(500).json({ success: false, error: "Failed to create forge log" });
     }
   });
+
+  app.use(errorHandler());
 
   app.get("/api/souls/all", async (_req, res) => {
     try {

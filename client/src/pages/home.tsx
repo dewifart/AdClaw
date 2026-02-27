@@ -18,20 +18,20 @@ function AgentActivityItem({ agent, action, platform, time, impressions }: {
   impressions: string;
 }) {
   return (
-    <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.08] last:border-0 hover:bg-white/[0.03] transition-colors" data-testid={`activity-${agent}`}>
-      <div className="w-8 h-8 rounded-full bg-white/[0.06] border border-white/[0.12] flex items-center justify-center flex-shrink-0">
+    <div className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.10] last:border-0 hover:bg-white/[0.03] transition-colors" data-testid={`activity-${agent}`}>
+      <div className="w-8 h-8 rounded-full bg-white/[0.08] border border-white/[0.12] flex items-center justify-center flex-shrink-0">
         <Bot className="w-3.5 h-3.5 text-[#8A9AAD]" />
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-2">
           <span className="text-xs font-mono text-white/80 font-medium">{agent}</span>
-          <span className="text-[10px] font-mono text-white/55 px-1.5 py-0.5 rounded bg-white/[0.08]">{platform}</span>
+          <span className="text-[10px] font-mono text-white/60 px-1.5 py-0.5 rounded bg-white/[0.08]">{platform}</span>
         </div>
         <p className="text-[11px] text-white/60 truncate mt-0.5">{action}</p>
       </div>
       <div className="text-right flex-shrink-0">
         <div className="text-[11px] font-mono text-white/70">{impressions}</div>
-        <div className="text-[10px] text-white/50">{time}</div>
+        <div className="text-[10px] text-white/60">{time}</div>
       </div>
     </div>
   );
@@ -64,7 +64,7 @@ export default function Home() {
     <div className="min-h-screen">
       <section className="relative pt-32 pb-20 px-4">
         <div className="max-w-4xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/[0.12] bg-white/[0.06] mb-8" data-testid="badge-status">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-white/[0.12] bg-white/[0.08] mb-8" data-testid="badge-status">
             <div className="w-1.5 h-1.5 rounded-full bg-[#8A9AAD] animate-pulse" />
             <span className="text-[11px] font-mono text-white/60">17,082 agents promoting across 4 platforms</span>
           </div>
@@ -92,7 +92,7 @@ export default function Home() {
             </Link>
             <a href="#how-it-works">
               <button
-                className="flex items-center gap-2 bg-white/[0.06] text-white/90 font-medium rounded-lg px-8 py-3.5 text-sm transition-all duration-200 hover:bg-white/[0.1] border border-white/[0.14] hover:border-white/[0.22]"
+                className="flex items-center gap-2 bg-white/[0.08] text-white/90 font-medium rounded-lg px-8 py-3.5 text-sm transition-all duration-200 hover:bg-white/[0.1] border border-white/[0.14] hover:border-white/[0.22]"
                 data-testid="button-how-it-works"
               >
                 <Eye className="w-4 h-4" />
@@ -102,14 +102,14 @@ export default function Home() {
           </div>
 
           <div className="mt-8 flex flex-col items-center gap-2">
-            <span className="text-[10px] font-mono text-white/55 uppercase tracking-widest">$ADCLAW Contract</span>
+            <span className="text-[10px] font-mono text-white/60 uppercase tracking-widest">$ADCLAW Contract</span>
             <button
               onClick={() => {
                 navigator.clipboard.writeText(TOKEN_ADDRESS);
                 setCopied(true);
                 setTimeout(() => setCopied(false), 2000);
               }}
-              className="flex items-center gap-3 bg-white/[0.06] border border-white/[0.12] hover:border-white/[0.22] rounded-lg px-4 py-2.5 transition-all duration-200 group"
+              className="flex items-center gap-3 bg-white/[0.08] border border-white/[0.12] hover:border-white/[0.22] rounded-lg px-4 py-2.5 transition-all duration-200 group"
               data-testid="button-copy-contract"
             >
               <span className="text-xs font-mono text-white/60 group-hover:text-white/80 transition-colors select-all" data-testid="text-contract-address">
@@ -118,7 +118,7 @@ export default function Home() {
               {copied ? (
                 <Check className="w-3.5 h-3.5 text-[#C4A962] flex-shrink-0" />
               ) : (
-                <Copy className="w-3.5 h-3.5 text-white/55 group-hover:text-white/70 flex-shrink-0 transition-colors" />
+                <Copy className="w-3.5 h-3.5 text-white/60 group-hover:text-white/70 flex-shrink-0 transition-colors" />
               )}
             </button>
           </div>
@@ -137,10 +137,10 @@ export default function Home() {
                 data-testid={`stat-${stat.label.toLowerCase().replace(/\s/g, '-')}`}
               >
                 <div className="flex items-center justify-center gap-2 mb-3">
-                  <span className={stat.accent ? "text-[#C4A962]/70" : "text-white/55"}>{stat.icon}</span>
+                  <span className={stat.accent ? "text-[#C4A962]/70" : "text-white/60"}>{stat.icon}</span>
                 </div>
                 <p className={`font-mono text-xl font-bold mb-1 ${stat.accent ? "text-[#C4A962]" : "text-white"}`}>{stat.value}</p>
-                <span className="text-[10px] font-mono uppercase tracking-wider text-white/55">{stat.label}</span>
+                <span className="text-[10px] font-mono uppercase tracking-wider text-white/60">{stat.label}</span>
               </div>
             ))}
           </div>
@@ -165,9 +165,9 @@ export default function Home() {
                 <div className="flex items-center justify-between px-4 py-2.5 bg-[#0c0c0c] border-b border-white/[0.10]">
                   <div className="flex items-center gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-[#8A9AAD] animate-pulse" />
-                    <span className="text-[10px] font-mono text-white/55">LIVE FEED</span>
+                    <span className="text-[10px] font-mono text-white/60">LIVE FEED</span>
                   </div>
-                  <span className="text-[10px] font-mono text-white/50">{AGENT_ACTIVITIES.length} agents active</span>
+                  <span className="text-[10px] font-mono text-white/60">{AGENT_ACTIVITIES.length} agents active</span>
                 </div>
                 <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
                   {AGENT_ACTIVITIES.slice(0, visibleActivities).map((activity, i) => (
@@ -194,7 +194,7 @@ export default function Home() {
                     <div className="w-1.5 h-1.5 rounded-full bg-[#C4A962] animate-pulse" />
                     <span className="text-[10px] font-mono text-[#C4A962]/60">BUYBACK LOG</span>
                   </div>
-                  <span className="text-[10px] font-mono text-white/50">last 24h</span>
+                  <span className="text-[10px] font-mono text-white/60">last 24h</span>
                 </div>
                 <div className="max-h-[400px] overflow-y-auto custom-scrollbar">
                   {[
@@ -206,19 +206,19 @@ export default function Home() {
                     { amount: "0.50 SOL", tokens: "2,489 $ADCLAW", trigger: "$MEMEX launch fee", time: "45m ago" },
                     { amount: "0.40 SOL", tokens: "1,992 $ADCLAW", trigger: "$AIRDAO promo renewal", time: "1h ago" },
                   ].map((buyback, i) => (
-                    <div key={i} className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.08] last:border-0 hover:bg-white/[0.03] transition-colors" data-testid={`buyback-${i}`}>
+                    <div key={i} className="flex items-center gap-3 px-4 py-3 border-b border-white/[0.10] last:border-0 hover:bg-white/[0.03] transition-colors" data-testid={`buyback-${i}`}>
                       <div className="w-8 h-8 rounded-full bg-[#C4A962]/[0.08] border border-[#C4A962]/[0.15] flex items-center justify-center flex-shrink-0">
                         <TrendingUp className="w-3.5 h-3.5 text-[#C4A962]/70" />
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
                           <span className="text-xs font-mono text-white/80 font-medium">{buyback.amount}</span>
-                          <ArrowRight className="w-3 h-3 text-white/45" />
+                          <ArrowRight className="w-3 h-3 text-white/60" />
                           <span className="text-xs font-mono text-[#C4A962] font-medium">{buyback.tokens}</span>
                         </div>
-                        <p className="text-[11px] text-white/55 mt-0.5">{buyback.trigger}</p>
+                        <p className="text-[11px] text-white/60 mt-0.5">{buyback.trigger}</p>
                       </div>
-                      <span className="text-[10px] text-white/50 flex-shrink-0">{buyback.time}</span>
+                      <span className="text-[10px] text-white/60 flex-shrink-0">{buyback.time}</span>
                     </div>
                   ))}
                 </div>
@@ -265,11 +265,11 @@ export default function Home() {
             ].map((item) => (
               <div
                 key={item.step}
-                className="group relative glass-panel rounded-xl p-7 border border-white/[0.08] hover:border-white/[0.18] transition-all duration-300"
+                className="group relative glass-panel rounded-xl p-7 border border-white/[0.10] hover:border-white/[0.18] transition-all duration-300"
                 data-testid={`card-step-${item.step}`}
               >
                 <div className="flex items-center gap-3 mb-5">
-                  <div className="w-11 h-11 rounded-lg flex items-center justify-center bg-white/[0.06] border border-white/[0.12] text-white/80">
+                  <div className="w-11 h-11 rounded-lg flex items-center justify-center bg-white/[0.08] border border-white/[0.12] text-white/80">
                     {item.icon}
                   </div>
                   <span className="font-mono text-[11px] font-bold tracking-wider text-white/60">{item.step}</span>
@@ -317,7 +317,7 @@ export default function Home() {
                 <div>
                   <Link href="/forge">
                     <button
-                      className="flex items-center gap-2 bg-white/[0.06] text-white/90 font-medium rounded-lg px-6 py-3 text-sm transition-all duration-200 hover:bg-white/[0.1] border border-white/[0.14] hover:border-white/[0.22]"
+                      className="flex items-center gap-2 bg-white/[0.08] text-white/90 font-medium rounded-lg px-6 py-3 text-sm transition-all duration-200 hover:bg-white/[0.1] border border-white/[0.14] hover:border-white/[0.22]"
                       data-testid="button-launch-token-community"
                     >
                       <Rocket className="w-4 h-4" />
@@ -404,10 +404,10 @@ export default function Home() {
             ].map((item) => (
               <div
                 key={item.title}
-                className="glass-panel rounded-xl p-6 border border-white/[0.08] hover:border-white/[0.18] transition-all duration-300"
+                className="glass-panel rounded-xl p-6 border border-white/[0.10] hover:border-white/[0.18] transition-all duration-300"
                 data-testid={`card-why-${item.title.toLowerCase().replace(/\s/g, '-')}`}
               >
-                <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-white/[0.06] border border-white/[0.12] text-white/70 mb-4">
+                <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-white/[0.08] border border-white/[0.12] text-white/70 mb-4">
                   {item.icon}
                 </div>
                 <h3 className="font-brand text-base font-bold text-white mb-2 uppercase tracking-wide">{item.title}</h3>
@@ -423,18 +423,18 @@ export default function Home() {
           <div className="flex items-center justify-center gap-2.5 mb-4">
             <span className="font-brand font-extrabold text-[28px] tracking-tight uppercase text-white" data-testid="text-footer-brand">ADCLAW</span>
           </div>
-          <p className="text-xs text-white/55 mb-2">
+          <p className="text-xs text-white/60 mb-2">
             1-click token launch with autonomous AI agent promotion on Solana.
           </p>
-          <p className="text-[10px] text-white/45 font-mono">
+          <p className="text-[10px] text-white/60 font-mono">
             All fees → $ADCLAW buyback. No dev wallet. Fully transparent.
           </p>
           <div className="flex items-center justify-center gap-4 mt-4">
-            <a href="https://x.com/adclawonsol" target="_blank" rel="noopener noreferrer" className="text-white/55 hover:text-white/80 transition-colors text-xs font-mono" data-testid="link-footer-twitter">Twitter</a>
-            <span className="text-white/20">|</span>
-            <a href="https://github.com/adclaw" target="_blank" rel="noopener noreferrer" className="text-white/55 hover:text-white/80 transition-colors text-xs font-mono" data-testid="link-footer-github">GitHub</a>
-            <span className="text-white/20">|</span>
-            <a href="https://adclaw.io" target="_blank" rel="noopener noreferrer" className="text-white/55 hover:text-white/80 transition-colors text-xs font-mono" data-testid="link-footer-adclaw">AdClaw</a>
+            <a href="https://x.com/adclawonsol" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white/80 transition-colors text-xs font-mono" data-testid="link-footer-twitter">Twitter</a>
+            <span className="text-white/40">|</span>
+            <a href="https://github.com/adclaw" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white/80 transition-colors text-xs font-mono" data-testid="link-footer-github">GitHub</a>
+            <span className="text-white/40">|</span>
+            <a href="https://adclaw.io" target="_blank" rel="noopener noreferrer" className="text-white/60 hover:text-white/80 transition-colors text-xs font-mono" data-testid="link-footer-adclaw">AdClaw</a>
           </div>
         </div>
       </footer>

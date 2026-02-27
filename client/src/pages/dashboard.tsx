@@ -47,7 +47,7 @@ export default function Dashboard() {
             <h1 className="font-brand font-bold text-2xl uppercase gold-gradient" data-testid="text-dashboard-title">
               My Agents
             </h1>
-            <p className="text-xs text-white/55 mt-1">Your launched tokens and deployed agents</p>
+            <p className="text-xs text-white/60 mt-1">Your launched tokens and deployed agents</p>
           </div>
           <Link href="/forge">
             <button

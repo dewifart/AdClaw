@@ -116,7 +116,7 @@ export function LiveForgeTerminal() {
               <div className="w-3 h-3 rounded-full bg-white/20" />
               <div className="w-3 h-3 rounded-full bg-white/15" />
             </div>
-            <span className="text-[10px] font-mono text-white/55 ml-2">adclaw@swarm ~ /launch</span>
+            <span className="text-[10px] font-mono text-white/60 ml-2">adclaw@swarm ~ /launch</span>
             <div className="ml-auto flex items-center gap-1.5">
               <div className="w-1.5 h-1.5 rounded-full bg-[#8A9AAD] animate-pulse" />
               <span className="text-[10px] font-mono text-[#8A9AAD]">LIVE</span>

@@ -208,7 +208,7 @@
 .aurora-blob-1 {
   width: 500px;
   height: 500px;
-  background: rgba(100, 120, 140, 0.06);
+  background: rgba(100, 120, 140, 0.09);
   top: 10%;
   left: 20%;
   animation: aurora-1 65s ease-in-out infinite;
@@ -217,7 +217,7 @@
 .aurora-blob-2 {
   width: 600px;
   height: 600px;
-  background: rgba(150, 160, 175, 0.045);
+  background: rgba(150, 160, 175, 0.068);
   top: 50%;
   right: 10%;
   animation: aurora-2 70s ease-in-out infinite;
@@ -226,7 +226,7 @@
 .aurora-blob-3 {
   width: 450px;
   height: 450px;
-  background: rgba(100, 120, 140, 0.045);
+  background: rgba(100, 120, 140, 0.068);
   bottom: 10%;
   left: 40%;
   animation: aurora-3 75s ease-in-out infinite;
@@ -235,7 +235,7 @@
 .aurora-blob-4 {
   width: 550px;
   height: 550px;
-  background: rgba(196, 169, 98, 0.03);
+  background: rgba(196, 169, 98, 0.045);
   top: 30%;
   left: 60%;
   animation: aurora-4 80s ease-in-out infinite;

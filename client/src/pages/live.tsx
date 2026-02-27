@@ -281,12 +281,12 @@ export default function Live() {
                 <span className="font-mono font-bold text-sm text-white/80 tracking-wider" data-testid="text-live-title">
                   ADCLAW TERMINAL
                 </span>
-                <span className="text-white/30 font-mono text-sm">//</span>
-                <span className="font-mono text-sm text-white/55">LIVE LOG</span>
+                <span className="text-white/50 font-mono text-sm">//</span>
+                <span className="font-mono text-sm text-white/60">LIVE LOG</span>
                 <span className="inline-block w-2 h-4 bg-white/55 animate-pulse ml-0.5" />
               </div>
             </div>
-            <div className="flex items-center gap-4 text-[11px] font-mono text-white/45">
+            <div className="flex items-center gap-4 text-[11px] font-mono text-white/60">
               <span className="flex items-center gap-1.5" data-testid="text-sse-status">
                 {sseConnected ? (
                   <>
@@ -295,8 +295,8 @@ export default function Live() {
                   </>
                 ) : (
                   <>
-                    <WifiOff className="w-3 h-3 text-white/55" />
-                    <span className="text-white/55">RECONNECTING</span>
+                    <WifiOff className="w-3 h-3 text-white/60" />
+                    <span className="text-white/60">RECONNECTING</span>
                   </>
                 )}
               </span>
@@ -318,7 +318,7 @@ export default function Live() {
                       ? !isHighlighted
                         ? "bg-white/10 text-white border-white/20 shadow-[0_0_10px_rgba(255,255,255,0.05)]"
                         : "border-transparent"
-                      : "text-white/55 hover:text-white/65 border-transparent hover:bg-white/[0.03]"
+                      : "text-white/60 hover:text-white/65 border-transparent hover:bg-white/[0.03]"
                   }`}
                   style={isActive && isHighlighted ? {
                     backgroundColor: `${CATEGORY_COLORS[tab.key as LogCategory]}15`,
@@ -342,7 +342,7 @@ export default function Live() {
           >
             <div ref={topRef} />
             {filteredEntries.length === 0 ? (
-              <div className="flex items-center justify-center h-full text-white/35 font-mono text-sm">
+              <div className="flex items-center justify-center h-full text-white/55 font-mono text-sm">
                 No entries in this category yet.
               </div>
             ) : (
@@ -354,7 +354,7 @@ export default function Live() {
                   }`}
                   data-testid={`log-entry-${entry.id}`}
                 >
-                  <span className="text-white/40">[{formatTimestamp(entry.timestamp)}]</span>
+                  <span className="text-white/55">[{formatTimestamp(entry.timestamp)}]</span>
                   {" "}
                   <span
                     className="font-bold"
@@ -373,32 +373,32 @@ export default function Live() {
           </div>
 
           <div className="flex items-center justify-between px-4 py-2 border-t border-white/[0.10] bg-[#050505]/80" data-testid="live-status-bar">
-            <div className="flex items-center gap-1 text-[10px] font-mono text-white/45">
-              <span className="text-white/20">|</span>
+            <div className="flex items-center gap-1 text-[10px] font-mono text-white/60">
+              <span className="text-white/40">|</span>
               <span>adclaw@terminal:~$</span>
             </div>
             <div className="flex items-center gap-6 text-[10px] font-mono">
               <div className="flex items-center gap-1.5">
-                <span className="text-white/45">AdClaw Treasury:</span>
+                <span className="text-white/60">AdClaw Treasury:</span>
                 <span className="text-[#8A9AAD]" data-testid="text-treasury-balance">{treasuryBalance} sol</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="text-white/45">Total Launched:</span>
+                <span className="text-white/60">Total Launched:</span>
                 <span className="text-[#6B7B8D]" data-testid="text-total-forged">{totalForged}</span>
               </div>
               <div className="flex items-center gap-3">
                 <button
                   onClick={() => setAutoScroll(!autoScroll)}
                   className={`flex items-center gap-1 px-2 py-0.5 rounded transition-all duration-200 ${
-                    autoScroll ? "text-[#8A9AAD] bg-[#8A9AAD]/10" : "text-white/45"
+                    autoScroll ? "text-[#8A9AAD] bg-[#8A9AAD]/10" : "text-white/60"
                   }`}
                   data-testid="button-auto-scroll"
                 >
                   {autoScroll ? <ArrowUp className="w-3 h-3" /> : <ArrowDown className="w-3 h-3" />}
                   AUTO-SCROLL {autoScroll ? "ON" : "OFF"}
                 </button>
-                <span className="text-white/20">|</span>
-                <span className={`${sseConnected ? "text-[#8A9AAD]" : "text-white/45"}`}>
+                <span className="text-white/40">|</span>
+                <span className={`${sseConnected ? "text-[#8A9AAD]" : "text-white/60"}`}>
                   {sseConnected ? "SSE: CONNECTED" : "SSE: OFFLINE"}
                 </span>
               </div>

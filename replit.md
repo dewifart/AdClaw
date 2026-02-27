@@ -17,25 +17,51 @@ AdClaw is a platform where anyone can launch their own token in 1 click, and a s
 - Gold accent: #C4A962 (buyback/financial highlights, fee-related elements)
 - Cards: glass-panel class (rgba(14,14,14,0.92) with backdrop-blur), card-elevated class for key cards
 - CSS vars: --card 0 0% 6%, --border 0 0% 15%, --muted-foreground 0 0% 70%, --input 0 0% 16%
-- Contrast standard: text minimum /55 for body, /45 for tertiary, /60 for descriptions; borders minimum /[0.10]
+- Contrast standard: text minimum /60 for body, /55 for tertiary/muted, /50 for subtle labels; borders minimum /[0.10]
 - Text gradient: gold-gradient class for section headings
 - Font: Inter (brand + body), Fira Code (mono/terminal)
-- Aurora animated background with subtle gray/steel blobs
+- Aurora animated background with subtle gray/steel blobs (1.5x opacity for depth)
 - No neon colors, clean minimalist shadows
 
 ## Project Structure
-- `client/src/pages/` - All page components:
-  - `home.tsx` - Homepage with hero, stats, feeds, terminal, how it works, community launch, why AdClaw
-  - `forge.tsx` - Token Launch page (1-click launch form with image selection, auto-launch mode)
-  - `live.tsx` - Live terminal (SSE events, tab filters, auto-scroll)
-  - `ecosystem.tsx` - SDK docs, ecosystem flow, roadmap
-  - `dashboard.tsx` - User's launched tokens/agents
-- `client/src/components/` - Reusable components (Header, AgentCard, WalletButton, AuroraBackground, LiveForgeTerminal, UploadZone)
+
+### Frontend
+- `client/src/pages/` - Page components: home, forge, live, ecosystem, dashboard
+- `client/src/components/` - Reusable: Header, AgentCard, WalletButton, AuroraBackground, LiveForgeTerminal, UploadZone
 - `client/src/components/ui/` - Shadcn UI components
 - `client/src/lib/` - Utilities (wallet context, queryClient)
-- `server/` - Express backend (routes, storage, db, events, seed)
-- `server/events.ts` - SSE event broadcaster for real-time terminal
-- `shared/schema.ts` - Drizzle schema and types (souls table used for all token/agent data)
+
+### Backend
+- `server/index.ts` - Express entry point
+- `server/routes.ts` - Route registration (existing v1 + legacy)
+- `server/storage.ts` - Data access layer (IStorage interface)
+- `server/events.ts` - SSE EventBroadcaster class
+- `server/db.ts` - Drizzle database connection
+- `server/seed.ts` - Database seeding with sample data
+- `server/api/` - Domain-specific route handlers:
+  - `tokens.ts` - Token launch endpoints (POST/GET with score engine)
+  - `buyback.ts` - Buyback stats, recent, ledger endpoints
+  - `health.ts` - Health check with DB/SSE/memory diagnostics
+- `server/services/` - Business logic:
+  - `scoreEngine.ts` - Agent Engine Score calculation and breakdown
+  - `buybackEngine.ts` - Fee accumulation and auto-buyback execution
+  - `agentPromotion.ts` - Campaign creation, agent assignment, post simulation
+  - `tokenLauncher.ts` - Token launch orchestration (score + buyback + promotion)
+- `server/middleware/` - Express middleware:
+  - `rateLimit.ts` - In-memory rate limiter with per-client tracking
+  - `requestLogger.ts` - Structured request logging with log levels
+  - `errorHandler.ts` - Centralized error handling (AppError, NotFoundError, ValidationError)
+- `server/config/` - Configuration:
+  - `index.ts` - Environment config with Zod validation
+  - `constants.ts` - Platform constants (fees, score weights, tiers, API limits)
+- `server/utils/` - Utilities:
+  - `wallet.ts` - Solana wallet validation, address formatting
+  - `crypto.ts` - SHA256 hashing, content integrity, ID generation
+  - `formatters.ts` - Number/time/SOL formatting, text sanitization
+- `server/types/api.ts` - TypeScript types for API requests/responses
+
+### Shared
+- `shared/schema.ts` - Drizzle schema and Zod types (souls + forge_logs tables)
 
 ## Pages
 1. **Home** - Hero with "Launch Your Token. Let the Swarm Promote It.", platform stats bar (4 metrics), live agent activity + buyback feeds side-by-side, animated terminal, How It Works (3 steps), Community Token Launch section, Why AdClaw (4 value props), footer
@@ -46,17 +72,19 @@ AdClaw is a platform where anyone can launch their own token in 1 click, and a s
 ## Navigation
 Home / Launch / Live / Ecosystem
 
-## Homepage Sections (in order)
-1. Hero: Status badge, headline, subtext, 2 CTAs, contract address copy
-2. Platform Stats: 4-column grid (Tokens Launched, Active Agents, Total Impressions, Buybacks Executed)
-3. Live Feeds: Agent activity feed + auto-buyback feed (gold accents)
-4. Live Agent Terminal: Animated terminal showing launch → swarm → promote → buyback cycle
-5. How It Works: 3 steps (Launch Token, Swarm Promotes, Auto-Buyback)
-6. Community Token Launch: Explanation section with benefits grid + CTA to /forge
-7. Why AdClaw: 4 value cards
-8. Footer: Brand, tagline, social links
-
 ## API Routes
+
+### v2 API (New Domain Routes)
+- POST /api/v2/tokens - Launch token (with score engine, buyback, promotion)
+- GET /api/v2/tokens - List tokens
+- GET /api/v2/tokens/listed - Listed tokens
+- GET /api/v2/tokens/:id - Get token by ID
+- GET /api/v2/tokens/:id/score - Score breakdown with tier
+- GET /api/v2/buyback/stats - Buyback statistics
+- GET /api/v2/buyback/recent - Recent buyback entries
+- GET /api/v2/buyback/ledger - Full buyback ledger
+- GET /api/v2/health - Health check (DB, SSE, memory)
+- GET /api/v2/health/detailed - Detailed diagnostics
 
 ### v1 API (Developer Integration)
 - POST /api/v1/souls - Create a new token/agent identity

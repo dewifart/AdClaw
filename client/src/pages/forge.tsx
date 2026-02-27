@@ -325,7 +325,7 @@ export default function Forge() {
                     autonomousMode ? "bg-[#6B7B8D]/20 shadow-[0_0_15px_rgba(107,123,141,0.3)]" : "bg-white/5 opacity-40"
                   }`}
                 >
-                  <Zap className={`w-6 h-6 ${autonomousMode ? "text-[#8A9AAD]" : "text-white/45"}`} />
+                  <Zap className={`w-6 h-6 ${autonomousMode ? "text-[#8A9AAD]" : "text-white/60"}`} />
                 </div>
                 {autonomousMode && (
                   <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-[#6B7B8D] animate-ping" />
@@ -359,7 +359,7 @@ export default function Forge() {
                   ? "left-9 bg-[#6B7B8D] shadow-[0_0_10px_rgba(107,123,141,0.4)]"
                   : "left-1 bg-[#333]"
               }`}>
-                <Power className={`w-3 h-3 ${autonomousMode ? "text-white" : "text-white/55"}`} />
+                <Power className={`w-3 h-3 ${autonomousMode ? "text-white" : "text-white/60"}`} />
               </div>
             </button>
           </div>
@@ -375,7 +375,7 @@ export default function Forge() {
                   }}
                 />
               </div>
-              <span className="text-white/55" data-testid="text-next-launch-timer">
+              <span className="text-white/60" data-testid="text-next-launch-timer">
                 Next launch in <span className="text-[#8A9AAD] font-bold">{nextForgeIn}s</span>
               </span>
             </div>
@@ -386,10 +386,10 @@ export default function Forge() {
           <div className="glass-panel rounded-2xl border border-white/[0.10] mb-8 overflow-hidden" data-testid="panel-auto-launch-log">
             <div className="flex items-center justify-between gap-2 px-4 py-3 border-b border-white/[0.10]">
               <div className="flex items-center gap-2">
-                <Zap className="h-4 w-4 text-white/55" />
+                <Zap className="h-4 w-4 text-white/60" />
                 <span className="font-mono text-xs text-white/60 tracking-wider">AUTO-LAUNCH LOG</span>
               </div>
-              <span className="font-mono text-[10px] text-white/50">{autoLogs.length} entries</span>
+              <span className="font-mono text-[10px] text-white/60">{autoLogs.length} entries</span>
             </div>
             <div className="max-h-64 overflow-y-auto px-4 py-2" style={{ fontFamily: "'Fira Code', monospace" }}>
               {autoLogs.map(log => (
@@ -400,7 +400,7 @@ export default function Forge() {
                   }`}
                   data-testid={`auto-log-${log.id}`}
                 >
-                  <span className="text-white/50">
+                  <span className="text-white/60">
                     [{log.timestamp.toISOString().replace("T", " ").slice(0, 19)}]
                   </span>
                   {" "}
@@ -457,11 +457,11 @@ export default function Forge() {
                     ) : step === i ? (
                       <Loader2 className="w-4 h-4 text-[#6B7B8D] animate-spin" />
                     ) : (
-                      <span className="text-xs font-mono text-white/50">{i + 1}</span>
+                      <span className="text-xs font-mono text-white/60">{i + 1}</span>
                     )}
                   </div>
                   <span className={`text-sm transition-all duration-300 ${
-                    step > i ? "text-[#8A9AAD]" : step === i ? "text-white" : "text-white/50"
+                    step > i ? "text-[#8A9AAD]" : step === i ? "text-white" : "text-white/60"
                   }`} data-testid={`text-step-${i}`}>
                     {s.label}
                   </span>
@@ -487,7 +487,7 @@ export default function Forge() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="e.g. AdClaw Community"
-                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/35"
+                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/55"
                 data-testid="input-token-name"
               />
 
@@ -497,7 +497,7 @@ export default function Forge() {
                 value={ticker}
                 onChange={(e) => setTicker(e.target.value.toUpperCase())}
                 placeholder="e.g. $MYTOKEN"
-                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/35"
+                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/55"
                 data-testid="input-token-ticker"
               />
 
@@ -507,7 +507,7 @@ export default function Forge() {
                 onChange={(e) => setDescription(e.target.value)}
                 placeholder="Describe your community token..."
                 rows={3}
-                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/35 resize-none"
+                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/55 resize-none"
                 data-testid="input-token-description"
               />
 
@@ -544,7 +544,7 @@ export default function Forge() {
               className={`w-full flex items-center justify-center gap-2 font-bold rounded-lg py-4 text-sm transition-all duration-200 ${
                 canLaunch
                   ? "bg-white text-black hover:brightness-95"
-                  : "bg-[#1a1a1a] text-white/45 cursor-not-allowed"
+                  : "bg-[#1a1a1a] text-white/60 cursor-not-allowed"
               }`}
               data-testid="button-launch-token"
             >

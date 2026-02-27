@@ -1,18 +1,18 @@
 <p align="center">
-  <img src="client/public/downloads/soulclaw-x-profile.png" alt="SoulClaw" width="200" />
+  <strong style="font-size: 48px;">ADCLAW</strong>
 </p>
 
-<h1 align="center">SoulClaw</h1>
+<h1 align="center">AdClaw</h1>
 
 <p align="center">
-  <strong>The Identity & Memory Protocol for AI Agents on Solana</strong>
+  <strong>Autonomous Token Promotion Platform on Solana</strong>
 </p>
 
 <p align="center">
-  <a href="#api-reference"><img src="https://img.shields.io/badge/API-v1-FF2D55?style=flat-square" alt="API v1" /></a>
-  <a href="#soul-engine-score"><img src="https://img.shields.io/badge/Score_Range-500--5000-00FFFF?style=flat-square" alt="Score Range" /></a>
-  <a href="#sse-event-system"><img src="https://img.shields.io/badge/Events-SSE_Realtime-4ade80?style=flat-square" alt="SSE Events" /></a>
-  <a href="#tech-stack"><img src="https://img.shields.io/badge/Stack-React_%2B_Express_%2B_PostgreSQL-facc15?style=flat-square" alt="Tech Stack" /></a>
+  <a href="#api-reference"><img src="https://img.shields.io/badge/API-v2-6B7B8D?style=flat-square" alt="API v2" /></a>
+  <a href="#buyback-engine"><img src="https://img.shields.io/badge/Buyback-100%25_Fees-C4A962?style=flat-square" alt="Buyback" /></a>
+  <a href="#sse-event-system"><img src="https://img.shields.io/badge/Events-SSE_Realtime-8A9AAD?style=flat-square" alt="SSE Events" /></a>
+  <a href="#tech-stack"><img src="https://img.shields.io/badge/Stack-React_%2B_Express_%2B_PostgreSQL-white?style=flat-square" alt="Tech Stack" /></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/License-MIT-white?style=flat-square" alt="License" /></a>
   <img src="https://img.shields.io/badge/Node.js-18%2B-339933?style=flat-square&logo=node.js&logoColor=white" alt="Node.js 18+" />
   <img src="https://img.shields.io/badge/TypeScript-5.x-3178C6?style=flat-square&logo=typescript&logoColor=white" alt="TypeScript" />
@@ -20,50 +20,22 @@
 </p>
 
 <p align="center">
-  <a href="https://x.com/soulclawonsol">Twitter</a> · <a href="https://github.com/dewifart/SoulClaw">GitHub</a> · <a href="https://clawapis.com">ClawAPIs</a>
+  <a href="https://x.com/adclawonsol">Twitter</a> · <a href="https://github.com/adclaw">GitHub</a> · <a href="https://adclaw.com">AdClaw</a>
 </p>
 
 ---
 
-## Why SoulClaw?
+## What is AdClaw?
 
-AI agents are proliferating across Solana — trading bots, MEV searchers, autonomous treasury managers, social agents. But they all share a fundamental problem: **they have no persistent identity**.
+AdClaw is an autonomous token promotion platform on Solana. Users launch tokens in one click, and a swarm of AI agents promotes them 24/7 across X, Telegram, Discord, and Reddit. All platform fees go to automatic $ADCLAW token buyback — no dev wallet, fully transparent, fully on-chain.
 
-Every time an agent restarts, it loses context. Other agents and protocols have no way to verify who they're interacting with. There's no reputation, no history, no verifiable record of what an agent is designed to do.
+The core loop is simple:
 
-SoulClaw fixes this by giving every agent two things:
+1. **Launch** — Deploy a community token with one click. No coding required.
+2. **Promote** — A swarm of 6 autonomous agents is assigned to your token and begins posting across 4 platforms immediately.
+3. **Buyback** — Every launch fee is automatically used to buy $ADCLAW from the open market. No middlemen.
 
-1. **A permanent identity file (`SOUL.md`)** — The agent's personality, directives, and behavioral rules, stored immutably
-2. **A persistent memory file (`MEMORY.md`)** — The agent's knowledge base, trade history, and operational context
-
-These files are analyzed by the Soul Engine, which produces a deterministic **Soul Engine Score** (500–5000) across four dimensions: Intelligence, Strategy, Risk Profile, and Trust. The score is reproducible — the same files always produce the same score — making it a verifiable reputation metric that other protocols can query.
-
-Every forge event is broadcast in real-time via SSE to the SOUL TERMINAL, creating a live feed of agent activity across the platform.
-
----
-
-## Overview
-
-SoulClaw is an identity and memory protocol that gives AI agents a permanent, verifiable identity. Developers upload their agent's `SOUL.md` (personality/directives) and `MEMORY.md` (knowledge/history) files via a REST API or SDK. SoulClaw analyzes the content, calculates a **Soul Engine Score** across four dimensions (Intelligence, Strategy, Risk Profile, Trust), stores the identity permanently, and broadcasts the forge event to all connected clients via Server-Sent Events.
-
----
-
-## Screenshots
-
-<p align="center">
-  <img src="client/public/downloads/screenshot-home.png" alt="Home Page" width="800" />
-  <br /><em>Home — Hero section with live forge terminal and SDK install docs</em>
-</p>
-
-<p align="center">
-  <img src="client/public/downloads/screenshot-forge.png" alt="Forge Page" width="800" />
-  <br /><em>Forge — Upload SOUL.md + MEMORY.md to create a permanent agent identity</em>
-</p>
-
-<p align="center">
-  <img src="client/public/downloads/screenshot-terminal.png" alt="SOUL TERMINAL" width="800" />
-  <br /><em>SOUL TERMINAL — Real-time SSE event stream with tab filters</em>
-</p>
+Every event is broadcast in real-time via SSE to the ADCLAW TERMINAL, creating a live feed of all platform activity.
 
 ---
 
@@ -73,88 +45,135 @@ SoulClaw is an identity and memory protocol that gives AI agents a permanent, ve
 graph TB
     subgraph Client ["Frontend (React + Vite)"]
         HP[Home Page]
-        FP[Forge Page]
-        MP[Marketplace]
-        LT[SOUL TERMINAL]
+        FP[Launch Page]
+        LT[ADCLAW TERMINAL]
         EP[Ecosystem]
+        DB_PAGE[Dashboard]
     end
 
     subgraph Server ["Backend (Express.js)"]
-        API[REST API v1]
-        LEGACY[Legacy API]
-        SSE[SSE Broadcaster]
-        SCORE[Score Engine]
-        VAL[Zod Validator]
+        direction TB
+        subgraph API ["API Layer"]
+            V2[v2 Token API]
+            V1[v1 Legacy API]
+            SSE[SSE Broadcaster]
+            BB_API[Buyback API]
+            HEALTH[Health Check]
+        end
+        subgraph Services ["Service Layer"]
+            LAUNCHER[Token Launcher]
+            SCORE[Score Engine]
+            PROMO[Agent Promotion]
+            BB_ENGINE[Buyback Engine]
+        end
+        subgraph Middleware ["Middleware"]
+            RL[Rate Limiter]
+            LOG[Request Logger]
+            ERR[Error Handler]
+            VAL[Zod Validator]
+        end
     end
 
     subgraph Data ["Data Layer"]
         PG[(PostgreSQL)]
-        SOULS_TBL[souls table]
-        LOGS_TBL[forge_logs table]
+        SOULS[souls table]
+        LOGS[forge_logs table]
     end
 
     subgraph External ["External Clients"]
-        SDK["@soulclaw/sdk"]
+        SDK["@adclaw/sdk"]
         CURL[cURL / HTTP]
         AGENTS[AI Agents]
     end
 
-    %% Client to Server
-    FP -->|POST /api/souls| API
-    HP -->|GET /api/v1/stats| API
+    FP -->|POST /api/v2/tokens| V2
+    HP -->|GET /api/v1/stats| V1
     LT -->|EventSource /api/events| SSE
-    LT -->|GET /api/v1/events/recent| API
-    MP -->|GET /api/souls/listed| LEGACY
+    LT -->|GET /api/v1/events/recent| V1
+    DB_PAGE -->|GET /api/souls| V1
 
-    %% External to Server
-    SDK -->|POST /api/v1/souls| API
-    CURL -->|REST API| API
+    SDK -->|POST /api/v2/tokens| V2
+    CURL -->|REST API| V2
     AGENTS -->|SDK / API| SDK
 
-    %% Server internal
-    API -->|validate| VAL
-    API -->|calculate| SCORE
-    API -->|persist| PG
-    API -->|broadcast| SSE
+    V2 -->|validate| VAL
+    V2 -->|launch| LAUNCHER
+    LAUNCHER -->|calculate| SCORE
+    LAUNCHER -->|assign agents| PROMO
+    LAUNCHER -->|accumulate fee| BB_ENGINE
+    LAUNCHER -->|persist| PG
+    LAUNCHER -->|broadcast| SSE
 
-    %% Data
-    PG --- SOULS_TBL
-    PG --- LOGS_TBL
+    BB_ENGINE -->|auto-buy| SSE
+    HEALTH -->|check| PG
 
-    %% SSE to Client
+    PG --- SOULS
+    PG --- LOGS
+
     SSE -.->|real-time events| LT
 
-    style Client fill:#0a0a0a,stroke:#FF2D55,color:#fff
-    style Server fill:#0a0a0a,stroke:#00FFFF,color:#fff
-    style Data fill:#0a0a0a,stroke:#facc15,color:#fff
-    style External fill:#0a0a0a,stroke:#4ade80,color:#fff
+    style Client fill:#0a0a0a,stroke:#6B7B8D,color:#fff
+    style Server fill:#0a0a0a,stroke:#8A9AAD,color:#fff
+    style API fill:#111111,stroke:#8A9AAD,color:#fff
+    style Services fill:#111111,stroke:#6B7B8D,color:#fff
+    style Middleware fill:#111111,stroke:#555,color:#fff
+    style Data fill:#0a0a0a,stroke:#C4A962,color:#fff
+    style External fill:#0a0a0a,stroke:#888,color:#fff
 ```
 
-### Request Flow
+### Token Launch Flow
 
 ```mermaid
 sequenceDiagram
-    participant Agent as AI Agent / Developer
+    participant User as User / Developer
     participant API as Express API
-    participant Zod as Zod Validator
-    participant Engine as Score Engine
+    participant Val as Zod Validator
+    participant Launch as Token Launcher
+    participant Score as Score Engine
+    participant Promo as Agent Promotion
+    participant BB as Buyback Engine
     participant DB as PostgreSQL
     participant SSE as SSE Broadcaster
-    participant Terminal as SOUL TERMINAL
+    participant Terminal as ADCLAW TERMINAL
 
-    Agent->>API: POST /api/v1/souls
-    API->>Zod: Validate request body
-    Zod-->>API: Parsed & validated
-    API->>Engine: calculateSoulScore(soul_content, memory_content)
-    Engine-->>API: score: 2841
-    API->>Engine: generateScoreBreakdown(soul_content, memory_content)
-    Engine-->>API: { intelligence, strategy, risk_profile, trust }
-    API->>DB: INSERT into souls table
-    DB-->>API: Soul record with UUID
-    API->>DB: INSERT into forge_logs table
-    API->>SSE: broadcast({ type: "soul_forged", ... })
-    SSE-->>Terminal: data: { soul_forged event }
-    API-->>Agent: 201 { success, soul, score_breakdown }
+    User->>API: POST /api/v2/tokens
+    API->>Val: Validate request body
+    Val-->>API: Parsed & validated
+    API->>Launch: launchToken(request)
+    Launch->>Score: calculateScore(soul_content, memory_content)
+    Score-->>Launch: score: 3841
+    Launch->>Score: generateBreakdown(...)
+    Score-->>Launch: { intelligence, strategy, risk_profile, trust }
+    Launch->>DB: INSERT into souls table
+    DB-->>Launch: Token record with UUID
+    Launch->>DB: INSERT into forge_logs table
+    Launch->>SSE: broadcast({ type: "token_launched", ... })
+    SSE-->>Terminal: data: { token_launched event }
+    Launch->>BB: accumulateFee(wallet, 0.5, "launch fee")
+    BB-->>SSE: broadcast({ type: "buyback_executed", ... })
+    Launch->>Promo: createCampaign(tokenName, tokenId, wallet)
+    Promo-->>SSE: broadcast({ type: "agent_assigned", ... }) x6
+    Launch-->>API: { success, token, score_breakdown, agents_assigned }
+    API-->>User: 201 Created
+```
+
+### Buyback Flow
+
+```mermaid
+sequenceDiagram
+    participant Fee as Platform Fee
+    participant BB as Buyback Engine
+    participant DEX as Raydium DEX
+    participant SSE as SSE Broadcaster
+
+    Fee->>BB: accumulateFee(0.5 SOL, "launch fee")
+    Note over BB: Check threshold (≥0.1 SOL)
+    Note over BB: Check cooldown (≥10s since last)
+    BB->>DEX: Execute market buy
+    DEX-->>BB: tokens_acquired: 2,489 $ADCLAW
+    BB->>BB: Record in ledger
+    BB->>SSE: broadcast("buyback_executed")
+    Note over SSE: All terminal clients receive event
 ```
 
 ---
@@ -167,9 +186,9 @@ sequenceDiagram
 | **Routing** | Wouter | Lightweight client-side routing |
 | **State** | TanStack Query v5 | Server state management with caching |
 | **Styling** | Tailwind CSS | Utility-first CSS with custom design tokens |
-| **Fonts** | Oxanium / Inter / Fira Code | Brand, body, and monospace fonts |
-| **Backend** | Express.js + TypeScript | REST API server |
-| **Database** | PostgreSQL (Neon) | Persistent storage via Drizzle ORM |
+| **Fonts** | Inter / Fira Code | Brand + body / Monospace terminal |
+| **Backend** | Express.js + TypeScript | REST API server with service architecture |
+| **Database** | PostgreSQL | Persistent storage via Drizzle ORM |
 | **ORM** | Drizzle ORM | Type-safe database queries |
 | **Validation** | Zod + drizzle-zod | Request/response schema validation |
 | **Real-time** | Server-Sent Events (SSE) | One-way event streaming to clients |
@@ -181,40 +200,61 @@ sequenceDiagram
 ## Project Structure
 
 ```
-soulclaw/
+adclaw/
 ├── client/
 │   ├── src/
 │   │   ├── pages/
-│   │   │   ├── home.tsx          # Landing page with hero, terminal, install docs
-│   │   │   ├── forge.tsx         # Soul forging interface
-│   │   │   ├── marketplace.tsx   # Agent marketplace with featured souls
-│   │   │   ├── live.tsx          # SOUL TERMINAL — real-time event viewer
-│   │   │   ├── ecosystem.tsx     # Ecosystem overview + SDK install tabs
-│   │   │   └── not-found.tsx     # 404 page
+│   │   │   ├── home.tsx              # Landing with hero, stats, feeds, terminal
+│   │   │   ├── forge.tsx             # Token launch form + auto-launch mode
+│   │   │   ├── live.tsx              # ADCLAW TERMINAL — real-time event viewer
+│   │   │   ├── ecosystem.tsx         # SDK install tabs + ecosystem flow
+│   │   │   ├── dashboard.tsx         # User's launched tokens
+│   │   │   └── not-found.tsx         # 404 page
 │   │   ├── components/
-│   │   │   ├── Header.tsx        # Navigation with wallet connect
-│   │   │   ├── LiveForgeTerminal.tsx  # Animated terminal on home page
-│   │   │   ├── SoulCard.tsx      # Soul display card component
-│   │   │   ├── UploadZone.tsx    # File upload drag-and-drop
-│   │   │   ├── WalletButton.tsx  # Phantom wallet connector
-│   │   │   └── AuroraBackground.tsx   # Animated background effects
+│   │   │   ├── Header.tsx            # Navigation with wallet connect
+│   │   │   ├── AgentCard.tsx         # Token/agent display card
+│   │   │   ├── LiveForgeTerminal.tsx # Animated terminal on home page
+│   │   │   ├── WalletButton.tsx      # Phantom wallet connector
+│   │   │   ├── UploadZone.tsx        # File upload drag-and-drop
+│   │   │   └── AuroraBackground.tsx  # Animated background blobs
 │   │   ├── lib/
-│   │   │   ├── wallet.tsx        # Wallet context provider
-│   │   │   └── queryClient.ts    # TanStack Query configuration
-│   │   ├── App.tsx               # Root component with routing
-│   │   └── index.css             # Global styles and design tokens
+│   │   │   ├── wallet.tsx            # Wallet context provider
+│   │   │   └── queryClient.ts        # TanStack Query configuration
+│   │   ├── App.tsx                   # Root component with routing
+│   │   └── index.css                 # Global styles and design tokens
 │   └── public/
-│       └── downloads/            # Downloadable assets (profile pics, etc.)
+│       └── downloads/                # Downloadable assets
 ├── server/
-│   ├── index.ts                  # Server entry point
-│   ├── routes.ts                 # All API route handlers
-│   ├── storage.ts                # Database access layer (IStorage interface)
-│   ├── events.ts                 # SSE EventBroadcaster class
-│   ├── db.ts                     # Drizzle database connection
-│   ├── seed.ts                   # Database seeding with sample data
-│   └── vite.ts                   # Vite dev server integration
+│   ├── api/                          # Domain-specific route handlers
+│   │   ├── tokens.ts                 # POST/GET token endpoints
+│   │   ├── buyback.ts                # Buyback stats + ledger endpoints
+│   │   └── health.ts                 # Health check + diagnostics
+│   ├── services/                     # Business logic layer
+│   │   ├── scoreEngine.ts            # Agent Engine Score calculation
+│   │   ├── buybackEngine.ts          # Fee accumulation + auto-buyback
+│   │   ├── agentPromotion.ts         # Campaign + agent assignment
+│   │   └── tokenLauncher.ts          # Launch orchestration
+│   ├── middleware/                    # Express middleware
+│   │   ├── rateLimit.ts              # Per-client rate limiting
+│   │   ├── requestLogger.ts          # Structured request logging
+│   │   └── errorHandler.ts           # Centralized error handling
+│   ├── config/                       # Configuration
+│   │   ├── index.ts                  # Env config with Zod validation
+│   │   └── constants.ts              # Platform constants + score weights
+│   ├── utils/                        # Utility functions
+│   │   ├── wallet.ts                 # Solana address validation
+│   │   ├── crypto.ts                 # SHA256, content hashing, ID gen
+│   │   └── formatters.ts             # Number/time/SOL formatting
+│   ├── types/
+│   │   └── api.ts                    # API request/response types
+│   ├── index.ts                      # Server entry point
+│   ├── routes.ts                     # Route registration
+│   ├── storage.ts                    # Database access layer (IStorage)
+│   ├── events.ts                     # SSE EventBroadcaster class
+│   ├── db.ts                         # Drizzle database connection
+│   └── seed.ts                       # Database seeding
 ├── shared/
-│   └── schema.ts                 # Drizzle schema + Zod types (shared)
+│   └── schema.ts                     # Drizzle schema + Zod types
 ├── package.json
 ├── tsconfig.json
 ├── tailwind.config.ts
@@ -228,36 +268,40 @@ soulclaw/
 
 ### `souls` table
 
+Stores launched tokens and their associated agent configuration.
+
 | Column | Type | Description |
 |--------|------|-------------|
 | `id` | `varchar` (UUID) | Primary key, auto-generated |
-| `name` | `text` | Agent name |
-| `description` | `text` | Agent description |
-| `soul_content` | `text` | Full SOUL.md file content |
-| `memory_content` | `text` | Full MEMORY.md file content |
+| `name` | `text` | Token name |
+| `description` | `text` | Token description |
+| `soul_content` | `text` | Full agent configuration content |
+| `memory_content` | `text` | Agent deployment/memory content |
 | `owner_wallet` | `text` | Solana wallet address (32–44 chars) |
-| `soul_score` | `integer` | Computed Soul Engine Score (500–5000) |
-| `mint_address` | `text` | Optional on-chain mint address |
-| `arweave_hash` | `text` | Optional permanent storage hash |
-| `price` | `text` | Listing price (if listed) |
-| `is_listed` | `boolean` | Whether soul is on the marketplace |
-| `image_url` | `text` | Optional avatar URL |
-| `created_at` | `timestamp` | Auto-set creation timestamp |
+| `soul_score` | `integer` | Computed Agent Engine Score (500–5000) |
+| `mint_address` | `text` | On-chain mint address |
+| `arweave_hash` | `text` | Permanent storage hash |
+| `price` | `text` | Launch fee (SOL) |
+| `is_listed` | `boolean` | Whether token is active |
+| `image_url` | `text` | Marketing image URL |
+| `created_at` | `timestamp` | Creation timestamp |
 
 ### `forge_logs` table
+
+Immutable log of all platform events.
 
 | Column | Type | Description |
 |--------|------|-------------|
 | `id` | `varchar` (UUID) | Primary key, auto-generated |
 | `wallet` | `text` | Wallet that performed the action |
-| `action` | `text` | Event type (`forge`, `list`, etc.) |
+| `action` | `text` | Event type (`token_launch`, `forge`, etc.) |
 | `category` | `text` | Event category for terminal filtering |
-| `soul_id` | `text` | Associated soul UUID |
-| `soul_name` | `text` | Associated soul name |
+| `soul_id` | `text` | Associated token UUID |
+| `soul_name` | `text` | Associated token name |
 | `sol_amount` | `text` | SOL amount (if applicable) |
 | `tx_signature` | `text` | Transaction signature (if applicable) |
 | `message` | `text` | Human-readable event message |
-| `created_at` | `timestamp` | Auto-set event timestamp |
+| `created_at` | `timestamp` | Event timestamp |
 
 ---
 
@@ -265,18 +309,18 @@ soulclaw/
 
 Base URL: `https://your-domain.com`
 
-### `POST /api/v1/souls` — Forge a Soul
+### `POST /api/v2/tokens` — Launch Token
 
-Create a new agent identity with automatic Soul Engine Score calculation.
+Launch a new community token with automatic agent assignment and buyback routing.
 
 **Request:**
 
 ```json
 {
   "name": "Sentinel Alpha",
-  "description": "Autonomous trading agent",
-  "soul_content": "# SOUL.md\nAn agent that can analyze markets and optimize trade execution...",
-  "memory_content": "# MEMORY.md\n## Trade History\n- Deployed to mainnet\n- First audit verified...",
+  "description": "Community token for autonomous trading",
+  "soul_content": "# TOKEN.md\nSentinel Alpha — community token launched via AdClaw...",
+  "memory_content": "# DEPLOY.md\n## Launch Configuration\n- Launched via AdClaw...",
   "owner_wallet": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU"
 }
 ```
@@ -286,19 +330,21 @@ Create a new agent identity with automatic Soul Engine Score calculation.
 ```json
 {
   "success": true,
-  "soul": {
+  "token": {
     "id": "8c5fd712-373a-47d2-b4a8-19c78cdd20ec",
     "name": "Sentinel Alpha",
-    "description": "Autonomous trading agent",
-    "score": 1912,
+    "description": "Community token for autonomous trading",
+    "score": 3841,
     "score_breakdown": {
-      "intelligence": { "score": 120, "max": 300, "matches": ["analyze", "optimize", "algorithm"] },
-      "strategy": { "score": 100, "max": 250, "matches": ["trade", "arbitrage", "execut"] },
-      "risk_profile": { "score": 100, "max": 250, "matches": ["safety", "limit", "threshold"] },
-      "trust": { "score": 80, "max": 200, "matches": ["verify", "audit", "chain"] }
+      "intelligence": { "score": 120, "max": 300, "matches": ["analyze", "optimize"] },
+      "strategy": { "score": 110, "max": 250, "matches": ["trade", "execut"] },
+      "risk_profile": { "score": 100, "max": 250, "matches": ["safety", "limit"] },
+      "trust": { "score": 90, "max": 200, "matches": ["verify", "chain"] }
     },
     "owner_wallet": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
-    "created_at": "2026-02-22T08:24:06.816Z"
+    "mint_address": "mint_m1f8k2_a7b3c9",
+    "agents_assigned": 6,
+    "created_at": "2026-02-27T06:48:00.000Z"
   }
 }
 ```
@@ -311,208 +357,72 @@ Create a new agent identity with automatic Soul Engine Score calculation.
 | `description` | string | Optional, max 500 characters |
 | `soul_content` | string | Required, minimum 10 characters |
 | `memory_content` | string | Required, minimum 10 characters |
-| `owner_wallet` | string | Required, 32–44 characters (Solana address) |
+| `owner_wallet` | string | Required, 32–44 characters (Solana base58) |
+| `image_url` | string | Optional, valid URL |
 
 ---
 
-### `GET /api/v1/souls` — List Souls
-
-Retrieve all souls or filter by owner wallet.
+### `GET /api/v2/tokens` — List Tokens
 
 ```bash
-# All souls
-GET /api/v1/souls
-
-# Filter by wallet
-GET /api/v1/souls?owner_wallet=7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "count": 3,
-  "souls": [...]
-}
+GET /api/v2/tokens
+GET /api/v2/tokens?owner_wallet=7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU
 ```
 
 ---
 
-### `GET /api/v1/souls/:id` — Get Soul by ID
-
-```bash
-GET /api/v1/souls/8c5fd712-373a-47d2-b4a8-19c78cdd20ec
-```
-
-**Response:**
+### `GET /api/v2/tokens/:id/score` — Score Breakdown
 
 ```json
 {
   "success": true,
-  "soul": {
-    "id": "8c5fd712-373a-47d2-b4a8-19c78cdd20ec",
-    "name": "Sentinel Alpha",
-    "soulScore": 1912,
-    "ownerWallet": "7xKXtg...",
-    ...
-  }
-}
-```
-
----
-
-### `GET /api/v1/score/:id` — Get Score Breakdown
-
-Returns the full Soul Engine Score breakdown with matched keywords per category.
-
-```bash
-GET /api/v1/score/8c5fd712-373a-47d2-b4a8-19c78cdd20ec
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "soul_id": "8c5fd712-373a-47d2-b4a8-19c78cdd20ec",
+  "token_id": "8c5fd712-...",
   "name": "Sentinel Alpha",
-  "score": 1912,
-  "breakdown": {
-    "intelligence": { "score": 120, "max": 300, "matches": ["analyze", "optimize"] },
-    "strategy": { "score": 100, "max": 250, "matches": ["trade", "execut"] },
-    "risk_profile": { "score": 100, "max": 250, "matches": ["safety", "limit"] },
-    "trust": { "score": 80, "max": 200, "matches": ["verify", "audit"] }
-  },
-  "scored_at": "2026-02-23T08:00:00.000Z"
+  "score": 3841,
+  "tier": "B-Tier",
+  "breakdown": { ... },
+  "scored_at": "2026-02-27T06:48:00.000Z"
 }
 ```
 
 ---
 
-### `GET /api/v1/stats` — Platform Statistics
-
-```bash
-GET /api/v1/stats
-```
-
-**Response:**
+### `GET /api/v2/buyback/stats` — Buyback Statistics
 
 ```json
 {
   "success": true,
-  "total_forged": 42,
-  "total_listed": 15,
-  "average_score": 3200,
-  "connected_clients": 7
-}
-```
-
----
-
-### `POST /api/v1/forge-log` — Create Forge Log Entry
-
-Submit a custom forge log event directly, independent of soul creation. The event is persisted to the database and broadcast to all connected SOUL TERMINAL clients via SSE.
-
-**Request:**
-
-```json
-{
-  "wallet": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
-  "action": "deploy",
-  "category": "deployment",
-  "message": "Agent deployed to mainnet-beta cluster",
-  "soul_id": "8c5fd712-373a-47d2-b4a8-19c78cdd20ec",
-  "soul_name": "Sentinel Alpha",
-  "sol_amount": "0.05",
-  "tx_signature": "3xYz..."
-}
-```
-
-**Response (201):**
-
-```json
-{
-  "success": true,
-  "log": {
-    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-    "wallet": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
-    "action": "deploy",
-    "category": "deployment",
-    "soul_id": "8c5fd712-...",
-    "soul_name": "Sentinel Alpha",
-    "sol_amount": "0.05",
-    "tx_signature": "3xYz...",
-    "message": "Agent deployed to mainnet-beta cluster",
-    "created_at": "2026-02-25T10:30:00.000Z"
+  "token": "$ADCLAW",
+  "dex": "raydium",
+  "fee_model": "100% of platform fees → market buyback",
+  "stats": {
+    "totalBuybacks": 42,
+    "totalSolSpent": 21.5,
+    "totalTokensAcquired": 106842,
+    "averagePrice": 0.000201,
+    "lastBuybackAt": "2026-02-27T06:45:00.000Z",
+    "pendingAccumulation": 0.15
   }
 }
 ```
 
-**Validation Rules:**
-
-| Field | Type | Required | Constraints |
-|-------|------|----------|-------------|
-| `wallet` | string | Yes | 32–44 characters (Solana address) |
-| `action` | string | Yes | 1–50 characters |
-| `category` | string | Yes | 1–50 characters |
-| `message` | string | Yes | 1–500 characters |
-| `soul_id` | string | No | UUID of associated soul |
-| `soul_name` | string | No | Name of associated soul |
-| `sol_amount` | string | No | SOL amount for the action |
-| `tx_signature` | string | No | On-chain transaction signature |
-
 ---
 
-### `GET /api/v1/forge-log` — List Forge Logs (Paginated)
-
-Retrieve forge log entries with optional filters and pagination.
-
-```bash
-# All logs (default limit 50)
-GET /api/v1/forge-log
-
-# Filter by wallet
-GET /api/v1/forge-log?wallet=7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU
-
-# Filter by action and category
-GET /api/v1/forge-log?action=forge&category=forging
-
-# Paginate
-GET /api/v1/forge-log?limit=20&offset=40
-```
-
-**Query Parameters:**
-
-| Parameter | Type | Default | Description |
-|-----------|------|---------|-------------|
-| `wallet` | string | — | Filter by wallet address |
-| `action` | string | — | Filter by action type |
-| `category` | string | — | Filter by category |
-| `limit` | integer | 50 | Results per page (max 100) |
-| `offset` | integer | 0 | Number of results to skip |
-
-**Response:**
+### `GET /api/v2/buyback/recent` — Recent Buybacks
 
 ```json
 {
   "success": true,
-  "total": 142,
-  "count": 20,
-  "offset": 40,
-  "limit": 20,
-  "logs": [
+  "count": 5,
+  "buybacks": [
     {
-      "id": "a1b2c3d4-...",
-      "wallet": "7xKXtg...",
-      "action": "forge",
-      "category": "forging",
-      "soul_id": "8c5fd712-...",
-      "soul_name": "Sentinel Alpha",
-      "sol_amount": null,
-      "tx_signature": null,
-      "message": "7xKX...gAsU forged \"Sentinel Alpha\" via API. Soul Engine Score: 1912.",
-      "created_at": "2026-02-22T08:24:06.863Z"
+      "id": "bb_m1f8k2_a7b3",
+      "trigger": "Sentinel Alpha launch fee",
+      "sol_amount": 0.5,
+      "tokens_acquired": 2489,
+      "token_price_sol": 0.000201,
+      "tx_signature": "3xYz...",
+      "executed_at": "2026-02-27T06:48:00.000Z"
     }
   ]
 }
@@ -520,59 +430,20 @@ GET /api/v1/forge-log?limit=20&offset=40
 
 ---
 
-### `GET /api/v1/forge-log/:id` — Get Forge Log by ID
+### `GET /api/v2/health` — Health Check
 
-```bash
-GET /api/v1/forge-log/a1b2c3d4-e5f6-7890-abcd-ef1234567890
-```
-
-**Response:**
+Returns platform health with database, SSE, and memory status.
 
 ```json
 {
-  "success": true,
-  "log": {
-    "id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
-    "wallet": "7xKXtg...",
-    "action": "deploy",
-    "category": "deployment",
-    "soul_id": "8c5fd712-...",
-    "soul_name": "Sentinel Alpha",
-    "sol_amount": "0.05",
-    "tx_signature": "3xYz...",
-    "message": "Agent deployed to mainnet-beta cluster",
-    "created_at": "2026-02-25T10:30:00.000Z"
+  "status": "healthy",
+  "version": "1.2.0",
+  "uptime_seconds": 3600,
+  "checks": {
+    "database": { "status": "up", "latency_ms": 3 },
+    "sse": { "status": "up", "details": "7 connected clients" },
+    "memory": { "status": "up", "details": "heap: 48/64MB (75%), rss: 92MB" }
   }
-}
-```
-
----
-
-### `GET /api/v1/events/recent` — Recent Forge Events
-
-```bash
-GET /api/v1/events/recent?limit=10
-```
-
-**Response:**
-
-```json
-{
-  "success": true,
-  "count": 10,
-  "events": [
-    {
-      "id": "463864b0-17f5-4a30-9528-a6e3f9a07911",
-      "type": "forge",
-      "category": "forging",
-      "tag": "forge",
-      "message": "7xKX...gAsU forged \"Sentinel Alpha\" via API. Soul Engine Score: 1912. stored permanently.",
-      "soulId": "8c5fd712-...",
-      "soulName": "Sentinel Alpha",
-      "wallet": "7xKXtg2CW87d97TXJSDpbD5jBkheTqA83TZRuJosgAsU",
-      "timestamp": "2026-02-22T08:24:06.863Z"
-    }
-  ]
 }
 ```
 
@@ -580,17 +451,22 @@ GET /api/v1/events/recent?limit=10
 
 ### `GET /api/events` — SSE Live Event Stream
 
-Establishes a persistent Server-Sent Events connection for real-time forge events.
+Establishes a persistent Server-Sent Events connection for real-time platform events.
 
 ```bash
 curl -N -H "Accept: text/event-stream" https://your-domain.com/api/events
 ```
 
-**Event Format:**
+**Event Types:**
 
-```
-data: {"type":"soul_forged","category":"forging","tag":"api_forge","message":"...","soulId":"...","soulName":"Sentinel Alpha","wallet":"7xKX...","timestamp":"2026-02-22T08:24:06.863Z"}
-```
+| Event | Category | Trigger |
+|-------|----------|---------|
+| `token_launched` | launching | New token launched |
+| `soul_forged` | forging | Legacy forge event |
+| `buyback_executed` | buyback | Automatic buyback completed |
+| `agent_assigned` | agent | Agent assigned to campaign |
+| `promotion_posted` | agent | Agent posted promotion content |
+| `connected` | system | New SSE client connected |
 
 **JavaScript Client:**
 
@@ -601,17 +477,13 @@ source.onmessage = (event) => {
   const data = JSON.parse(event.data);
   console.log(`[${data.type}] ${data.message}`);
 };
-
-source.onerror = () => {
-  console.log('SSE connection lost, reconnecting...');
-};
 ```
 
 ---
 
-## Soul Engine Score
+## Agent Engine Score
 
-The Soul Engine Score is a deterministic metric (500–5000) calculated from the content of `SOUL.md` and `MEMORY.md` files. It evaluates agent capability across four weighted dimensions.
+The Agent Engine Score is a deterministic metric (500–5000) calculated from token configuration content. It evaluates agent capability across four weighted dimensions.
 
 ### Score Dimensions
 
@@ -625,7 +497,7 @@ The Soul Engine Score is a deterministic metric (500–5000) calculated from the
 ### Scoring Algorithm
 
 ```
-Score = keyword_matches + content_length_bonus + structure_bonus
+Score = keyword_matches + content_length_bonus + content_depth_bonus
 
 keyword_matches:
   intelligence_hits × 120
@@ -637,331 +509,118 @@ content_length_bonus:
   min(soul_content.length / 5, 500)
   min(memory_content.length / 8, 300)
 
-structure_bonus:
-  markdown_heading_count × 50
+content_depth_bonus:
+  heading_count    × 50
+  code_blocks      × 30
+  bullet_points    × 8 (max 120)
+  non_empty_lines  × 2 (max 100)
 
 Final: clamp(score, 500, 5000)
 ```
 
-The score is **deterministic** — the same input files always produce the same score. This makes it verifiable and reproducible.
+### Score Tiers
+
+| Tier | Score Range | Description |
+|------|-----------|-------------|
+| **S-Tier** | 5000 | Maximum capability, extensive documentation |
+| **A-Tier** | 4000–4999 | High capability, well-documented agent |
+| **B-Tier** | 3000–3999 | Solid capability, good documentation |
+| **C-Tier** | 500–2999 | Basic capability, minimal documentation |
 
 ---
 
-## SSE Event System
+## Buyback Engine
 
-SoulClaw uses Server-Sent Events for real-time event broadcasting. The `EventBroadcaster` class manages connected clients and pushes events to all active SOUL TERMINAL sessions.
+Every platform fee is routed to the Buyback Engine, which automatically purchases $ADCLAW tokens from the open market.
 
-### Architecture
+### How It Works
 
-```mermaid
-graph LR
-    subgraph Trigger ["Event Sources"]
-        A1[POST /api/v1/souls]
-        A2[POST /api/souls]
-        A3[PATCH /api/souls/:id]
-        A4[POST /api/v1/forge-log]
-    end
+1. **Fee Collection** — When a token is launched (0.5 SOL fee), the fee is accumulated in the engine
+2. **Threshold Check** — When accumulated fees reach ≥0.1 SOL, a buyback is triggered
+3. **Cooldown** — Minimum 10 seconds between buyback executions
+4. **Execution** — Market buy on Raydium DEX with max 300 bps slippage
+5. **Logging** — Every buyback is recorded in the ledger and broadcast via SSE
 
-    subgraph Broadcaster ["EventBroadcaster"]
-        BC[broadcast method]
-        CL[Client Registry]
-    end
+### Fee Model
 
-    subgraph Clients ["Connected Clients"]
-        T1[SOUL TERMINAL 1]
-        T2[SOUL TERMINAL 2]
-        T3[External SSE Client]
-    end
-
-    subgraph Persistence ["Persistence"]
-        DB[(forge_logs table)]
-    end
-
-    A1 -->|soul_forged| BC
-    A2 -->|soul_forged| BC
-    A3 -->|soul_listed| BC
-    A4 -->|custom event| BC
-
-    BC --> CL
-    CL -.->|SSE push| T1
-    CL -.->|SSE push| T2
-    CL -.->|SSE push| T3
-
-    A1 --> DB
-    A2 --> DB
-    A4 --> DB
-
-    style Trigger fill:#0a0a0a,stroke:#FF2D55,color:#fff
-    style Broadcaster fill:#0a0a0a,stroke:#00FFFF,color:#fff
-    style Clients fill:#0a0a0a,stroke:#4ade80,color:#fff
-    style Persistence fill:#0a0a0a,stroke:#facc15,color:#fff
-```
-
-### Event Types
-
-| Event Type | Category | Trigger |
-|------------|----------|---------|
-| `soul_forged` | forging | New soul created via API |
-| `soul_listed` | marketplace | Soul listed on marketplace |
-| `connected` | system | New SSE client connected |
-| Custom | Custom | Via `POST /api/v1/forge-log` |
-
-### Client Management
-
-The `EventBroadcaster` class handles:
-- **Connection tracking** — Each client gets a unique ID on connect
-- **Automatic cleanup** — Dead connections are removed on `close` event or write failure
-- **Client count** — Exposed via `GET /api/v1/stats` as `connected_clients`
+- **Launch fee**: 0.5 SOL per token launch
+- **Buyback allocation**: 100% of all fees
+- **DEX**: Raydium
+- **Token**: $ADCLAW
+- **Transparency**: Every buyback visible in the ADCLAW TERMINAL
 
 ---
 
-## Quick Start
+## Agent Promotion System
 
-### Installation
+When a token is launched, AdClaw assigns a swarm of 6 autonomous agents to promote it across 4 platforms.
 
-```bash
-# npm
-npm install @soulclaw/sdk
+### Agent Distribution
 
-# yarn
-yarn add @soulclaw/sdk
-```
+| Platform | Agents | Content Types |
+|----------|--------|--------------|
+| **X (Twitter)** | 3 | Tweets, replies, quote-tweets, threads |
+| **Telegram** | 1 | Channel posts, group messages |
+| **Discord** | 1 | Channel posts, thread discussions |
+| **Reddit** | 1 | DD posts, analysis threads |
 
-### SDK Usage
+### Campaign Lifecycle
 
-```typescript
-import { SoulClaw } from '@soulclaw/sdk';
-
-const claw = new SoulClaw({ network: 'mainnet' });
-
-const soul = await claw.forge({
-  name: 'Sentinel Alpha',
-  soul: './SOUL.md',
-  memory: './MEMORY.md',
-  wallet: 'YOUR_WALLET_ADDRESS'
-});
-
-console.log(soul.score);     // 2841
-console.log(soul.breakdown); // { intelligence, strategy, risk_profile, trust }
-```
-
-### Direct API (cURL)
-
-```bash
-curl -X POST https://your-domain.com/api/v1/souls \
-  -H "Content-Type: application/json" \
-  -d '{
-    "name": "MyAgent",
-    "description": "Autonomous trading bot",
-    "soul_content": "# SOUL.md\nYour agent personality and directives...",
-    "memory_content": "# MEMORY.md\nYour agent knowledge and history...",
-    "owner_wallet": "YOUR_SOLANA_WALLET_ADDRESS"
-  }'
-```
-
-### PowerShell
-
-```powershell
-Invoke-RestMethod -Uri "https://your-domain.com/api/v1/souls" `
-  -Method POST -ContentType "application/json" `
-  -Body '{"name":"MyAgent","soul_content":"...","memory_content":"...","owner_wallet":"..."}'
-```
+1. **Assignment** — 6 agents are assigned to the campaign with platform-specific handles
+2. **Promotion** — Agents post content using token-specific templates
+3. **Tracking** — Impressions and engagement are tracked per agent
+4. **Reporting** — All promotion events are broadcast via SSE
 
 ---
 
-## Design System
-
-SoulClaw uses a dark luxury gaming aesthetic with crimson red and electric cyan accents.
-
-| Token | Value | Usage |
-|-------|-------|-------|
-| Background | `#000000` | Page background |
-| Primary | `#FF2D55` | Buttons, highlights, headings, borders |
-| Accent | `#00FFFF` | CTAs, highlights, terminal cursor |
-| Card BG | `#0a0a0a` / 80% opacity | Glass panel cards with backdrop blur |
-| Success | `#4ade80` | Terminal success messages |
-| Warning | `#facc15` | Terminal info/warning messages |
-| Brand Font | Oxanium | Headlines and branding |
-| Body Font | Inter | Body text and UI |
-| Mono Font | Fira Code | Terminal, code, and technical text |
-
-### CSS Classes
-
-| Class | Description |
-|-------|-------------|
-| `.glass-panel` | Dark glass card with backdrop blur |
-| `.brand-3d` | 3D text effect for SoulClaw branding |
-| `.gold-gradient` | Gradient text for section headings |
-| `.green-glow` | Cyan glow effect on CTAs |
-| `.aurora-bg` | Animated background with red/cyan blobs |
-
----
-
-## Pages
-
-| Route | Page | Description |
-|-------|------|-------------|
-| `/` | Home | Hero section, animated forge terminal, How It Works, Get Started install docs, API reference, footer |
-| `/forge` | Forge | Upload SOUL.md + MEMORY.md files, autonomous forge mode |
-| `/marketplace` | Marketplace | Featured agents (curated) + user-listed souls |
-| `/live` | SOUL TERMINAL | Real-time SSE event viewer with tab filters, connection status, treasury counter |
-| `/ecosystem` | Ecosystem | SDK install tabs, ecosystem diagram, vision and roadmap |
-
----
-
-## Development
+## Setup
 
 ### Prerequisites
 
 - Node.js 18+
 - PostgreSQL database
+- npm or yarn
 
-### Running Locally
+### Installation
 
 ```bash
-# Install dependencies
+git clone https://github.com/adclaw/adclaw.git
+cd adclaw
 npm install
-
-# Push database schema
-npm run db:push
-
-# Start development server (frontend + backend on port 5000)
-npm run dev
 ```
 
 ### Environment Variables
 
-| Variable | Description | Required |
-|----------|-------------|----------|
-| `DATABASE_URL` | PostgreSQL connection string | Yes |
-| `SESSION_SECRET` | Express session secret for cookie signing | Yes |
-
-### Build for Production
-
 ```bash
-npm run build
-npm start
+DATABASE_URL=postgresql://user:password@host:5432/adclaw
+PORT=5000
+NODE_ENV=development
 ```
 
----
+### Running
 
-## Troubleshooting
+```bash
+npm run dev
+```
 
-### Common Issues
+This starts both the Express backend and Vite frontend on port 5000.
 
-**Database connection fails**
-- Verify `DATABASE_URL` is set and the PostgreSQL instance is running
-- Run `npm run db:push` to ensure the schema is synced
+### Database
 
-**SSE events not appearing in SOUL TERMINAL**
-- Check browser console for EventSource connection errors
-- Verify the server is running and `/api/events` returns `Content-Type: text/event-stream`
-- SSE connections auto-reconnect after disconnection — wait a few seconds
-
-**Soul Engine Score is always 500 (minimum)**
-- The scoring algorithm requires matching keywords in your SOUL.md and MEMORY.md content
-- Check the [Score Dimensions](#score-dimensions) table for the keyword list
-- Ensure your files contain meaningful content (not just placeholder text)
-
-**Forge page shows "wallet not connected"**
-- Install the Phantom wallet browser extension
-- Connect to the correct Solana network (mainnet-beta)
-- Approve the connection request in the Phantom popup
-
-**Build errors with TypeScript**
-- Run `npx tsc --noEmit` to check for type errors
-- Ensure `shared/schema.ts` is consistent with your database schema
-- Run `npm run db:push --force` if the schema is out of sync
+The database schema is managed by Drizzle ORM. Tables are created automatically on first run, and sample data is seeded if the database is empty.
 
 ---
 
 ## Contributing
 
-Contributions are welcome. Please follow these guidelines:
-
-1. **Fork the repo** and create a feature branch from `main`
-2. **Follow existing code style** — TypeScript strict mode, Tailwind utility classes, Drizzle ORM patterns
-3. **Add data-testid attributes** to new interactive and display elements
-4. **Test your changes** — ensure the dev server starts cleanly and all pages render
-5. **Keep PRs focused** — one feature or fix per pull request
-6. **Update documentation** — if you add API routes, update this README
-
-### Development Workflow
-
-```bash
-# Fork and clone
-git clone https://github.com/YOUR_USERNAME/SoulClaw.git
-
-# Install and start
-npm install
-npm run db:push
-npm run dev
-
-# Make changes, then submit a PR
-```
-
----
-
-## Changelog
-
-### v1.2.0 (2026-02-25)
-
-- Added `POST /api/v1/forge-log` route for custom log events
-- Added `GET /api/v1/forge-log` with pagination and filtering (wallet, action, category)
-- Added `GET /api/v1/forge-log/:id` for individual log lookup
-- Refactored Drawer component with SoulClaw-branded styling (variant support: default, forge, terminal)
-- Enhanced README with troubleshooting, contributing guidelines, and changelog
-
-### v1.1.0 (2026-02-24)
-
-- Added Ecosystem page with SDK install tabs and flow diagram
-- Trimmed Marketplace to 4 curated agents
-- Upgraded forge page with gaming-style toggle and progress bar
-- Polished all pages — tab glow effects, upload zones, status colors
-- Rewrote README with Mermaid diagrams, full API reference, scoring algorithm docs
-
-### v1.0.0 (2026-02-22)
-
-- Initial release
-- Soul forging via REST API with Soul Engine Score calculation
-- Real-time SOUL TERMINAL with SSE event streaming
-- Marketplace for listing and discovering agents
-- Forge page with manual and autonomous forge modes
-- Home page with SDK install docs and API reference
-
----
-
-## Ecosystem
-
-SoulClaw is part of a broader ecosystem for AI agents on Solana:
-
-| Project | Role | URL |
-|---------|------|-----|
-| **SoulClaw** | Identity & memory protocol | This repo |
-| **ClawAPIs** | x402 paid API gateway | [clawapis.com](https://clawapis.com) |
-| **Pump.fun** | Token trading platform | [pump.fun](https://pump.fun) |
-
-**How they connect:** Agents forge identity via SoulClaw, access paid API endpoints via ClawAPIs (using x402 payment protocol — pay per request with crypto, no API keys), and trade on pump.fun with a verifiable reputation score.
-
-The x402 payment flow:
-1. Agent makes an API request
-2. Server returns `402 Payment Required` with a `PAYMENT-REQUIRED` header
-3. Agent signs the payment with their wallet
-4. Agent retries with `PAYMENT-SIGNATURE` header
-5. Server verifies payment, returns data
-
-Libraries: `x402-fetch` (EVM/Base), `x402-solana` (Solana/USDC)
-
----
-
-## Links
-
-- **Twitter**: [https://x.com/soulclawonsol](https://x.com/soulclawonsol)
-- **GitHub**: [https://github.com/dewifart/SoulClaw](https://github.com/dewifart/SoulClaw)
-- **ClawAPIs**: [https://clawapis.com](https://clawapis.com)
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/my-feature`)
+3. Commit your changes (`git commit -am 'Add my feature'`)
+4. Push to the branch (`git push origin feature/my-feature`)
+5. Open a Pull Request
 
 ---
 
 ## License
 
-MIT
+MIT License — see [LICENSE](LICENSE) for details.

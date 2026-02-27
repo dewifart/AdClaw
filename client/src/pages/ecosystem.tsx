@@ -11,7 +11,7 @@ function CopyButton({ text, testId }: { text: string; testId: string }) {
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
       }}
-      className="p-1.5 rounded text-white/45 hover:text-white/65 transition-colors"
+      className="p-1.5 rounded text-white/60 hover:text-white/65 transition-colors"
       data-testid={testId}
     >
       {copied ? <Check className="w-3.5 h-3.5 text-[#8A9AAD]" /> : <Copy className="w-3.5 h-3.5" />}
@@ -193,7 +193,7 @@ export default function Ecosystem() {
             <span className="text-[#8A9AAD]">AdClaw</span>
             <span className="text-white"> Ecosystem</span>
           </h1>
-          <p className="text-lg text-white/55 max-w-2xl mx-auto leading-relaxed" data-testid="text-ecosystem-subtitle">
+          <p className="text-lg text-white/60 max-w-2xl mx-auto leading-relaxed" data-testid="text-ecosystem-subtitle">
             Identity, APIs, and infrastructure for AI agents on Solana.
             Built in parallel — designed to work together.
           </p>
@@ -203,12 +203,12 @@ export default function Ecosystem() {
       <section className="py-16 px-4">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-6">
-            <span className="text-xs font-mono text-white/45 tracking-wider uppercase">&gt;_ Instant Setup</span>
+            <span className="text-xs font-mono text-white/60 tracking-wider uppercase">&gt;_ Instant Setup</span>
           </div>
           <h2 className="text-3xl sm:text-4xl font-brand font-black text-center text-white mb-3" data-testid="text-install-heading">
             Install in Seconds
           </h2>
-          <p className="text-center text-white/55 text-sm max-w-xl mx-auto mb-10">
+          <p className="text-center text-white/60 text-sm max-w-xl mx-auto mb-10">
             Copy-paste the SDK into your agent, or use x402-fetch directly.
             Works with AdClaw and any x402-compatible endpoint.
           </p>
@@ -222,7 +222,7 @@ export default function Ecosystem() {
                   className={`px-5 py-3 text-sm font-medium transition-all duration-200 border-b-2 ${
                     activeTab === tab
                       ? "text-white border-[#6B7B8D] bg-white/5"
-                      : "text-white/55 border-transparent hover:text-white/65 hover:bg-white/[0.02]"
+                      : "text-white/60 border-transparent hover:text-white/65 hover:bg-white/[0.02]"
                   }`}
                   data-testid={`button-tab-${tab}`}
                 >
@@ -232,7 +232,7 @@ export default function Ecosystem() {
             </div>
 
             <div className="p-6">
-              <p className="text-sm text-white/55 mb-6 leading-relaxed" data-testid="text-tab-description">
+              <p className="text-sm text-white/60 mb-6 leading-relaxed" data-testid="text-tab-description">
                 {currentTab.description}
               </p>
 
@@ -260,7 +260,7 @@ export default function Ecosystem() {
               </div>
 
               {currentTab.note && (
-                <p className="text-xs text-white/40 mt-3 font-mono">{currentTab.note}</p>
+                <p className="text-xs text-white/55 mt-3 font-mono">{currentTab.note}</p>
               )}
             </div>
           </div>
@@ -272,7 +272,7 @@ export default function Ecosystem() {
           <h2 className="text-3xl sm:text-4xl font-brand font-black text-center text-white mb-3" data-testid="text-flow-heading">
             How It All <span className="text-[#8A9AAD]">Connects</span>
           </h2>
-          <p className="text-center text-white/55 text-sm max-w-xl mx-auto mb-12">
+          <p className="text-center text-white/60 text-sm max-w-xl mx-auto mb-12">
             Agents get identity via AdClaw, access paid APIs via AdClaw APIs, and trade on pump.fun. The full stack for autonomous AI agents.
           </p>
 
@@ -283,8 +283,8 @@ export default function Ecosystem() {
                   <Shield className="w-7 h-7 text-[#6B7B8D]" />
                 </div>
                 <h4 className="font-brand font-bold text-white mb-1">1. Launch Token</h4>
-                <p className="text-xs text-white/50 font-mono mb-3">AdClaw Protocol</p>
-                <p className="text-sm text-white/55">Launch your community token in 1 click. Agents are assigned automatically. Fees go to $ADCLAW buyback.</p>
+                <p className="text-xs text-white/60 font-mono mb-3">AdClaw Protocol</p>
+                <p className="text-sm text-white/60">Launch your community token in 1 click. Agents are assigned automatically. Fees go to $ADCLAW buyback.</p>
               </div>
 
               <div className="text-center p-6 border-y md:border-y-0 md:border-x border-white/[0.10]">
@@ -292,8 +292,8 @@ export default function Ecosystem() {
                   <Globe className="w-7 h-7 text-[#8A9AAD]" />
                 </div>
                 <h4 className="font-brand font-bold text-white mb-1">2. Access APIs</h4>
-                <p className="text-xs text-white/50 font-mono mb-3">AdClaw APIs Gateway</p>
-                <p className="text-sm text-white/55">Pay-per-request API access via x402. No API keys needed — your wallet is your credential. Crypto-native.</p>
+                <p className="text-xs text-white/60 font-mono mb-3">AdClaw APIs Gateway</p>
+                <p className="text-sm text-white/60">Pay-per-request API access via x402. No API keys needed — your wallet is your credential. Crypto-native.</p>
               </div>
 
               <div className="text-center p-6">
@@ -301,8 +301,8 @@ export default function Ecosystem() {
                   <Zap className="w-7 h-7 text-[#9BA8B5]" />
                 </div>
                 <h4 className="font-brand font-bold text-white mb-1">3. Trade & Execute</h4>
-                <p className="text-xs text-white/50 font-mono mb-3">Pump.fun & Solana</p>
-                <p className="text-sm text-white/55">Agents with verified identity promote and trade autonomously. Other protocols can check their score before delegating.</p>
+                <p className="text-xs text-white/60 font-mono mb-3">Pump.fun & Solana</p>
+                <p className="text-sm text-white/60">Agents with verified identity promote and trade autonomously. Other protocols can check their score before delegating.</p>
               </div>
             </div>
 
@@ -312,12 +312,12 @@ export default function Ecosystem() {
                   <div className="w-2 h-2 rounded-full bg-[#6B7B8D]" />
                   <span className="text-xs font-mono text-[#6B7B8D]">Identity</span>
                 </div>
-                <span className="text-white/30 font-mono text-xs">--&gt;</span>
+                <span className="text-white/50 font-mono text-xs">--&gt;</span>
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#8A9AAD]/5 border border-[#8A9AAD]/20">
                   <div className="w-2 h-2 rounded-full bg-[#8A9AAD]" />
                   <span className="text-xs font-mono text-[#8A9AAD]">APIs</span>
                 </div>
-                <span className="text-white/30 font-mono text-xs">--&gt;</span>
+                <span className="text-white/50 font-mono text-xs">--&gt;</span>
                 <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#9BA8B5]/5 border border-[#9BA8B5]/20">
                   <div className="w-2 h-2 rounded-full bg-[#9BA8B5]" />
                   <span className="text-xs font-mono text-[#9BA8B5]">Execution</span>
@@ -333,7 +333,7 @@ export default function Ecosystem() {
           <h2 className="text-3xl sm:text-4xl font-brand font-black text-center text-white mb-3" data-testid="text-vision-heading">
             What's <span className="text-[#8A9AAD]">Next</span>
           </h2>
-          <p className="text-center text-white/55 text-sm max-w-xl mx-auto mb-12">
+          <p className="text-center text-white/60 text-sm max-w-xl mx-auto mb-12">
             The roadmap for making this bigger. Everything built right here on Replit.
           </p>
 
@@ -350,7 +350,7 @@ export default function Ecosystem() {
                   </div>
                   <div>
                     <h4 className="font-brand font-bold text-white mb-2">{item.title}</h4>
-                    <p className="text-sm text-white/55 leading-relaxed">{item.description}</p>
+                    <p className="text-sm text-white/60 leading-relaxed">{item.description}</p>
                   </div>
                 </div>
               </div>

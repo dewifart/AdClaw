@@ -53,7 +53,7 @@ export function AgentCard({ agent, onClick, showPrice }: AgentCardProps) {
               <h3 className="text-sm font-bold text-white truncate" data-testid={`text-agent-name-${agent.id}`}>
                 {agent.name}
               </h3>
-              <p className="text-[11px] text-white/55 truncate">{agent.description}</p>
+              <p className="text-[11px] text-white/60 truncate">{agent.description}</p>
             </div>
           </div>
           {!agent.imageUrl && (
@@ -61,20 +61,20 @@ export function AgentCard({ agent, onClick, showPrice }: AgentCardProps) {
               <span className="text-xs font-mono gold-gradient font-bold" data-testid={`text-agent-score-${agent.id}`}>
                 {agent.soulScore}
               </span>
-              <span className="text-[10px] text-white/55 uppercase">pts</span>
+              <span className="text-[10px] text-white/60 uppercase">pts</span>
             </div>
           )}
         </div>
 
         <div className="bg-black/40 rounded-lg p-3 mb-3 border border-white/[0.08]">
-          <pre className="text-[11px] text-white/55 font-mono leading-relaxed whitespace-pre-wrap break-words line-clamp-3">
+          <pre className="text-[11px] text-white/60 font-mono leading-relaxed whitespace-pre-wrap break-words line-clamp-3">
             {snippet}
           </pre>
         </div>
 
         <div className="flex items-center justify-between gap-2">
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-1 text-white/55">
+            <div className="flex items-center gap-1 text-white/60">
               <Clock className="w-3 h-3" />
               <span className="text-[10px]">{createdDate}</span>
             </div>
