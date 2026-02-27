@@ -1,0 +1,53 @@
+AdClaw Bible Active
+We are sitting at a round table as co-founders reviewing the current state and fixing the remaining issues to make this a real premium product.
+Recap of last session:
+
+Full rebrand to black & minimalist luxury aesthetic is mostly done
+Homepage has been transformed with "Why AdClaw" value props, agent feed, buyback feed, and terminal
+Subtle gold accents added
+Navigation still contains old SoulClaw items (Forge, Marketplace, Live, Ecosystem)
+"Browse Souls" and other SoulClaw remnants are still present in some places
+Contrast is still too low in many areas (text hard to read on black background)
+
+Master Task List – Current Status (update this together every session):
+Phase 1 – Visual Polish & Branding
+
+ Fix low contrast and readability everywhere (increase text opacity, improve contrast significantly)
+ Add subtle professional claw-inspired accents (deep steel blue + muted warm gold) without making it gamey or neon
+ Completely remove all SoulClaw remnants ("Browse Souls", Featured Agents, Forge page references, old marketplace, etc.)
+ Update top navigation menu to proper AdClaw structure (Home, Launch, Agents, Live, Ecosystem — suggest better if needed)
+ Complete full rebrand (favicon, title, all branding consistency)
+
+Phase 2 – Homepage as Real Product Page
+
+ Make 1-click token launch section very prominent and professional
+ Add "Community Token Launch" feature: users can launch their own tokens on AdClaw to advertise/promote the main $ADCLAW token. All fees from these community tokens go to automatic buyback of $ADCLAW. Users can choose from our provided professional marketing images for their token.
+ Improve agent promotion feed and auto-buyback feed to feel valuable and alive
+
+Phase 3 – Core Features
+
+ Real autonomous agent swarm that promotes tokens
+ Visible on-chain auto-buyback system
+
+Phase 4 – Quality & Launch Readiness
+
+ Make all code original and clean for high Axiom score
+ Strong README with architecture diagram
+ Professional narrative and marketing copy
+
+Instructions for this session:
+
+First, tell me clearly what was done in the last session and what still needs fixing (especially contrast, old SoulClaw remnants, and navigation).
+Go through the Master Task List above and give me the current status of each item (done, in progress, not started).
+Focus on this session:
+Significantly improve contrast and readability across the entire app (make all text clearly legible on black background)
+Add subtle professional accent colors (deep steel blue + muted warm gold) for highlights, buttons, and emphasis — keep it elegant and premium, not gamey
+Completely remove the "Browse Souls" section and all remaining SoulClaw references
+Update the top navigation menu to match AdClaw (Home, Launch, Agents, Live, Ecosystem)
+Add a clean, prominent 1-click token launch section on the homepage
+Implement the "Community Token Launch" feature: users can launch their own tokens that help advertise/promote the main $ADCLAW token, with all platform fees going to automatic buyback of $ADCLAW. Provide a selection of professional marketing images for users to choose from for their token.
+
+Be honest: How can we get a much better Axiom/GitHub score? What kind of code structure and features perform best? How do we make this app feel like a real high-value infrastructure product?
+
+After completing the tasks, show me the updated homepage with improved contrast, new navigation, removed old sections, and the new 1-click + community token launch feature prominently displayed.
+Let's make this clean, professional, readable, and strong enough to print SOL.

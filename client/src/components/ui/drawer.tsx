@@ -2,22 +2,22 @@ import * as React from "react"
 import { Drawer as DrawerPrimitive } from "vaul"
 import { cn } from "@/lib/utils"
 
-interface SoulDrawerProps extends React.ComponentProps<typeof DrawerPrimitive.Root> {
+interface DrawerProps extends React.ComponentProps<typeof DrawerPrimitive.Root> {
   shouldScaleBackground?: boolean;
 }
 
-const Drawer = ({ shouldScaleBackground = true, ...props }: SoulDrawerProps) => (
+const Drawer = ({ shouldScaleBackground = true, ...props }: DrawerProps) => (
   <DrawerPrimitive.Root shouldScaleBackground={shouldScaleBackground} {...props} />
 )
-Drawer.displayName = "SoulDrawer"
+Drawer.displayName = "Drawer"
 
 const DrawerTrigger = DrawerPrimitive.Trigger
-DrawerTrigger.displayName = "SoulDrawerTrigger"
+DrawerTrigger.displayName = "DrawerTrigger"
 
 const DrawerPortal = DrawerPrimitive.Portal
 
 const DrawerClose = DrawerPrimitive.Close
-DrawerClose.displayName = "SoulDrawerClose"
+DrawerClose.displayName = "DrawerClose"
 
 const DrawerOverlay = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Overlay>,
@@ -34,16 +34,16 @@ const DrawerOverlay = React.forwardRef<
     {...props}
   />
 ))
-DrawerOverlay.displayName = "SoulDrawerOverlay"
+DrawerOverlay.displayName = "DrawerOverlay"
 
-interface SoulDrawerContentProps extends React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> {
+interface DrawerContentProps extends React.ComponentPropsWithoutRef<typeof DrawerPrimitive.Content> {
   showHandle?: boolean;
   variant?: "default" | "forge" | "terminal";
 }
 
 const DrawerContent = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Content>,
-  SoulDrawerContentProps
+  DrawerContentProps
 >(({ className, children, showHandle = true, variant = "default", ...props }, ref) => {
   const variantStyles = {
     default: "border-[#1a1a1a] bg-[#0a0a0a]/95",
@@ -86,7 +86,7 @@ const DrawerContent = React.forwardRef<
     </DrawerPortal>
   );
 })
-DrawerContent.displayName = "SoulDrawerContent"
+DrawerContent.displayName = "DrawerContent"
 
 const DrawerHeader = ({
   className,
@@ -101,7 +101,7 @@ const DrawerHeader = ({
     {...props}
   />
 )
-DrawerHeader.displayName = "SoulDrawerHeader"
+DrawerHeader.displayName = "DrawerHeader"
 
 const DrawerFooter = ({
   className,
@@ -116,7 +116,7 @@ const DrawerFooter = ({
     {...props}
   />
 )
-DrawerFooter.displayName = "SoulDrawerFooter"
+DrawerFooter.displayName = "DrawerFooter"
 
 const DrawerTitle = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Title>,
@@ -131,7 +131,7 @@ const DrawerTitle = React.forwardRef<
     {...props}
   />
 ))
-DrawerTitle.displayName = "SoulDrawerTitle"
+DrawerTitle.displayName = "DrawerTitle"
 
 const DrawerDescription = React.forwardRef<
   React.ElementRef<typeof DrawerPrimitive.Description>,
@@ -146,7 +146,7 @@ const DrawerDescription = React.forwardRef<
     {...props}
   />
 ))
-DrawerDescription.displayName = "SoulDrawerDescription"
+DrawerDescription.displayName = "DrawerDescription"
 
 export {
   Drawer,

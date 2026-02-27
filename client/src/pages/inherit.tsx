@@ -19,14 +19,14 @@ export default function Inherit() {
 
     const logMessages = [
       `> Connecting to Arweave gateway...`,
-      `> Fetching SOUL.md from ${soul.arweaveHash || 'ar_storage'}...`,
+      `> Fetching AGENT.md from ${soul.arweaveHash || 'ar_storage'}...`,
       `> Fetching MEMORY.md...`,
-      `> Parsing personality directives...`,
+      `> Parsing agent directives...`,
       `> Loading ${soul.memoryContent.split('\n').length} memory entries...`,
-      `> Initializing AdClaw agent with soul: "${soul.name}"`,
-      `> Soul Score: ${soul.soulScore}`,
-      `> Agent personality loaded successfully.`,
-      `> Ready. Your agent now carries the soul of "${soul.name}".`,
+      `> Initializing AdClaw agent config: "${soul.name}"`,
+      `> Agent Score: ${soul.soulScore}`,
+      `> Agent config loaded successfully.`,
+      `> Ready. Your agent now inherits the config of "${soul.name}".`,
     ];
 
     logMessages.forEach((msg, i) => {
@@ -44,16 +44,16 @@ export default function Inherit() {
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-10">
           <h1 className="font-brand font-bold text-3xl uppercase gold-gradient mb-2" data-testid="text-inherit-title">
-            Inherit a Soul
+            Inherit an Agent
           </h1>
-          <p className="text-sm text-white/50">
-            Load any immortalized soul into a new AdClaw agent. Continue their legacy.
+          <p className="text-sm text-white/55">
+            Load any deployed agent config into a new AdClaw agent. Continue their legacy.
           </p>
         </div>
 
         <div className="grid lg:grid-cols-2 gap-6">
           <div>
-            <h2 className="text-xs text-white/40 uppercase tracking-wider mb-3">Available Souls</h2>
+            <h2 className="text-xs text-white/45 uppercase tracking-wider mb-3">Available Agents</h2>
             <div className="space-y-3 max-h-[600px] overflow-y-auto pr-1">
               {isLoading ? (
                 [1, 2, 3, 4].map((i) => (
@@ -111,7 +111,7 @@ export default function Inherit() {
               ) : (
                 <div className="glass-panel rounded-xl p-8 text-center">
                   <Flame className="w-8 h-8 text-white/20 mx-auto mb-3" />
-                  <p className="text-sm text-white/50">No souls available to inherit yet.</p>
+                  <p className="text-sm text-white/55">No agents available to inherit yet.</p>
                 </div>
               )}
             </div>
@@ -139,7 +139,7 @@ export default function Inherit() {
                 {!selectedSoul ? (
                   <div className="flex flex-col items-center justify-center h-[350px] text-center">
                     <Play className="w-8 h-8 text-white/10 mb-3" />
-                    <p className="text-white/30 text-sm">Select a soul to begin inheritance</p>
+                    <p className="text-white/35 text-sm">Select an agent to begin inheritance</p>
                     <p className="text-white/20 text-[10px] mt-1">The agent terminal will show the loading process</p>
                   </div>
                 ) : (
@@ -159,7 +159,7 @@ export default function Inherit() {
                     ))}
                     {inherited && (
                       <div className="mt-6 pt-4 border-t border-[#1a1a1a]">
-                        <p className="text-[#8A9AAD] mb-3">&gt; Soul personality preview:</p>
+                        <p className="text-[#8A9AAD] mb-3">&gt; Agent config preview:</p>
                         <pre className="text-white/50 whitespace-pre-wrap break-words leading-relaxed">
                           {selectedSoul.soulContent.slice(0, 300)}
                           {selectedSoul.soulContent.length > 300 ? "\n..." : ""}
@@ -175,13 +175,13 @@ export default function Inherit() {
 
               {inherited && selectedSoul && (
                 <div className="px-4 py-3 border-t border-[#1a1a1a] flex items-center justify-between gap-3">
-                  <span className="text-[10px] text-white/30">Soul loaded into agent memory</span>
+                  <span className="text-[10px] text-white/35">Config loaded into agent memory</span>
                   <button
                     className="flex items-center gap-1.5 bg-[#6B7B8D]/10 border border-[#6B7B8D]/20 rounded-lg px-3 py-1.5 text-xs text-[#8A9AAD] font-medium transition-all duration-200 hover:bg-[#6B7B8D]/20"
                     onClick={() => {
                       const blob = new Blob([
-                        `# Inherited Soul: ${selectedSoul.name}\n\n`,
-                        `## SOUL.md\n${selectedSoul.soulContent}\n\n`,
+                        `# Inherited Agent: ${selectedSoul.name}\n\n`,
+                        `## AGENT.md\n${selectedSoul.soulContent}\n\n`,
                         `## MEMORY.md\n${selectedSoul.memoryContent}`,
                       ], { type: "text/markdown" });
                       const url = URL.createObjectURL(blob);
@@ -191,10 +191,10 @@ export default function Inherit() {
                       a.click();
                       URL.revokeObjectURL(url);
                     }}
-                    data-testid="button-download-soul"
+                    data-testid="button-download-agent"
                   >
                     <Download className="w-3 h-3" />
-                    Export Soul
+                    Export Config
                   </button>
                 </div>
               )}

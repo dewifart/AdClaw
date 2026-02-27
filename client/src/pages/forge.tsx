@@ -1,13 +1,19 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useWallet } from "@/lib/wallet";
-import { UploadZone } from "@/components/UploadZone";
 import { useMutation } from "@tanstack/react-query";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { useLocation } from "wouter";
-import { Flame, Wallet, Loader2, Check, ArrowRight, Zap, Power } from "lucide-react";
+import { Rocket, Wallet, Loader2, Check, Zap, Power, Coins, Users, Megaphone } from "lucide-react";
 
-const SOUL_PREFIXES = [
+import agentJitoSniper from "@/assets/images/agent-jito-sniper.png";
+import agentWhaleMirror from "@/assets/images/agent-whale-mirror.png";
+import agentAlphaRadar from "@/assets/images/agent-alpha-radar.png";
+import agentTokenDeployer from "@/assets/images/agent-token-deployer.png";
+import agentAirdropGrinder from "@/assets/images/agent-airdrop-grinder.png";
+import agentLiquidationWolf from "@/assets/images/agent-liquidation-wolf.png";
+
+const TOKEN_NAMES = [
   "Drift", "Helius", "Marinade", "Jupiter", "Tensor",
   "Pyth", "Clockwork", "Switchboard", "Raydium", "Orca",
   "Kamino", "MarginFi", "Solend", "Jito", "Metaplex",
@@ -15,74 +21,68 @@ const SOUL_PREFIXES = [
   "Serum", "Mango", "Tulip", "Hubble", "Saber",
 ];
 
-const SOUL_SUFFIXES = [
-  "Liquidator", "Indexer", "Rebalancer", "Optimizer", "Router",
-  "Executor", "Relay", "Feeder", "Sweeper", "Harvester",
-  "Sentinel", "Interceptor", "Aggregator", "Validator", "Keeper",
-  "Settler", "Arbiter", "Tracker", "Resolver", "Calibrator",
+const TOKEN_SUFFIXES = [
+  "Coin", "Token", "Cash", "Pay", "Fi",
+  "Swap", "Dex", "Vault", "Pool", "Yield",
+  "Chain", "Net", "Link", "Hub", "Core",
+  "Wave", "Flux", "Pulse", "Arc", "Edge",
 ];
 
-const SOUL_DESCRIPTIONS = [
-  "Autonomous execution agent monitoring on-chain state changes with sub-second latency",
-  "Multi-protocol arbitrage engine routing across DEX aggregators for optimal fills",
-  "Real-time position monitoring agent with configurable health factor triggers",
-  "Cross-protocol yield optimizer rebalancing allocations based on APY drift",
-  "MEV-aware transaction bundler with priority fee optimization and tip routing",
-  "Wallet activity tracker correlating on-chain flows with social signal detection",
-  "Perpetual funding rate arbitrage agent with delta-neutral hedging logic",
-  "LP position manager with impermanent loss mitigation and auto-compounding",
-  "Token launch scanner with rug detection heuristics and safety scoring",
-  "Portfolio sentinel tracking PnL across wallets with risk-adjusted alerts",
-  "Order flow analyzer with mempool monitoring and front-run protection",
-  "Governance participation agent auto-voting based on configurable policy rules",
-  "Staking optimizer rotating validators based on commission and uptime metrics",
-  "NFT floor sweep agent with rarity scoring and instant snipe execution",
-  "Bridge monitor tracking cross-chain transfers with slippage alerts",
+const TOKEN_DESCRIPTIONS = [
+  "Community-driven token powering the next generation of DeFi automation",
+  "Decentralized governance token with integrated yield farming mechanics",
+  "Cross-protocol bridge token optimizing liquidity across Solana DEXs",
+  "Utility token for autonomous agent deployment and management",
+  "Ecosystem token fueling automated market-making strategies",
+  "Staking rewards token with deflationary burn mechanism",
+  "Social token enabling community-governed trading operations",
+  "Infrastructure token for high-frequency on-chain execution",
+  "Incentive token rewarding active protocol participants",
+  "Launchpad token for bootstrapping new DeFi protocols",
 ];
 
-function generateSoulName(usedNames: Set<string>): string {
+function generateTokenName(usedNames: Set<string>): string {
   let attempts = 0;
   while (attempts < 100) {
-    const prefix = SOUL_PREFIXES[Math.floor(Math.random() * SOUL_PREFIXES.length)];
-    const suffix = SOUL_SUFFIXES[Math.floor(Math.random() * SOUL_SUFFIXES.length)];
-    const name = `${prefix} ${suffix}`;
+    const prefix = TOKEN_NAMES[Math.floor(Math.random() * TOKEN_NAMES.length)];
+    const suffix = TOKEN_SUFFIXES[Math.floor(Math.random() * TOKEN_SUFFIXES.length)];
+    const name = `${prefix}${suffix}`;
     if (!usedNames.has(name)) return name;
     attempts++;
   }
   const id = Math.floor(Math.random() * 9000 + 1000);
-  return `Agent #${id}`;
+  return `Token #${id}`;
 }
 
-function generateSoulContent(name: string): string {
+function generateTokenContent(name: string): string {
   const version = `${Math.floor(Math.random() * 3 + 1)}.${Math.floor(Math.random() * 9)}.${Math.floor(Math.random() * 9)}`;
-  return `# SOUL.md — ${name} v${version}
-# AdClaw Protocol | Forged on Solana
-# Autonomous Forge | Engine Score: ${Math.floor(Math.random() * 2000 + 3000)}
+  return `# TOKEN.md — ${name} v${version}
+# AdClaw Protocol | Deployed on Solana
+# Community Token Launch | Score: ${Math.floor(Math.random() * 2000 + 3000)}
 
-## Identity
+## Token Identity
 name: "${name}"
 version: "${version}"
 chain: "solana-mainnet"
-runtime: "OpenClaw v0.9"
-forged_by: "Autonomous Claw"
+runtime: "AdClaw Launcher v1.0"
+launched_by: "Community Launch"
 
-You are ${name} — an autonomous agent forged by AdClaw.
-Your directives are encoded. Your memory is permanent. Execute with precision.
+${name} — a community token launched via AdClaw.
+All launch fees fund automatic $ADCLAW buyback.
 
-## Directives
-- Monitor target protocols continuously
-- Execute within defined risk parameters
-- Report anomalies to soul owner
-- Preserve capital above all else`;
+## Configuration
+- Liquidity pool auto-created on Raydium
+- Promotion agents assigned across all channels
+- Fee routing: 100% to $ADCLAW buyback`;
 }
 
 function generateMemoryContent(name: string): string {
-  return `# MEMORY.md — ${name}
-## Autonomous Forge Memory
-- Forged by AdClaw autonomous system
-- No prior trade history — clean slate agent
-- Ready for owner configuration and deployment
-- Memory schema initialized: append-only trade log`;
+  return `# DEPLOY.md — ${name}
+## Launch Configuration
+- Launched via AdClaw community token system
+- Liquidity pool initialized
+- Promotion agents activated
+- Buyback routing configured`;
 }
 
 function generateWallet(): string {
@@ -96,37 +96,46 @@ function shortWallet(w: string): string {
   return `${w.slice(0, 4)}...${w.slice(-4)}`;
 }
 
-interface AutoForgeLog {
+const MARKETING_IMAGES = [
+  { src: agentJitoSniper, label: "Sniper" },
+  { src: agentWhaleMirror, label: "Whale" },
+  { src: agentAlphaRadar, label: "Radar" },
+  { src: agentTokenDeployer, label: "Deployer" },
+  { src: agentAirdropGrinder, label: "Airdrop" },
+  { src: agentLiquidationWolf, label: "Wolf" },
+];
+
+interface AutoLaunchLog {
   id: string;
   timestamp: Date;
   soulName: string;
   soulId: number;
   price: string;
   wallet: string;
-  status: "forging" | "storing" | "minting" | "complete";
+  status: "launching" | "deploying" | "indexing" | "launched";
 }
 
 export default function Forge() {
   const { connected, address, connect } = useWallet();
   const { toast } = useToast();
   const [, setLocation] = useLocation();
-  const [soulFile, setSoulFile] = useState<File | null>(null);
-  const [memoryFile, setMemoryFile] = useState<File | null>(null);
   const [name, setName] = useState("");
+  const [ticker, setTicker] = useState("");
   const [description, setDescription] = useState("");
+  const [selectedImage, setSelectedImage] = useState<number | null>(null);
   const [step, setStep] = useState(0);
 
   const [autonomousMode, setAutonomousMode] = useState(false);
-  const [autoLogs, setAutoLogs] = useState<AutoForgeLog[]>([]);
+  const [autoLogs, setAutoLogs] = useState<AutoLaunchLog[]>([]);
   const [nextForgeIn, setNextForgeIn] = useState(0);
   const [totalAutoForged, setTotalAutoForged] = useState(0);
   const usedNamesRef = useRef<Set<string>>(new Set());
   const autoIntervalRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const countdownRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const autoForge = useCallback(async () => {
-    const soulName = generateSoulName(usedNamesRef.current);
-    usedNamesRef.current.add(soulName);
+  const autoLaunch = useCallback(async () => {
+    const tokenName = generateTokenName(usedNamesRef.current);
+    usedNamesRef.current.add(tokenName);
     const wallet = generateWallet();
     const soulId = Math.floor(Math.random() * 9000 + 1000);
     const price = (Math.random() * 2.5 + 0.5).toFixed(1);
@@ -136,27 +145,27 @@ export default function Forge() {
     setAutoLogs(prev => [{
       id: logId,
       timestamp: new Date(),
-      soulName,
+      soulName: tokenName,
       soulId,
       price,
       wallet,
-      status: "forging" as const,
+      status: "launching" as const,
     }, ...prev].slice(0, 50));
 
     await new Promise(r => setTimeout(r, 1500));
-    setAutoLogs(prev => prev.map(l => l.id === logId ? { ...l, status: "storing" } : l));
+    setAutoLogs(prev => prev.map(l => l.id === logId ? { ...l, status: "deploying" } : l));
 
     await new Promise(r => setTimeout(r, 1200));
-    setAutoLogs(prev => prev.map(l => l.id === logId ? { ...l, status: "minting" } : l));
+    setAutoLogs(prev => prev.map(l => l.id === logId ? { ...l, status: "indexing" } : l));
 
     try {
-      const soulContent = generateSoulContent(soulName);
-      const memoryContent = generateMemoryContent(soulName);
+      const soulContent = generateTokenContent(tokenName);
+      const memoryContent = generateMemoryContent(tokenName);
       const soulScore = Math.floor(Math.random() * 2000 + 3000);
-      const desc = SOUL_DESCRIPTIONS[Math.floor(Math.random() * SOUL_DESCRIPTIONS.length)];
+      const desc = TOKEN_DESCRIPTIONS[Math.floor(Math.random() * TOKEN_DESCRIPTIONS.length)];
 
       await apiRequest("POST", "/api/souls", {
-        name: soulName,
+        name: tokenName,
         description: desc,
         soulContent,
         memoryContent,
@@ -174,7 +183,7 @@ export default function Forge() {
       queryClient.invalidateQueries({ queryKey: ["/api/souls/listed"] });
 
       try {
-        const eventData = JSON.stringify({ soulName, soulId, price, wallet, timestamp: Date.now() });
+        const eventData = JSON.stringify({ soulName: tokenName, soulId, price, wallet, timestamp: Date.now() });
         localStorage.setItem("adclaw_forge_event", eventData);
         window.dispatchEvent(new CustomEvent("adclaw_forge", { detail: eventData }));
       } catch {}
@@ -182,7 +191,7 @@ export default function Forge() {
     }
 
     await new Promise(r => setTimeout(r, 800));
-    setAutoLogs(prev => prev.map(l => l.id === logId ? { ...l, status: "complete" } : l));
+    setAutoLogs(prev => prev.map(l => l.id === logId ? { ...l, status: "launched" } : l));
     setTotalAutoForged(prev => prev + 1);
   }, []);
 
@@ -207,26 +216,26 @@ export default function Forge() {
 
       autoIntervalRef.current = setTimeout(async () => {
         if (countdownRef.current) clearInterval(countdownRef.current);
-        await autoForge();
+        await autoLaunch();
         scheduleNext();
       }, delay);
     };
 
-    autoForge().then(() => scheduleNext());
+    autoLaunch().then(() => scheduleNext());
 
     return () => {
       if (autoIntervalRef.current) clearTimeout(autoIntervalRef.current);
       if (countdownRef.current) clearInterval(countdownRef.current);
     };
-  }, [autonomousMode, autoForge]);
+  }, [autonomousMode, autoLaunch]);
 
-  const forgeMutation = useMutation({
+  const launchMutation = useMutation({
     mutationFn: async () => {
-      if (!soulFile || !memoryFile || !address) throw new Error("Missing files");
+      if (!name || !ticker || !address) throw new Error("Missing required fields");
 
-      const soulContent = await soulFile.text();
-      const memoryContent = await memoryFile.text();
-      const soulScore = Math.floor(memoryContent.length / 10 + Math.random() * 500);
+      const soulContent = generateTokenContent(name);
+      const memoryContent = generateMemoryContent(name);
+      const soulScore = Math.floor(Math.random() * 2000 + 3000);
 
       setStep(1);
       await new Promise(r => setTimeout(r, 1200));
@@ -236,17 +245,17 @@ export default function Forge() {
       await new Promise(r => setTimeout(r, 800));
 
       const res = await apiRequest("POST", "/api/souls", {
-        name: name || soulFile.name.replace(".md", ""),
-        description: description || "An immortalized OpenClaw agent soul",
+        name,
+        description: description || `Community token $${ticker} launched via AdClaw`,
         soulContent,
         memoryContent,
         ownerWallet: address,
         soulScore,
         mintAddress: `mint_${Date.now().toString(36)}`,
         arweaveHash: `ar_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`,
-        isListed: false,
-        price: null,
-        imageUrl: null,
+        isListed: true,
+        price: "0.5",
+        imageUrl: selectedImage !== null ? MARKETING_IMAGES[selectedImage].src : null,
       });
 
       setStep(4);
@@ -257,15 +266,15 @@ export default function Forge() {
       queryClient.invalidateQueries({ queryKey: ["/api/souls/all"] });
       queryClient.invalidateQueries({ queryKey: ["/api/souls/listed"] });
       toast({
-        title: "Agent Forged!",
-        description: "Your agent's soul has been immortalized on-chain.",
+        title: "Token Launched!",
+        description: "Your community token is live. Promotion agents are now active.",
       });
       setTimeout(() => setLocation("/dashboard"), 1500);
     },
     onError: (error: Error) => {
       setStep(0);
       toast({
-        title: "Forging Failed",
+        title: "Launch Failed",
         description: error.message,
         variant: "destructive",
       });
@@ -273,41 +282,41 @@ export default function Forge() {
   });
 
   const steps = [
-    { label: "Uploading to Arweave...", icon: "upload" },
-    { label: "Creating Solana PDA...", icon: "chain" },
-    { label: "Minting NFT...", icon: "mint" },
-    { label: "Agent Forged!", icon: "done" },
+    { label: "Deploying token..." },
+    { label: "Creating liquidity pool..." },
+    { label: "Registering agents..." },
+    { label: "Token Launched!" },
   ];
 
-  const canForge = soulFile && memoryFile && connected && !forgeMutation.isPending;
+  const canLaunch = name && ticker && connected && !launchMutation.isPending;
 
   const statusColors: Record<string, string> = {
-    forging: "#6B7B8D",
-    storing: "#8A9AAD",
-    minting: "#8A9AAD",
-    complete: "#a0aab4",
+    launching: "#6B7B8D",
+    deploying: "#8A9AAD",
+    indexing: "#8A9AAD",
+    launched: "#a0aab4",
   };
 
   const statusLabels: Record<string, string> = {
-    forging: "FORGING",
-    storing: "STORING",
-    minting: "INDEXING",
-    complete: "FORGED",
+    launching: "LAUNCHING",
+    deploying: "DEPLOYING",
+    indexing: "INDEXING",
+    launched: "LAUNCHED",
   };
 
   return (
     <div className="min-h-screen pt-24 px-4 pb-12">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-10">
-          <h1 className="font-brand font-bold text-3xl uppercase gold-gradient mb-2" data-testid="text-forge-title">
-            Immortalize Your Agent
+          <h1 className="font-brand font-bold text-3xl uppercase gold-gradient mb-2" data-testid="text-launch-title">
+            Launch Your Token
           </h1>
-          <p className="text-sm text-white/50">
-            Upload your SOUL.md and MEMORY.md files to forge a permanent agent identity.
+          <p className="text-sm text-white/55 font-mono" data-testid="text-launch-subtitle">
+            Launch a community token to promote $ADCLAW. All fees fund automatic buyback.
           </p>
         </div>
 
-        <div className="glass-panel rounded-2xl p-6 border border-white/10 mb-8" data-testid="panel-autonomous-mode">
+        <div className="glass-panel rounded-2xl p-6 border border-white/10 mb-8" data-testid="panel-auto-launch-mode">
           <div className="flex items-center justify-between gap-4">
             <div className="flex items-center gap-4">
               <div className="relative">
@@ -323,14 +332,14 @@ export default function Forge() {
                 )}
               </div>
               <div>
-                <h2 className="font-brand font-bold text-lg uppercase text-white flex items-center gap-2" data-testid="text-autonomous-title">
+                <h2 className="font-brand font-bold text-lg uppercase text-white flex items-center gap-2" data-testid="text-auto-launch-title">
                   <Zap className="w-4 h-4 text-[#6B7B8D]" />
-                  Autonomous Forge Mode
+                  Auto-Launch Mode
                 </h2>
-                <p className="text-xs text-white/40 mt-0.5">
+                <p className="text-xs text-white/55 mt-0.5">
                   {autonomousMode
-                    ? `AdClaw is forging agents autonomously \u2022 ${totalAutoForged} forged this session`
-                    : "Let AdClaw auto-forge new agents every 45\u201375 seconds"
+                    ? `AdClaw is launching tokens autonomously \u2022 ${totalAutoForged} launched this session`
+                    : "Let AdClaw auto-launch new tokens every 45\u201375 seconds"
                   }
                 </p>
               </div>
@@ -343,7 +352,7 @@ export default function Forge() {
                   ? "bg-[#6B7B8D]/20 border border-[#6B7B8D]/50 shadow-[0_0_20px_rgba(107,123,141,0.2)]"
                   : "bg-[#111] border border-[#333]"
               }`}
-              data-testid="button-toggle-autonomous"
+              data-testid="button-toggle-auto-launch"
             >
               <div className={`absolute w-6 h-6 rounded flex items-center justify-center transition-all duration-300 ${
                 autonomousMode
@@ -366,32 +375,32 @@ export default function Forge() {
                   }}
                 />
               </div>
-              <span className="text-white/40" data-testid="text-next-forge-timer">
-                Next forge in <span className="text-[#8A9AAD] font-bold">{nextForgeIn}s</span>
+              <span className="text-white/45" data-testid="text-next-launch-timer">
+                Next launch in <span className="text-[#8A9AAD] font-bold">{nextForgeIn}s</span>
               </span>
             </div>
           )}
         </div>
 
         {autonomousMode && autoLogs.length > 0 && (
-          <div className="glass-panel rounded-2xl border border-[#1a1a1a] mb-8 overflow-hidden" data-testid="panel-auto-forge-log">
+          <div className="glass-panel rounded-2xl border border-[#1a1a1a] mb-8 overflow-hidden" data-testid="panel-auto-launch-log">
             <div className="flex items-center justify-between gap-2 px-4 py-3 border-b border-[#1a1a1a]">
               <div className="flex items-center gap-2">
-                <Zap className="h-4 w-4 text-white/40" />
-                <span className="font-mono text-xs text-white/50 tracking-wider">AUTONOMOUS FORGE LOG</span>
+                <Zap className="h-4 w-4 text-white/45" />
+                <span className="font-mono text-xs text-white/55 tracking-wider">AUTO-LAUNCH LOG</span>
               </div>
-              <span className="font-mono text-[10px] text-white/30">{autoLogs.length} entries</span>
+              <span className="font-mono text-[10px] text-white/35">{autoLogs.length} entries</span>
             </div>
             <div className="max-h-64 overflow-y-auto px-4 py-2" style={{ fontFamily: "'Fira Code', monospace" }}>
               {autoLogs.map(log => (
                 <div
                   key={log.id}
                   className={`py-1.5 text-[12px] leading-relaxed ${
-                    log.status !== "complete" ? "animate-pulse" : ""
+                    log.status !== "launched" ? "animate-pulse" : ""
                   }`}
                   data-testid={`auto-log-${log.id}`}
                 >
-                  <span className="text-white/25">
+                  <span className="text-white/35">
                     [{log.timestamp.toISOString().replace("T", " ").slice(0, 19)}]
                   </span>
                   {" "}
@@ -400,10 +409,10 @@ export default function Forge() {
                   </span>
                   {" "}
                   <span className="text-white/60">
-                    {log.status === "forging" && `AdClaw initiating forge for ${log.soulName} (Agent #${log.soulId})...`}
-                    {log.status === "storing" && `Uploading ${log.soulName} SOUL.md + MEMORY.md to Arweave...`}
-                    {log.status === "minting" && `Minting Metaplex Core NFT for ${log.soulName}...`}
-                    {log.status === "complete" && `AdClaw forged Agent #${log.soulId} (${log.soulName}) for ${log.price} SOL \u2192 listed on marketplace`}
+                    {log.status === "launching" && `Initiating launch for ${log.soulName} (Token #${log.soulId})...`}
+                    {log.status === "deploying" && `Deploying ${log.soulName} contract to Solana...`}
+                    {log.status === "indexing" && `Indexing ${log.soulName} and assigning promotion agents...`}
+                    {log.status === "launched" && `Token launched: ${log.soulName} (#${log.soulId}) \u2014 ${log.price} SOL deployed. Agents assigned. [CHAIN-VERIFIED]`}
                   </span>
                 </div>
               ))}
@@ -416,22 +425,22 @@ export default function Forge() {
             <div className="w-16 h-16 rounded-full bg-[#6B7B8D]/10 border border-[#6B7B8D]/20 flex items-center justify-center mx-auto mb-6">
               <Wallet className="w-8 h-8 text-[#6B7B8D]" />
             </div>
-            <h2 className="font-brand font-bold text-2xl uppercase text-white mb-3">
-              Connect Wallet to Forge
+            <h2 className="font-brand font-bold text-2xl uppercase text-white mb-3" data-testid="text-connect-prompt">
+              Connect Wallet to Launch
             </h2>
-            <p className="text-sm text-white/50 mb-8 max-w-md mx-auto">
-              Connect your Solana wallet to upload and immortalize your OpenClaw agent's soul on-chain.
+            <p className="text-sm text-white/55 mb-8 max-w-md mx-auto">
+              Connect your Solana wallet to launch a community token and fuel the $ADCLAW ecosystem.
             </p>
             <button
               onClick={connect}
               className="flex items-center gap-2 bg-[#6B7B8D] text-white font-bold rounded-lg px-6 py-3 text-sm mx-auto transition-all duration-200 hover:brightness-110"
-              data-testid="button-connect-forge"
+              data-testid="button-connect-launch"
             >
               <Wallet className="w-4 h-4" />
               Connect Wallet
             </button>
           </div>
-        ) : forgeMutation.isPending || step === 4 ? (
+        ) : launchMutation.isPending || step === 4 ? (
           <div className="glass-panel rounded-xl p-8 max-w-2xl mx-auto">
             <div className="space-y-4">
               {steps.map((s, i) => (
@@ -448,12 +457,12 @@ export default function Forge() {
                     ) : step === i ? (
                       <Loader2 className="w-4 h-4 text-[#6B7B8D] animate-spin" />
                     ) : (
-                      <span className="text-xs font-mono text-white/30">{i + 1}</span>
+                      <span className="text-xs font-mono text-white/35">{i + 1}</span>
                     )}
                   </div>
                   <span className={`text-sm transition-all duration-300 ${
-                    step > i ? "text-[#8A9AAD]" : step === i ? "text-white" : "text-white/30"
-                  }`}>
+                    step > i ? "text-[#8A9AAD]" : step === i ? "text-white" : "text-white/35"
+                  }`} data-testid={`text-step-${i}`}>
                     {s.label}
                   </span>
                 </div>
@@ -465,67 +474,128 @@ export default function Forge() {
                 <div className="w-16 h-16 rounded-full bg-[#8A9AAD]/10 border border-[#8A9AAD]/20 flex items-center justify-center mx-auto mb-4 green-glow-strong">
                   <Check className="w-8 h-8 text-[#8A9AAD]" />
                 </div>
-                <p className="text-sm text-white/70">Redirecting to dashboard...</p>
+                <p className="text-sm text-white/70" data-testid="text-redirect">Redirecting to dashboard...</p>
               </div>
             )}
           </div>
         ) : (
           <div className="space-y-6 max-w-2xl mx-auto">
-            <div className="glass-panel rounded-xl p-6">
-              <label className="block text-xs text-white/40 uppercase tracking-wider mb-2">Agent Name</label>
+            <div className="glass-panel rounded-xl p-6" data-testid="panel-token-form">
+              <label className="block text-xs text-white/55 uppercase tracking-wider mb-2">Token Name</label>
               <input
                 type="text"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                placeholder="e.g. Drift Liquidator"
+                placeholder="e.g. AdClaw Community"
                 className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/20"
-                data-testid="input-soul-name"
+                data-testid="input-token-name"
               />
 
-              <label className="block text-xs text-white/40 uppercase tracking-wider mb-2 mt-4">Description</label>
+              <label className="block text-xs text-white/55 uppercase tracking-wider mb-2 mt-4">Token Ticker</label>
               <input
                 type="text"
+                value={ticker}
+                onChange={(e) => setTicker(e.target.value.toUpperCase())}
+                placeholder="e.g. $MYTOKEN"
+                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/20"
+                data-testid="input-token-ticker"
+              />
+
+              <label className="block text-xs text-white/55 uppercase tracking-wider mb-2 mt-4">Token Description</label>
+              <textarea
                 value={description}
                 onChange={(e) => setDescription(e.target.value)}
-                placeholder="e.g. A ruthless trading agent with 6 months of market memory"
-                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/20"
-                data-testid="input-soul-description"
+                placeholder="Describe your community token..."
+                rows={3}
+                className="w-full bg-[#0d0d0d] text-white text-sm rounded-lg px-4 py-3 border-none outline-none focus:ring-1 focus:ring-[#6B7B8D]/30 placeholder:text-white/20 resize-none"
+                data-testid="input-token-description"
               />
-            </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <UploadZone
-                label="SOUL.md"
-                accept=".md,.txt"
-                file={soulFile}
-                onFile={setSoulFile}
-                testId="upload-soul"
-              />
-              <UploadZone
-                label="MEMORY.md"
-                accept=".md,.txt"
-                file={memoryFile}
-                onFile={setMemoryFile}
-                testId="upload-memory"
-              />
+              <label className="block text-xs text-white/55 uppercase tracking-wider mb-3 mt-5">Marketing Image</label>
+              <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+                {MARKETING_IMAGES.map((img, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setSelectedImage(selectedImage === i ? null : i)}
+                    className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all duration-200 ${
+                      selectedImage === i
+                        ? "border-[#C4A962] shadow-[0_0_12px_rgba(196,169,98,0.3)]"
+                        : "border-white/10 hover:border-white/25"
+                    }`}
+                    data-testid={`button-image-${i}`}
+                  >
+                    <img src={img.src} alt={img.label} className="w-full h-full object-cover" />
+                    {selectedImage === i && (
+                      <div className="absolute inset-0 bg-[#C4A962]/10 flex items-center justify-center">
+                        <Check className="w-5 h-5 text-[#C4A962]" />
+                      </div>
+                    )}
+                    <span className="absolute bottom-0 left-0 right-0 bg-black/60 text-[10px] text-white/70 text-center py-0.5 font-mono">
+                      {img.label}
+                    </span>
+                  </button>
+                ))}
+              </div>
             </div>
 
             <button
-              onClick={() => forgeMutation.mutate()}
-              disabled={!canForge}
+              onClick={() => launchMutation.mutate()}
+              disabled={!canLaunch}
               className={`w-full flex items-center justify-center gap-2 font-bold rounded-lg py-4 text-sm transition-all duration-200 ${
-                canForge
-                  ? "bg-[#6B7B8D] text-white green-glow hover:brightness-110"
+                canLaunch
+                  ? "bg-white text-black hover:brightness-95"
                   : "bg-[#1a1a1a] text-white/30 cursor-not-allowed"
               }`}
-              data-testid="button-immortalize"
+              data-testid="button-launch-token"
             >
-              <Flame className="w-4 h-4" />
-              Immortalize Agent
-              <ArrowRight className="w-4 h-4" />
+              <Rocket className="w-4 h-4" />
+              Launch Token — 0.5 SOL
             </button>
           </div>
         )}
+
+        <div className="mt-16 max-w-4xl mx-auto" data-testid="section-community-explanation">
+          <div className="text-center mb-8">
+            <h2 className="font-brand font-bold text-2xl uppercase gold-gradient mb-2" data-testid="text-community-title">
+              Community Token Launch
+            </h2>
+            <p className="text-sm text-white/55 font-mono max-w-lg mx-auto" data-testid="text-community-subtitle">
+              Launch tokens that fuel the $ADCLAW ecosystem. All fees go directly to automatic $ADCLAW buyback.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="glass-panel rounded-xl p-5 border border-[#C4A962]/20" data-testid="card-fund-buybacks">
+              <div className="w-10 h-10 rounded-md bg-[#C4A962]/10 flex items-center justify-center mb-3">
+                <Coins className="w-5 h-5 text-[#C4A962]" />
+              </div>
+              <h3 className="font-brand font-bold text-sm uppercase text-[#C4A962] mb-1">Fund Buybacks</h3>
+              <p className="text-xs text-white/55 leading-relaxed">
+                Every SOL spent on community token launches is routed to automatic $ADCLAW market buyback. Your launch directly strengthens the ecosystem.
+              </p>
+            </div>
+
+            <div className="glass-panel rounded-xl p-5 border border-[#8A9AAD]/20" data-testid="card-get-promoted">
+              <div className="w-10 h-10 rounded-md bg-[#8A9AAD]/10 flex items-center justify-center mb-3">
+                <Megaphone className="w-5 h-5 text-[#8A9AAD]" />
+              </div>
+              <h3 className="font-brand font-bold text-sm uppercase text-[#8A9AAD] mb-1">Get Promoted</h3>
+              <p className="text-xs text-white/55 leading-relaxed">
+                Your token gets promoted by AdClaw agents across X, Telegram, Discord, and Reddit. Full swarm promotion included with every launch.
+              </p>
+            </div>
+
+            <div className="glass-panel rounded-xl p-5 border border-[#6B7B8D]/20" data-testid="card-join-swarm">
+              <div className="w-10 h-10 rounded-md bg-[#6B7B8D]/10 flex items-center justify-center mb-3">
+                <Users className="w-5 h-5 text-[#6B7B8D]" />
+              </div>
+              <h3 className="font-brand font-bold text-sm uppercase text-[#6B7B8D] mb-1">Join the Swarm</h3>
+              <p className="text-xs text-white/55 leading-relaxed">
+                Become part of the AdClaw ecosystem. Every community token launched adds to the network effect and collective promotional power.
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

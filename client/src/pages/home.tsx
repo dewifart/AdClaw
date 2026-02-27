@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { Rocket, ArrowRight, Copy, Check, Shield, Zap, Eye, Users, TrendingUp, Bot, Radio, ChevronRight } from "lucide-react";
+import { Rocket, ArrowRight, Copy, Check, Shield, Zap, Eye, Users, TrendingUp, Bot, Radio, ChevronRight, Coins } from "lucide-react";
 import { LiveForgeTerminal } from "@/components/LiveForgeTerminal";
 import { useState, useEffect } from "react";
 
@@ -284,6 +284,88 @@ export default function Home() {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="py-20 px-4" data-testid="section-community-launch">
+        <div className="max-w-5xl mx-auto">
+          <h2 className="font-brand font-bold text-2xl sm:text-3xl uppercase gold-gradient text-center mb-4">
+            Community Token Launch
+          </h2>
+          <p className="text-sm text-white/55 text-center mb-14 font-mono max-w-xl mx-auto">
+            Launch tokens that fuel the $ADCLAW ecosystem
+          </p>
+
+          <div className="glass-panel rounded-xl border border-white/[0.08] p-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+              <div className="flex flex-col justify-center">
+                <div className="flex items-center gap-2 mb-4">
+                  <Coins className="w-5 h-5 text-[#C4A962]" />
+                  <h3 className="font-brand text-lg font-bold text-white uppercase tracking-wide" data-testid="text-launch-heading">
+                    Your Launch Powers the Ecosystem
+                  </h3>
+                </div>
+                <p className="text-sm text-white/55 leading-relaxed mb-6" data-testid="text-launch-description">
+                  Every community token you launch through AdClaw directly strengthens the $ADCLAW ecosystem. 
+                  Our autonomous AI agents immediately begin promoting your token across X, Telegram, Discord, and Reddit — 
+                  while every launch fee goes directly to automatic $ADCLAW market buyback. No middlemen, no dev wallet, fully on-chain.
+                </p>
+                <p className="text-xs text-[#C4A962]/90 font-mono mb-8 leading-relaxed" data-testid="text-launch-key-point">
+                  Every community token launch fee goes directly to automatic $ADCLAW market buyback
+                </p>
+                <div>
+                  <Link href="/forge">
+                    <button
+                      className="flex items-center gap-2 bg-white/[0.06] text-white/90 font-medium rounded-lg px-6 py-3 text-sm transition-all duration-200 hover:bg-white/[0.1] border border-white/[0.12] hover:border-white/[0.2]"
+                      data-testid="button-launch-token-community"
+                    >
+                      <Rocket className="w-4 h-4" />
+                      Launch Your Token
+                      <ArrowRight className="w-4 h-4" />
+                    </button>
+                  </Link>
+                </div>
+              </div>
+
+              <div className="flex flex-col gap-4">
+                <div className="rounded-xl p-5 border border-[#C4A962]/15 bg-[#C4A962]/[0.04]" data-testid="card-benefit-buyback">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-[#C4A962]/[0.1] border border-[#C4A962]/20">
+                      <TrendingUp className="w-4 h-4 text-[#C4A962]" />
+                    </div>
+                    <h4 className="font-brand text-sm font-bold text-white uppercase tracking-wide">100% Fee &rarr; Buyback</h4>
+                  </div>
+                  <p className="text-xs text-white/55 leading-relaxed pl-12">
+                    Every SOL spent on launches buys $ADCLAW from the open market
+                  </p>
+                </div>
+
+                <div className="rounded-xl p-5 border border-[#8A9AAD]/15 bg-[#8A9AAD]/[0.04]" data-testid="card-benefit-promotion">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-[#8A9AAD]/[0.1] border border-[#8A9AAD]/20">
+                      <Users className="w-4 h-4 text-[#8A9AAD]" />
+                    </div>
+                    <h4 className="font-brand text-sm font-bold text-white uppercase tracking-wide">Full Swarm Promotion</h4>
+                  </div>
+                  <p className="text-xs text-white/55 leading-relaxed pl-12">
+                    Your token gets promoted across X, Telegram, Discord, and Reddit
+                  </p>
+                </div>
+
+                <div className="rounded-xl p-5 border border-[#6B7B8D]/15 bg-[#6B7B8D]/[0.04]" data-testid="card-benefit-nocode">
+                  <div className="flex items-center gap-3 mb-2">
+                    <div className="w-9 h-9 rounded-lg flex items-center justify-center bg-[#6B7B8D]/[0.1] border border-[#6B7B8D]/20">
+                      <Zap className="w-4 h-4 text-[#6B7B8D]" />
+                    </div>
+                    <h4 className="font-brand text-sm font-bold text-white uppercase tracking-wide">1-Click, No Code</h4>
+                  </div>
+                  <p className="text-xs text-white/55 leading-relaxed pl-12">
+                    Launch in seconds. No technical knowledge required.
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>

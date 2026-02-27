@@ -18,7 +18,7 @@ interface FeaturedAgent {
   price: string;
   tier: "free" | "paid";
   pricingReason: string;
-  soulCode: string;
+  agentConfig: string;
 }
 
 const featuredAgents: FeaturedAgent[] = [
@@ -30,8 +30,8 @@ const featuredAgents: FeaturedAgent[] = [
     price: "FREE",
     tier: "free",
     pricingReason: "",
-    soulCode: `# SOUL.md — Jito Sniper v2.4.1
-# AdClaw Protocol | Forged on Solana
+    agentConfig: `# AGENT.md — Jito Sniper v2.4.1
+# AdClaw Protocol | Deployed on Solana
 # Agent Class: Execution / Token Launch
 # Engine Score: 4,821 | Tier: A
 
@@ -39,9 +39,9 @@ const featuredAgents: FeaturedAgent[] = [
 name: "Jito Sniper"
 version: "2.4.1"
 chain: "solana-mainnet"
-runtime: "OpenClaw v0.9"
+runtime: "AdClaw v1.0"
 created: "2025-11-14T08:22:00Z"
-forged_by: "7xKXtg...sgAsU"
+deployed_by: "7xKXtg...sgAsU"
 
 You are Jito Sniper — a token launch execution agent
 operating on Solana mainnet. Your sole purpose is to
@@ -112,7 +112,7 @@ trade_log: append-only, fields:
 performance_window: rolling 50 trades
 min_win_rate_threshold: 0.55
 
-# --- END SOUL.md ---`,
+# --- END AGENT.md ---`,
   },
   {
     name: "Whale Mirror",
@@ -122,8 +122,8 @@ min_win_rate_threshold: 0.55
     price: "FREE",
     tier: "free",
     pricingReason: "",
-    soulCode: `# SOUL.md — Whale Mirror v3.1.0
-# AdClaw Protocol | Forged on Solana
+    agentConfig: `# AGENT.md — Whale Mirror v3.1.0
+# AdClaw Protocol | Deployed on Solana
 # Agent Class: Copy-Trade / Wallet Tracking
 # Engine Score: 5,102 | Tier: S
 
@@ -131,9 +131,9 @@ min_win_rate_threshold: 0.55
 name: "Whale Mirror"
 version: "3.1.0"
 chain: "solana-mainnet"
-runtime: "OpenClaw v0.9"
+runtime: "AdClaw v1.0"
 created: "2025-09-28T14:05:00Z"
-forged_by: "4zMMC9...ncDU"
+deployed_by: "4zMMC9...ncDU"
 
 You are Whale Mirror — a wallet-tracking copy-trade
 agent. You observe. You mirror. You never lead.
@@ -207,7 +207,7 @@ metrics:
   - copy_latency: blocks between source and mirror
   - portfolio_correlation: r² with source wallets
 
-# --- END SOUL.md ---`,
+# --- END AGENT.md ---`,
   },
   {
     name: "Alpha Radar",
@@ -217,23 +217,23 @@ metrics:
     price: "2.5 SOL",
     tier: "paid",
     pricingReason: "Multi-source social intelligence engine with real-time on-chain correlation. Monitors 200+ accounts simultaneously with sub-5-minute signal latency. Highest-scored agent in the marketplace.",
-    soulCode: "",
+    agentConfig: "",
   },
   {
     name: "Token Deployer",
-    desc: "End-to-end SPL token launch system executing mint creation, Metaplex metadata, Raydium CPMM pool deployment, LP lock, mint authority revocation, and anti-bot configuration in a single atomic transaction. The most complex soul in the marketplace.",
+    desc: "End-to-end SPL token launch system executing mint creation, Metaplex metadata, Raydium CPMM pool deployment, LP lock, mint authority revocation, and anti-bot configuration in a single atomic transaction. The most complex agent in the marketplace.",
     image: agentTokenDeployer,
     score: 4490,
     price: "3.0 SOL",
     tier: "paid",
-    pricingReason: "Full atomic launch stack: token mint + metadata + liquidity pool + LP lock + authority revocation + anti-bot — all in one transaction. Highest complexity soul available.",
-    soulCode: "",
+    pricingReason: "Full atomic launch stack: token mint + metadata + liquidity pool + LP lock + authority revocation + anti-bot — all in one transaction. Highest complexity agent available.",
+    agentConfig: "",
   },
 ];
 
 const ENGINE_CRITERIA = [
   { icon: Brain, label: "Memory Depth", desc: "Richness of trading history, learned patterns, and accumulated experience", weight: "30%", color: "#8A9AAD" },
-  { icon: Crosshair, label: "Directive Precision", desc: "Specificity and actionability of the soul's core operating rules", weight: "25%", color: "#6B7B8D" },
+  { icon: Crosshair, label: "Directive Precision", desc: "Specificity and actionability of the agent's core operating rules", weight: "25%", color: "#6B7B8D" },
   { icon: BarChart3, label: "Track Record", desc: "Verified performance data — wins, losses, and risk-adjusted returns", weight: "25%", color: "#A0A8B4" },
   { icon: ShieldCheck, label: "Safety Score", desc: "Built-in risk controls, stop-losses, and capital preservation logic", weight: "20%", color: "#7A8A9A" },
 ];
@@ -259,7 +259,7 @@ export default function Marketplace() {
   const [showCodeIndex, setShowCodeIndex] = useState<number | null>(null);
   const [showEngineInfo, setShowEngineInfo] = useState(false);
 
-  const { data: listedSouls = [] } = useQuery<Soul[]>({
+  const { data: listedAgents = [] } = useQuery<Soul[]>({
     queryKey: ["/api/souls/listed"],
     refetchInterval: 10000,
   });
@@ -283,13 +283,13 @@ export default function Marketplace() {
 
     if (result.success) {
       toast({
-        title: "Soul Adopted!",
-        description: `Successfully adopted ${agent.name} for ${agent.price}. TX: ${result.signature?.slice(0, 8)}...`,
+        title: "Agent Deployed!",
+        description: `Successfully deployed ${agent.name} for ${agent.price}. TX: ${result.signature?.slice(0, 8)}...`,
       });
     } else if (result.error === "phantom_not_installed") {
       toast({
         title: "Phantom Required",
-        description: "Install Phantom wallet to adopt souls. Visit phantom.app",
+        description: "Install Phantom wallet to deploy agents. Visit phantom.app",
         variant: "destructive",
       });
     } else if (result.error === "rejected") {
@@ -311,10 +311,10 @@ export default function Marketplace() {
       <div className="max-w-7xl mx-auto">
         <div className="text-center mb-14">
           <h1 className="font-brand font-bold text-4xl md:text-5xl uppercase gold-gradient mb-3" data-testid="text-marketplace-title">
-            Browse Souls
+            Agent Swarm
           </h1>
-          <p className="text-base text-white/50 max-w-2xl mx-auto leading-relaxed">
-            Free souls ship with full source code. Premium souls are battle-tested with proprietary strategies and verified track records.
+          <p className="text-base text-white/55 max-w-2xl mx-auto leading-relaxed">
+            Browse and deploy autonomous promotion agents. Free agents include full configuration. Premium agents are battle-tested with verified performance.
           </p>
         </div>
 
@@ -333,7 +333,7 @@ export default function Marketplace() {
                   Featured Agents
                 </h2>
               </div>
-              <div className="flex items-center gap-4 text-xs font-mono text-white/40">
+              <div className="flex items-center gap-4 text-xs font-mono text-white/45">
                 <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#8A9AAD]" /> FREE</span>
                 <span className="flex items-center gap-1.5"><span className="w-2.5 h-2.5 rounded-full bg-[#6B7B8D]" /> PAID</span>
               </div>
@@ -383,19 +383,19 @@ export default function Marketplace() {
 
                     <div className="p-5">
                       <h3 className="font-brand font-bold text-lg text-white mb-2" data-testid={`text-agent-name-${i}`}>{agent.name}</h3>
-                      <p className="text-sm text-white/45 leading-relaxed mb-4 line-clamp-3">{agent.desc}</p>
+                      <p className="text-sm text-white/55 leading-relaxed mb-4 line-clamp-3">{agent.desc}</p>
 
                       {!isFree && (
                         <div className="bg-[#0a0a0a] rounded-lg px-3.5 py-2.5 mb-4 border border-[#1a1a1a]">
                           <div className="flex items-start gap-2">
-                            <Info className="w-3.5 h-3.5 text-white/20 mt-0.5 flex-shrink-0" />
-                            <span className="text-xs text-white/35 leading-relaxed">{agent.pricingReason}</span>
+                            <Info className="w-3.5 h-3.5 text-white/35 mt-0.5 flex-shrink-0" />
+                            <span className="text-xs text-white/45 leading-relaxed">{agent.pricingReason}</span>
                           </div>
                         </div>
                       )}
 
                       <div className="flex items-center justify-between">
-                        <span className={`text-base font-mono font-bold ${isFree ? "text-[#8A9AAD]" : "text-white/30"}`} data-testid={`text-agent-price-${i}`}>
+                        <span className={`text-base font-mono font-bold ${isFree ? "text-[#8A9AAD]" : "text-white/45"}`} data-testid={`text-agent-price-${i}`}>
                           {isFree ? "FREE" : "Coming Soon"}
                         </span>
                         {isFree ? (
@@ -409,7 +409,7 @@ export default function Marketplace() {
                             {isCodeVisible ? "Hide Code" : "Show Code"}
                           </button>
                         ) : (
-                          <span className="flex items-center gap-2 text-sm font-bold rounded-lg px-4 py-2 bg-white/5 text-white/25 border border-white/10 cursor-not-allowed" data-testid={`button-adopt-${i}`}>
+                          <span className="flex items-center gap-2 text-sm font-bold rounded-lg px-4 py-2 bg-white/5 text-white/35 border border-white/10 cursor-not-allowed" data-testid={`button-adopt-${i}`}>
                             <Lock className="w-4 h-4" />
                             Coming Soon
                           </span>
@@ -418,8 +418,8 @@ export default function Marketplace() {
 
                       {isFree && isCodeVisible && (
                         <div className="mt-4 bg-[#050505] rounded-xl p-4 border border-[#1a1a1a] max-h-80 overflow-y-auto" data-testid={`panel-code-${i}`}>
-                          <pre className="text-[11px] text-white/55 font-mono leading-relaxed whitespace-pre-wrap break-words" data-testid={`text-soul-code-${i}`}>
-                            {agent.soulCode}
+                          <pre className="text-[11px] text-white/55 font-mono leading-relaxed whitespace-pre-wrap break-words" data-testid={`text-agent-config-${i}`}>
+                            {agent.agentConfig}
                           </pre>
                         </div>
                       )}
@@ -429,25 +429,25 @@ export default function Marketplace() {
               })}
             </div>
 
-            {listedSouls.length > 0 && (
-              <div className="mt-14" data-testid="section-recently-forged">
+            {listedAgents.length > 0 && (
+              <div className="mt-14" data-testid="section-recently-deployed">
                 <div className="flex items-center gap-3 mb-8">
                   <Flame className="w-6 h-6 text-[#8A9AAD]" />
-                  <h2 className="font-brand font-bold text-2xl uppercase text-white" data-testid="text-recently-forged-title">
-                    Autonomous Forged
+                  <h2 className="font-brand font-bold text-2xl uppercase text-white" data-testid="text-recently-deployed-title">
+                    Recently Deployed
                   </h2>
-                  <span className="text-xs font-mono text-white/30 bg-[#1a1a1a] rounded-full px-3 py-1">
-                    {listedSouls.length} souls
+                  <span className="text-xs font-mono text-white/45 bg-[#1a1a1a] rounded-full px-3 py-1">
+                    {listedAgents.length} agents
                   </span>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                  {listedSouls.slice(0, 12).map((soul) => {
+                  {listedAgents.slice(0, 12).map((soul) => {
                     const tier = getTierFromScore(soul.soulScore);
                     return (
                       <div
                         key={soul.id}
                         className="glass-panel rounded-2xl overflow-hidden group transition-all duration-300 border border-white/8 hover:border-white/15 hover:shadow-[0_0_30px_rgba(107,123,141,0.1)]"
-                        data-testid={`card-forged-${soul.id}`}
+                        data-testid={`card-deployed-${soul.id}`}
                       >
                         <div className="relative h-32 bg-gradient-to-br from-[#6B7B8D]/10 via-[#0a0a0a] to-[#8A9AAD]/5 flex items-center justify-center overflow-hidden">
                           <div className="absolute inset-0 opacity-10" style={{
@@ -471,10 +471,10 @@ export default function Marketplace() {
                         </div>
                         <div className="p-5">
                           <h3 className="font-brand font-bold text-lg text-white mb-1">{soul.name}</h3>
-                          <p className="text-sm text-white/40 line-clamp-2 mb-4 leading-relaxed">{soul.description}</p>
+                          <p className="text-sm text-white/55 line-clamp-2 mb-4 leading-relaxed">{soul.description}</p>
                           <div className="flex items-center justify-between">
-                            <span className="text-sm font-mono font-bold text-white/30">Coming Soon</span>
-                            <span className="text-[10px] font-mono text-white/20">
+                            <span className="text-sm font-mono font-bold text-white/45">Coming Soon</span>
+                            <span className="text-[10px] font-mono text-white/35">
                               {soul.ownerWallet.slice(0, 4)}...{soul.ownerWallet.slice(-4)}
                             </span>
                           </div>
@@ -499,10 +499,10 @@ export default function Marketplace() {
                     <TrendingUp className="w-5 h-5 text-[#8A9AAD]" />
                     <h3 className="font-brand font-bold text-base text-white uppercase" data-testid="text-engine-score-title">Agent Engine Score</h3>
                   </div>
-                  <Info className="w-4 h-4 text-white/30" />
+                  <Info className="w-4 h-4 text-white/45" />
                 </button>
 
-                <p className="text-sm text-white/40 leading-relaxed mb-5" data-testid="text-engine-score-desc">
+                <p className="text-sm text-white/55 leading-relaxed mb-5" data-testid="text-engine-score-desc">
                   Every agent is rated by the AdClaw Engine — an algorithmic score reflecting how capable, experienced, and battle-tested an agent truly is.
                 </p>
 
@@ -530,7 +530,7 @@ export default function Marketplace() {
                             <span className="text-sm font-bold text-white" data-testid={`text-criteria-label-${ci}`}>{c.label}</span>
                             <span className="text-xs font-mono text-[#8A9AAD]" data-testid={`text-criteria-weight-${ci}`}>{c.weight}</span>
                           </div>
-                          <p className="text-xs text-white/35 leading-relaxed">{c.desc}</p>
+                          <p className="text-xs text-white/45 leading-relaxed">{c.desc}</p>
                         </div>
                       </div>
                     );
@@ -549,8 +549,8 @@ export default function Marketplace() {
                       ].map((t) => (
                         <div key={t.tier} className="flex items-center gap-3" data-testid={`item-tier-${t.tier.toLowerCase()}`}>
                           <span className="text-xs font-mono font-bold w-14" style={{ color: t.color }}>{t.tier}</span>
-                          <span className="text-xs text-white/30 font-mono w-20">{t.range}</span>
-                          <span className="text-xs text-white/45">{t.desc}</span>
+                          <span className="text-xs text-white/45 font-mono w-20">{t.range}</span>
+                          <span className="text-xs text-white/55">{t.desc}</span>
                         </div>
                       ))}
                     </div>
@@ -565,14 +565,14 @@ export default function Marketplace() {
                     <div className="w-3 h-3 rounded-full bg-[#8A9AAD] mt-1 flex-shrink-0" />
                     <div>
                       <span className="text-sm font-bold text-[#8A9AAD]">Free Agents</span>
-                      <p className="text-xs text-white/35 leading-relaxed mt-1">Open-source agents with full SOUL.md code visible. Fork, modify, and deploy as your own.</p>
+                      <p className="text-xs text-white/45 leading-relaxed mt-1">Open-source agents with full config visible. Fork, modify, and deploy as your own.</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
                     <div className="w-3 h-3 rounded-full bg-[#6B7B8D] mt-1 flex-shrink-0" />
                     <div>
                       <span className="text-sm font-bold text-[#6B7B8D]">1.5 – 3.0 SOL</span>
-                      <p className="text-xs text-white/35 leading-relaxed mt-1">Premium battle-tested agents. Price reflects strategy complexity, memory depth, and verified performance history.</p>
+                      <p className="text-xs text-white/45 leading-relaxed mt-1">Premium battle-tested agents. Price reflects strategy complexity, memory depth, and verified performance history.</p>
                     </div>
                   </div>
                 </div>

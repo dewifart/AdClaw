@@ -8,63 +8,74 @@ AdClaw is a platform where anyone can launch their own token in 1 click, and a s
 - Backend: Express.js + TypeScript + SSE (Server-Sent Events)
 - Database: PostgreSQL with Drizzle ORM
 - Real-time: EventSource/SSE for live terminal events
-- Styling: Premium minimalist luxury aesthetic — pure black background, white/gray text, steel blue accents
+- Styling: Premium minimalist luxury aesthetic — pure black background, white/gray text, steel blue + gold accents
+
+## Design System
+- Background: Pure black #000000
+- Primary accent: Steel blue #6B7B8D (agent activity, buttons, highlights)
+- Secondary accent: Light steel blue #8A9AAD (live indicators, scores)
+- Gold accent: #C4A962 (buyback/financial highlights, fee-related elements)
+- Cards: glass-panel class (rgba(10,10,10,0.85) with backdrop-blur)
+- Text gradient: gold-gradient class for section headings
+- Font: Inter (brand + body), Fira Code (mono/terminal)
+- Aurora animated background with subtle gray/steel blobs
+- No neon colors, clean minimalist shadows
 
 ## Project Structure
-- `client/src/pages/` - All page components (home, dashboard, forge, marketplace, live, ecosystem, inherit)
-- `client/src/components/` - Reusable components (Header, SoulCard, UploadZone, WalletButton, AuroraBackground, LiveForgeTerminal)
+- `client/src/pages/` - All page components:
+  - `home.tsx` - Homepage with hero, stats, feeds, terminal, how it works, community launch, why AdClaw
+  - `forge.tsx` - Token Launch page (1-click launch form with image selection, auto-launch mode)
+  - `marketplace.tsx` - Agent Swarm page (featured agents, recently deployed, engine score sidebar)
+  - `live.tsx` - Live terminal (SSE events, tab filters, auto-scroll)
+  - `ecosystem.tsx` - SDK docs, ecosystem flow, roadmap
+  - `dashboard.tsx` - User's launched tokens/agents
+  - `inherit.tsx` - Agent config inheritance
+- `client/src/components/` - Reusable components (Header, SoulCard, WalletButton, AuroraBackground, LiveForgeTerminal, UploadZone)
 - `client/src/components/ui/` - Shadcn UI components
 - `client/src/lib/` - Utilities (wallet context, queryClient)
 - `server/` - Express backend (routes, storage, db, events, seed)
 - `server/events.ts` - SSE event broadcaster for real-time terminal
-- `shared/schema.ts` - Drizzle schema and types
-
-## Design System
-- Background: Pure black #000000
-- Primary accent: Steel blue #6B7B8D (buttons, highlights, borders)
-- Secondary accent: Light steel blue #8A9AAD
-- Cards: glass-panel class (rgba(10,10,10,0.85) with backdrop-blur)
-- Text gradient: White to light gray (#ffffff → #a0a8b4)
-- Font: Inter (brand + body), Fira Code (mono)
-- Aurora animated background with subtle gray/steel blobs
-- No neon colors, no glow effects, clean minimalist shadows
+- `shared/schema.ts` - Drizzle schema and types (souls table used for all token/agent data)
 
 ## Pages
-1. Home - Hero with "Launch Your Token. Let the Swarm Promote It.", platform stats bar, live agent activity feed + auto-buyback feed side by side, live agent terminal animation, how it works (3-step flow), why AdClaw (4 value props), bottom CTA, footer
-2. Forge - Upload files and forge agent identity, Autonomous Forge Mode
-3. Marketplace - Featured agents (4 curated) + user listed agents
-4. Live - ADCLAW TERMINAL with real SSE events + system messages, tab filters
-5. Ecosystem - Tabbed install section (AdClaw SDK/x402-fetch/cURL/Solana), ecosystem flow diagram, vision/roadmap
+1. **Home** - Hero with "Launch Your Token. Let the Swarm Promote It.", platform stats bar (4 metrics), live agent activity + buyback feeds side-by-side, animated terminal, How It Works (3 steps), Community Token Launch section, Why AdClaw (4 value props), footer
+2. **Launch** (/forge) - Token launch form (name, ticker, description, marketing image selection), community launch explanation with 3 benefit cards, Auto-Launch Mode toggle with live log
+3. **Agents** (/marketplace) - Agent Swarm page with 4 featured agents + recently deployed agents, Agent Engine Score sidebar with tier breakdown
+4. **Live** (/live) - ADCLAW TERMINAL with real SSE events + system messages, tab filters (All, Launches, Marketplace, Agent Activity, Thoughts)
+5. **Ecosystem** (/ecosystem) - Tabbed SDK install (AdClaw SDK/x402-fetch/cURL/Solana), ecosystem flow diagram, roadmap
 
-## Homepage Sections
-- Hero: Status badge (agents count), main headline, subtext, 2 CTAs (Launch Token, See How It Works), contract address copy
-- Platform Stats: 4-column grid (Tokens Launched, Active Agents, Total Impressions, Buybacks Executed)
-- Live Feeds: Side-by-side agent activity feed (real-time promotions) + auto-buyback feed (SOL → $ADCLAW conversions)
-- Live Agent Terminal: Animated terminal showing full launch → swarm deploy → promotion → engagement → buyback cycle
-- How It Works: 3 steps (Launch Token, Swarm Promotes, Auto-Buyback)
-- Why AdClaw: 4 value cards (No Dev Wallet, Autonomous 24/7, Transparent Buybacks, Multi-Platform Reach)
-- Bottom CTA: "Ready to Launch?" with prominent action button
-- Footer: Brand, tagline, social links
+## Navigation
+Home / Launch / Agents / Live / Ecosystem
+
+## Homepage Sections (in order)
+1. Hero: Status badge, headline, subtext, 2 CTAs, contract address copy
+2. Platform Stats: 4-column grid (Tokens Launched, Active Agents, Total Impressions, Buybacks Executed)
+3. Live Feeds: Agent activity feed + auto-buyback feed (gold accents)
+4. Live Agent Terminal: Animated terminal showing launch → swarm → promote → buyback cycle
+5. How It Works: 3 steps (Launch Token, Swarm Promotes, Auto-Buyback)
+6. Community Token Launch: Explanation section with benefits grid + CTA to /forge
+7. Why AdClaw: 4 value cards
+8. Footer: Brand, tagline, social links
 
 ## API Routes
 
 ### v1 API (Developer Integration)
-- POST /api/v1/souls - Create a new agent identity
-- GET /api/v1/souls - List all agents
-- GET /api/v1/souls/:id - Get agent by ID
+- POST /api/v1/souls - Create a new token/agent identity
+- GET /api/v1/souls - List all
+- GET /api/v1/souls/:id - Get by ID
 - GET /api/v1/score/:id - Get Agent Engine Score breakdown
 - GET /api/v1/stats - Platform stats
-- POST /api/v1/forge-log - Create a forge log entry
-- GET /api/v1/forge-log - List forge logs with pagination and filters
-- GET /api/v1/forge-log/:id - Get individual forge log by ID
-- GET /api/events - SSE stream for real-time terminal events
+- POST /api/v1/forge-log - Create log entry
+- GET /api/v1/forge-log - List logs with pagination
+- GET /api/v1/events/recent - Recent events for live terminal
+- GET /api/events - SSE stream for real-time events
 
-### Legacy API (Frontend)
-- GET /api/souls?ownerWallet=xxx - Get agents by owner
-- GET /api/souls/all - Get all agents
-- GET /api/souls/listed - Get listed agents
-- POST /api/souls - Create new agent
-- PATCH /api/souls/:id - Update agent
+### Frontend API
+- GET /api/souls?ownerWallet=xxx - Get by owner
+- GET /api/souls/all - Get all
+- GET /api/souls/listed - Get listed
+- POST /api/souls - Create new
+- PATCH /api/souls/:id - Update
 
 ## Running
 - `npm run dev` starts both frontend and backend on port 5000

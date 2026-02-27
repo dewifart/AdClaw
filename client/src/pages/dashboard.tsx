@@ -2,7 +2,7 @@ import { useWallet } from "@/lib/wallet";
 import { useQuery } from "@tanstack/react-query";
 import { SoulCard } from "@/components/SoulCard";
 import { Link } from "wouter";
-import { Flame, Hammer, Wallet } from "lucide-react";
+import { Flame, Rocket, Wallet } from "lucide-react";
 import type { Soul } from "@shared/schema";
 
 export default function Dashboard() {
@@ -23,8 +23,8 @@ export default function Dashboard() {
           <h2 className="font-brand font-bold text-2xl uppercase text-white mb-3">
             Connect Your Wallet
           </h2>
-          <p className="text-sm text-white/50 mb-8 max-w-md mx-auto">
-            Connect your Solana wallet to view your forged agents and manage your collection.
+          <p className="text-sm text-white/55 mb-8 max-w-md mx-auto">
+            Connect your Solana wallet to view your launched tokens and manage your collection.
           </p>
           <button
             onClick={connect}
@@ -47,15 +47,15 @@ export default function Dashboard() {
             <h1 className="font-brand font-bold text-2xl uppercase gold-gradient" data-testid="text-dashboard-title">
               My Agents
             </h1>
-            <p className="text-xs text-white/40 mt-1">Your forged agent collection</p>
+            <p className="text-xs text-white/45 mt-1">Your launched tokens and deployed agents</p>
           </div>
           <Link href="/forge">
             <button
               className="flex items-center gap-2 bg-[#6B7B8D] text-white font-bold rounded-lg px-5 py-2.5 text-sm transition-all duration-200 hover:brightness-110"
-              data-testid="button-forge-new"
+              data-testid="button-launch-new"
             >
-              <Hammer className="w-4 h-4" />
-              Forge New Agent
+              <Rocket className="w-4 h-4" />
+              Launch New Token
             </button>
           </Link>
         </div>
@@ -91,16 +91,16 @@ export default function Dashboard() {
               <Flame className="w-8 h-8 text-[#6B7B8D]" />
             </div>
             <h3 className="text-lg font-bold text-white mb-2">No Agents Yet</h3>
-            <p className="text-sm text-white/50 mb-6 max-w-sm mx-auto">
-              You haven't forged any agents. Upload your AdClaw agent's files to immortalize them on-chain.
+            <p className="text-sm text-white/55 mb-6 max-w-sm mx-auto">
+              You haven't launched any tokens yet. Launch your first community token to start promoting $ADCLAW.
             </p>
             <Link href="/forge">
               <button
                 className="flex items-center gap-2 bg-[#6B7B8D] text-white font-bold rounded-lg px-6 py-3 text-sm mx-auto transition-all duration-200 hover:brightness-110"
-                data-testid="button-forge-first"
+                data-testid="button-launch-first"
               >
-                <Hammer className="w-4 h-4" />
-                Forge Your First Agent
+                <Rocket className="w-4 h-4" />
+                Launch Your First Token
               </button>
             </Link>
           </div>

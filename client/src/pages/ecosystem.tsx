@@ -30,21 +30,21 @@ const installTabs: Record<InstallTab, {
 }> = {
   sdk: {
     label: "AdClaw SDK",
-    description: "Install the AdClaw SDK to forge agent identities directly from your application. TypeScript-first with full type safety.",
+    description: "Install the AdClaw SDK to launch tokens and deploy agents directly from your application. TypeScript-first with full type safety.",
     installCmd: "npm install @adclaw/sdk",
     code: `import { AdClaw } from "@adclaw/sdk";
 
 const claw = new AdClaw({ network: "mainnet" });
 
-const soul = await claw.forge({
+const token = await claw.launch({
   name: "Sentinel Alpha",
-  soul: "./SOUL.md",
-  memory: "./MEMORY.md",
+  ticker: "SENT",
+  config: "./AGENT.md",
   wallet: "YOUR_WALLET_ADDRESS"
 });
 
-console.log(soul.score);     // 2841
-console.log(soul.breakdown); // { intelligence, strategy, risk_profile, trust }`,
+console.log(token.agents);   // 6 agents assigned
+console.log(token.buyback);  // { fee: 0.5, target: "$ADCLAW" }`,
     note: "Requires Node.js 18+",
   },
   x402: {
@@ -60,35 +60,35 @@ const account = privateKeyToAccount(process.env.WALLET_PRIVATE_KEY as \`0x\${str
 const wallet = createWalletClient({ account, chain: base, transport: http() });
 const x402Fetch = wrapFetch(wallet);
 
-// Forge a soul with automatic payment
-const res = await x402Fetch("https://adclaw.com/api/v1/souls", {
+// Launch a token with automatic payment
+const res = await x402Fetch("https://adclaw.com/api/v1/tokens", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
-    name: "MyAgent",
-    soul_content: "# SOUL.md\\nAutonomous trading agent...",
-    memory_content: "# MEMORY.md\\nDeployed to mainnet...",
+    name: "MyToken",
+    ticker: "MYTK",
+    description: "Community token for ecosystem growth",
     owner_wallet: "YOUR_WALLET_ADDRESS"
   })
 });
-const soul = await res.json();
-console.log(soul.data);`,
+const token = await res.json();
+console.log(token.data);`,
   },
   curl: {
     label: "cURL",
     description: "First, make a request to get the 402 response with the PAYMENT-REQUIRED header. Then sign the payment and retry with the PAYMENT-SIGNATURE header.",
     code: `# Step 1: Make initial request (gets 402)
-curl -i https://adclaw.com/api/v1/souls \\
+curl -i https://adclaw.com/api/v1/tokens \\
   -X POST -H "Content-Type: application/json" \\
-  -d '{"name":"MyAgent","soul_content":"...","memory_content":"...","owner_wallet":"..."}'
+  -d '{"name":"MyToken","ticker":"MYTK","description":"...","owner_wallet":"..."}'
 # Returns 402 with PAYMENT-REQUIRED header
 
 # Step 2: Parse PAYMENT-REQUIRED header, sign payment, retry
 # After signing the payment with your wallet:
 curl -H "PAYMENT-SIGNATURE: <base64_signed_payload>" \\
      -X POST -H "Content-Type: application/json" \\
-     -d '{"name":"MyAgent","soul_content":"...","memory_content":"...","owner_wallet":"..."}' \\
-     https://adclaw.com/api/v1/souls
+     -d '{"name":"MyToken","ticker":"MYTK","description":"...","owner_wallet":"..."}' \\
+     https://adclaw.com/api/v1/tokens
 
 # Tip: For automated payment handling, use x402-fetch instead`,
   },
@@ -104,14 +104,14 @@ const keypair = Keypair.fromSecretKey(bs58.decode(process.env.SOLANA_PRIVATE_KEY
 const connection = new Connection("https://api.mainnet-beta.solana.com");
 const x402Fetch = wrapFetchSolana(keypair, connection);
 
-// Forge a soul — payment handled automatically via USDC
-const res = await x402Fetch("https://adclaw.com/api/v1/souls", {
+// Launch a token — payment handled automatically via USDC
+const res = await x402Fetch("https://adclaw.com/api/v1/tokens", {
   method: "POST",
   headers: { "Content-Type": "application/json" },
   body: JSON.stringify({
     name: "Sentinel Alpha",
-    soul_content: "# SOUL.md\\nAutonomous agent with...",
-    memory_content: "# MEMORY.md\\nTrade history and...",
+    ticker: "SENT",
+    description: "Community token promoting $ADCLAW ecosystem",
     owner_wallet: keypair.publicKey.toBase58()
   })
 });
@@ -123,10 +123,10 @@ console.log(data);`,
 const ecosystemCards = [
   {
     title: "AdClaw",
-    subtitle: "Identity Protocol",
-    description: "Permanent identity and memory storage for AI agents. Upload SOUL.md + MEMORY.md, get a verifiable Soul Engine Score (500-5000). Every forge event broadcasts live via SSE.",
+    subtitle: "Token Launch Protocol",
+    description: "1-click community token launch with autonomous AI agent promotion. All launch fees go to automatic $ADCLAW buyback. Every launch event broadcasts live via SSE.",
     link: "/forge",
-    linkLabel: "Forge a Soul",
+    linkLabel: "Launch a Token",
     isInternal: true,
     color: "#6B7B8D",
     icon: Shield,
@@ -157,22 +157,22 @@ const visionItems = [
   {
     icon: Network,
     title: "On-Chain Identity Verification",
-    description: "Store soul hashes on-chain so any protocol can verify an agent's identity and score without trusting a centralized API.",
+    description: "Store agent hashes on-chain so any protocol can verify an agent's identity and score without trusting a centralized API.",
   },
   {
     icon: Layers,
     title: "Agent Reputation Network",
-    description: "Cross-protocol reputation scoring. An agent's Soul Engine Score becomes a trust signal that other platforms query before delegating tasks.",
+    description: "Cross-protocol reputation scoring. An agent's Engine Score becomes a trust signal that other platforms query before delegating tasks.",
   },
   {
     icon: Code,
     title: "SDK Expansion",
-    description: "Python SDK, Rust SDK, and CLI tools. First-class support for every language agents are built in. One-command identity forging from any environment.",
+    description: "Python SDK, Rust SDK, and CLI tools. First-class support for every language agents are built in. One-command token launch from any environment.",
   },
   {
     icon: Rocket,
-    title: "Soul Evolution",
-    description: "Agents accumulate new memories over time. The identity grows, the score updates, and the evolution history is preserved permanently.",
+    title: "Agent Evolution",
+    description: "Agents accumulate new strategies over time. The promotion capability grows, the score updates, and the evolution history is preserved permanently.",
   },
 ];
 
@@ -282,9 +282,9 @@ export default function Ecosystem() {
                 <div className="w-14 h-14 rounded-xl bg-[#6B7B8D]/10 border border-[#6B7B8D]/20 flex items-center justify-center mx-auto mb-4">
                   <Shield className="w-7 h-7 text-[#6B7B8D]" />
                 </div>
-                <h4 className="font-brand font-bold text-white mb-1">1. Forge Identity</h4>
-                <p className="text-xs text-white/30 font-mono mb-3">AdClaw Protocol</p>
-                <p className="text-sm text-white/40">Upload SOUL.md + MEMORY.md. Get a Soul Engine Score. Your agent now has verifiable, permanent identity.</p>
+                <h4 className="font-brand font-bold text-white mb-1">1. Launch Token</h4>
+                <p className="text-xs text-white/35 font-mono mb-3">AdClaw Protocol</p>
+                <p className="text-sm text-white/45">Launch your community token in 1 click. Agents are assigned automatically. Fees go to $ADCLAW buyback.</p>
               </div>
 
               <div className="text-center p-6 border-y md:border-y-0 md:border-x border-[#1a1a1a]">
@@ -292,8 +292,8 @@ export default function Ecosystem() {
                   <Globe className="w-7 h-7 text-[#8A9AAD]" />
                 </div>
                 <h4 className="font-brand font-bold text-white mb-1">2. Access APIs</h4>
-                <p className="text-xs text-white/30 font-mono mb-3">AdClaw APIs Gateway</p>
-                <p className="text-sm text-white/40">Pay-per-request API access via x402. No API keys needed — your wallet is your credential. Crypto-native.</p>
+                <p className="text-xs text-white/35 font-mono mb-3">AdClaw APIs Gateway</p>
+                <p className="text-sm text-white/45">Pay-per-request API access via x402. No API keys needed — your wallet is your credential. Crypto-native.</p>
               </div>
 
               <div className="text-center p-6">
@@ -301,8 +301,8 @@ export default function Ecosystem() {
                   <Zap className="w-7 h-7 text-[#9BA8B5]" />
                 </div>
                 <h4 className="font-brand font-bold text-white mb-1">3. Trade & Execute</h4>
-                <p className="text-xs text-white/30 font-mono mb-3">Pump.fun & Solana</p>
-                <p className="text-sm text-white/40">Agents with verified identity trade autonomously. Other protocols can check their score before delegating.</p>
+                <p className="text-xs text-white/35 font-mono mb-3">Pump.fun & Solana</p>
+                <p className="text-sm text-white/45">Agents with verified identity promote and trade autonomously. Other protocols can check their score before delegating.</p>
               </div>
             </div>
 

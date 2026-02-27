@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { ArrowDown, ArrowUp, Wifi, WifiOff } from "lucide-react";
 
-type LogCategory = "forging" | "marketplace" | "agent" | "thoughts";
+type LogCategory = "launching" | "marketplace" | "agent" | "thoughts";
 
 interface LogEntry {
   id: string;
@@ -15,14 +15,14 @@ interface LogEntry {
 }
 
 const CATEGORY_COLORS: Record<LogCategory, string> = {
-  forging: "#6B7B8D",
+  launching: "#6B7B8D",
   marketplace: "#8A9AAD",
   agent: "#9AA5B4",
   thoughts: "#7B8794",
 };
 
 const CATEGORY_LABELS: Record<LogCategory, string> = {
-  forging: "FORGING",
+  launching: "LAUNCH",
   marketplace: "MARKET",
   agent: "AGENT",
   thoughts: "THOUGHTS",
@@ -30,7 +30,7 @@ const CATEGORY_LABELS: Record<LogCategory, string> = {
 
 const TAB_FILTERS = [
   { key: "all", label: "All" },
-  { key: "forging", label: "Forging" },
+  { key: "launching", label: "Launches" },
   { key: "marketplace", label: "Marketplace" },
   { key: "agent", label: "Agent Activity" },
   { key: "thoughts", label: "Thoughts" },
@@ -130,8 +130,8 @@ export default function Live() {
           const historicalEntries: LogEntry[] = data.events.map((evt: any) => ({
             id: `hist-${evt.id}`,
             timestamp: new Date(evt.timestamp),
-            category: (evt.category as LogCategory) || "forging",
-            tag: evt.tag || "forge",
+            category: (evt.category === "forging" ? "launching" : evt.category as LogCategory) || "launching",
+            tag: evt.tag || "launch",
             message: evt.message,
             txSignature: evt.txSignature || undefined,
             isNew: false,
@@ -168,7 +168,7 @@ export default function Live() {
           if (data.type === "connected") return;
 
           const category = (data.category as LogCategory) || "agent";
-          const txSig = data.txSignature || (category === "forging" || category === "marketplace" ? generateTxSig() : undefined);
+          const txSig = data.txSignature || (category === "launching" || category === "marketplace" ? generateTxSig() : undefined);
 
           const entry: LogEntry = {
             id: `sse-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
@@ -185,7 +185,7 @@ export default function Live() {
 
           addEntry(entry);
 
-          if (data.type === "soul_forged") {
+          if (data.type === "token_launched" || data.type === "soul_forged") {
             setStats(prev => ({
               totalForged: prev.totalForged + 1,
               treasury: prev.treasury + 0.5,
@@ -225,9 +225,9 @@ export default function Live() {
         const forgeEntry: LogEntry = {
           id: `forge-${Date.now()}-${Math.random().toString(36).slice(2, 6)}`,
           timestamp: new Date(),
-          category: "forging",
-          tag: "autonomous_forge",
-          message: `Autonomous Claw forged Agent #${data.soulId} (${data.soulName}) for ${data.price} SOL — stored permanently. [CHAIN-VERIFIED] https://solscan.io/tx/${txSig.slice(0, 60)}`,
+          category: "launching",
+          tag: "token_launch",
+          message: `Token launched: ${data.soulName} (#${data.soulId}) — ${data.price} SOL deployed. Agents assigned. [CHAIN-VERIFIED] https://solscan.io/tx/${txSig.slice(0, 60)}`,
           txSignature: txSig,
           isNew: true,
           isReal: true,
@@ -383,7 +383,7 @@ export default function Live() {
                 <span className="text-[#8A9AAD]" data-testid="text-treasury-balance">{treasuryBalance} sol</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <span className="text-white/30">Total Forged:</span>
+                <span className="text-white/30">Total Launched:</span>
                 <span className="text-[#6B7B8D]" data-testid="text-total-forged">{totalForged}</span>
               </div>
               <div className="flex items-center gap-3">

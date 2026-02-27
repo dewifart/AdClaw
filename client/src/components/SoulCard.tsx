@@ -1,13 +1,13 @@
 import type { Soul } from "@shared/schema";
 import { Flame, Clock, Tag, Zap } from "lucide-react";
 
-interface SoulCardProps {
+interface AgentCardProps {
   soul: Soul;
   onClick?: () => void;
   showPrice?: boolean;
 }
 
-export function SoulCard({ soul, onClick, showPrice }: SoulCardProps) {
+export function SoulCard({ soul, onClick, showPrice }: AgentCardProps) {
   const snippet = soul.soulContent.slice(0, 100) + (soul.soulContent.length > 100 ? "..." : "");
   const createdDate = new Date(soul.createdAt).toLocaleDateString("en-US", {
     month: "short",
@@ -19,7 +19,7 @@ export function SoulCard({ soul, onClick, showPrice }: SoulCardProps) {
     <div
       className="glass-panel rounded-xl overflow-hidden transition-all duration-200 soul-card-glow cursor-pointer group border border-transparent hover:border-white/10"
       onClick={onClick}
-      data-testid={`card-soul-${soul.id}`}
+      data-testid={`card-agent-${soul.id}`}
     >
       {soul.imageUrl && (
         <div className="relative h-36 overflow-hidden">
@@ -50,7 +50,7 @@ export function SoulCard({ soul, onClick, showPrice }: SoulCardProps) {
               </div>
             )}
             <div className="min-w-0">
-              <h3 className="text-sm font-bold text-white truncate" data-testid={`text-soul-name-${soul.id}`}>
+              <h3 className="text-sm font-bold text-white truncate" data-testid={`text-agent-name-${soul.id}`}>
                 {soul.name}
               </h3>
               <p className="text-[11px] text-white/40 truncate">{soul.description}</p>
@@ -58,7 +58,7 @@ export function SoulCard({ soul, onClick, showPrice }: SoulCardProps) {
           </div>
           {!soul.imageUrl && (
             <div className="flex items-center gap-1 flex-shrink-0">
-              <span className="text-xs font-mono gold-gradient font-bold" data-testid={`text-soul-score-${soul.id}`}>
+              <span className="text-xs font-mono gold-gradient font-bold" data-testid={`text-agent-score-${soul.id}`}>
                 {soul.soulScore}
               </span>
               <span className="text-[10px] text-white/30 uppercase">pts</span>
